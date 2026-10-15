@@ -1,0 +1,11 @@
+# Processing settings (spec sec 4). Seeds are fixed; changing anything here after freeze needs docs/deviations.md.
+
+split_seed: 20261006
+
+# Datasets without an official dev split: carve dev from train, stratified by the TRAIN class
+# distribution (no test information used; spec sec 4.2).
+dev_carve:
+  hwu64: 1076
+  trec6: 500
+
+datasets: [clinc150, hwu64, fpb, hatexplain, trec6]

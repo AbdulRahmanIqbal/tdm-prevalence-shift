@@ -1,0 +1,79 @@
+\section{Related work}
+\label{sec:related}
+
+\begin{table}[t]
+  \centering
+  \caption{\textbf{No prior study combines vendor TDMs, matched backbones, trained classifiers and controlled prevalence
+  shift with label-free prior correction.} \checkmark: covered; $\circ$: partly covered (Pair: different readouts for the
+  two models, or the authors' own fine-tunes rather than a vendor TDM; Tests: intervals or tests without multiplicity
+  control); --: not covered.
+  Columns: TDM = commercial or vendor TDMs evaluated; Pair = TDM compared with its own backbone under the same readout;
+  Trained = task-trained classifier baseline; Shift = controlled class-prior shift; Prior = label-free prior correction
+  for zero-shot models; Tests = paired tests with multiplicity control.}
+  \label{tab:coverage}
+  \scriptsize
+  \begin{tabular}{lcccccc}
+    \toprule
+    Study & TDM & Pair & Trained & Shift & Prior & Tests \\
+    \midrule
+    \citet{deusser2026jev} & \checkmark & -- & -- & -- & -- & $\circ$ \\
+    \citet{rafe2026systemone} & \checkmark & $\circ$ & \checkmark & -- & -- & \checkmark \\
+    \citet{li2026llmasjev} & \checkmark & $\circ$ & -- & -- & -- & $\circ$ \\
+    \citet{css2026decision} & \checkmark & -- & -- & -- & -- & -- \\
+    \citet{estienne2023unsupervised} & -- & -- & -- & -- & \checkmark & -- \\
+    \citet{lipton2018detecting,alexandari2020maximum,garg2020unified} & -- & -- & \checkmark & \checkmark & -- & $\circ$ \\
+    Our study & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\hyperref[tab:coverage]{Table~\ref*{tab:coverage}} summarises how our study relates to the closest prior work. Individually, the ingredients are
+known; the question that is new is how a zero-shot decision model's calibration, thresholds and label-free prior
+correction behave under prevalence shift compared with a trained classifier, and what decision training changes relative
+to the identical backbone.
+
+\paragraph{Evaluations of typed decision models.}
+Jev was released in September 2026, and evaluations followed within weeks. \citet{deusser2026jev} evaluate Jev
+zero-shot on 37 public datasets against two open models and report well-calibrated choice probabilities overall, with
+miscalibration, mostly overconfidence, concentrated on the datasets where accuracy is low.
+\citet{rafe2026systemone} compare several TDMs with trained classifiers and generative models under matched conditions
+and find that the ranking depends on whether task labels exist; they also compare each decoder-based TDM, including Nimble,
+with its Qwen3.5 backbone, but read the backbone out differently (by option-key likelihood), on their typed-decision
+benchmark, a sample of CLINC150 and several social-science tasks. \citet{li2026llmasjev} argue that general-purpose
+language models already behave like Jev-style decision models when read out by scoring the candidate labels, and that
+fine-tuning helps only on some tasks. Other early studies cover annotation tasks in computational social science
+\citep{css2026decision}, optimised natural-looking context that flips decisions \citep{jevout2026}, and
+confidence-based escalation of LLM judges
+\citep{jevjudge2026}. An audit of 28 early TDM papers finds no independent accuracy advantage of the typed readout over
+comparable label-probability readouts, and lists calibration under deployment shift and the attribution of gains as
+open problems \citep{tang2026audit}. All of these studies evaluate at the class distribution of the test set. Our
+study varies the class distribution in a controlled way, and pairs each open TDM with its base model under the same
+prompt, readout and precision, on five datasets; for Nimble-9B, which differs from its base only by an adapter, this
+isolates the effect of decision training.
+
+\paragraph{Label shift and prior correction.}
+Under label (prior) shift, $p(y)$ changes while $p(x\mid y)$ stays fixed. \citet{saerens2002adjusting} re-estimate the
+target prior with EM, using the classifier's posteriors and the training prior. Black-box shift estimation
+\citep{lipton2018detecting} and its regularised variant \citep{azizzadenesheli2019regularized} estimate the target
+prior from a confusion matrix. \citet{alexandari2020maximum} show that EM is hard to beat once the classifier is
+calibrated with class-specific biases (BCTS), and \citet{garg2020unified} unify these estimators and attribute the
+advantage of maximum likelihood to calibration. All of these methods assume a known source prior. For zero-shot
+models, which have no training prior, prior adaptation without labels has been proposed for language models
+\citep{estienne2023unsupervised}, and zero-shot CLIP models have been adapted to a given label-distribution prior
+\citep{kahana2022improving} or to an unknown target distribution estimated from unlabelled test data
+\citep{han2026labelshift}. We use the simplest
+version of this idea, the mean predicted distribution on a development set as an implicit source prior, and test it
+on a commercial TDM against a trained classifier whose source prior is known.
+
+\paragraph{Calibration of pretrained and prompted models.}
+Modern networks are often miscalibrated, and temperature scaling on held-out data is a strong fix
+\citep{guo2017calibration}. Fine-tuned transformers are relatively well calibrated in-domain \citep{desai2020calibration},
+whereas prompted language models carry label biases that a content-free calibration step can reduce
+\citep{zhao2021calibrate}. We measure calibration with top-label ECE and selective risk \citep{geifman2017selective}, and
+ask how both change when the class frequencies move.
+
+\paragraph{Zero-shot models versus trained classifiers.}
+With enough labelled data, fine-tuned encoders tend to outperform in-context or zero-shot use of larger language models
+on text classification \citep{edwards2024language,bucher2024finetuned}. Fine-tuning on few examples is, however, unstable \citep{mosbach2021stability,zhang2021revisiting}, which our
+training protocol takes into account. We compare against classifiers trained on the full training sets, the setting in
+which a trained classifier is strongest.

@@ -1,0 +1,51 @@
+{
+  "dataset": "hatexplain",
+  "prepared_at": "2026-10-07T06:36:29+00:00",
+  "split_seed": 20261006,
+  "dev_carved_from_train": false,
+  "counts": {
+    "train": 15330,
+    "dev": 1921,
+    "test": 1924
+  },
+  "label_counts": {
+    "train": {
+      "hatespeech": 4741,
+      "normal": 6221,
+      "offensive": 4368
+    },
+    "dev": {
+      "hatespeech": 593,
+      "normal": 780,
+      "offensive": 548
+    },
+    "test": {
+      "hatespeech": 594,
+      "normal": 782,
+      "offensive": 548
+    }
+  },
+  "cleaning": {
+    "before": {
+      "train": 15383,
+      "dev": 1922,
+      "test": 1924
+    },
+    "after": {
+      "train": 15330,
+      "dev": 1921,
+      "test": 1924
+    },
+    "removed_overlap_with_test": {
+      "train": 9,
+      "dev": 1
+    },
+    "removed_train_overlap_with_dev": 2,
+    "removed_conflicting": {
+      "train": 31,
+      "dev": 0
+    },
+    "conflicting_in_test": 0,
+    "removed_same_label_duplicates_train": 11
+  }
+}

@@ -1,0 +1,15 @@
+# Global seed registry (spec sec 12). Every random choice in the benchmark reads its seed from here or
+# from the config named next to it (they must agree).
+
+data:
+  split_seed: 20261006          # configs/processing.yaml (dev carve-outs)
+  candidate_seed: 20261006      # configs/candidates.yaml (label groups, option order, gold-position slots)
+  subset_seed: 20261006         # seeded example subsets (pilot, Jev 500-example repeat runs)
+
+training:                       # Exp 3 label budgets (spec 10.3)
+  seeds: [1001, 1002, 1003, 1004, 1005]
+  reserve_seeds: [1006, 1007, 1008]   # failed-run restarts: next unused reserve seed, max 3 per (dataset, budget)
+
+analysis:
+  exp2_seed: 20261006           # configs/experiments/exp2.yaml (Dirichlet draws, resampling, PA priors)
+  bootstrap_seed: 20261006      # configs/experiments/primary.yaml (P1/P2 paired bootstrap)

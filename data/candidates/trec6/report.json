@@ -1,0 +1,62 @@
+{
+  "dataset": "trec6",
+  "built_at": "2026-10-07T06:39:12+00:00",
+  "n_labels": 6,
+  "seed": 20261006,
+  "mode": "all_labels_shuffled",
+  "gold_position": "counterbalanced per split and per candidate set size (each position equally often, ±1)",
+  "k": 6,
+  "splits": {
+    "train": {
+      "n": 4869,
+      "by_set_size": {
+        "6": {
+          "n": 4869,
+          "gold_position_counts": {
+            "0": 812,
+            "1": 812,
+            "2": 812,
+            "3": 811,
+            "4": 811,
+            "5": 811
+          },
+          "max_abs_deviation_from_uniform": 0.5
+        }
+      }
+    },
+    "dev": {
+      "n": 498,
+      "by_set_size": {
+        "6": {
+          "n": 498,
+          "gold_position_counts": {
+            "0": 83,
+            "1": 83,
+            "2": 83,
+            "3": 83,
+            "4": 83,
+            "5": 83
+          },
+          "max_abs_deviation_from_uniform": 0.0
+        }
+      }
+    },
+    "test": {
+      "n": 500,
+      "by_set_size": {
+        "6": {
+          "n": 500,
+          "gold_position_counts": {
+            "0": 84,
+            "1": 84,
+            "2": 83,
+            "3": 83,
+            "4": 83,
+            "5": 83
+          },
+          "max_abs_deviation_from_uniform": 0.67
+        }
+      }
+    }
+  }
+}

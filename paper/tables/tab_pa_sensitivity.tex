@@ -1,0 +1,17 @@
+\begin{tabular}{llccccc}
+\toprule
+Test & Prior set & CLINC150 & HWU64 & FPB & HateXplain & TREC-6 \\
+\midrule
+PA1 & frozen (confirmatory) & +0.1 & +0.1 & \textbf{+1.7}$^\dagger$ & $-$0.8 & +1.0 \\
+ & 5 other sets: range & [0.0, +0.1] & [+0.1, +0.4] & [+0.3, +1.7] & [+0.2, +0.8] & [+0.8, +1.2] \\
+ & CI excludes 0 & 1/5 & 0/5 & 3/5 & 4/5 & 5/5 \\
+\midrule
+PA2 & frozen (confirmatory) & 0.0 & 0.0 & \textbf{+2.5}$^\dagger$ & $-$0.6 & +0.5 \\
+ & 5 other sets: range & [0.0, 0.0] & [0.0, +0.2] & [+0.6, +2.3] & [+0.6, +1.5] & [+0.4, +0.6] \\
+ & CI excludes 0 & 0/5 & 0/5 & 5/5 & 5/5 & 0/5 \\
+\midrule
+PA3 & frozen (confirmatory) & $-$0.1 & +0.1 & \textbf{$-$2.7}$^\dagger$ & \textbf{$-$1.8}$^\dagger$ & $-$1.1 \\
+ & 5 other sets: range & [$-$0.1, $-$0.1] & [$-$0.1, +0.1] & [$-$2.5, $-$1.7] & [$-$2.5, $-$1.8] & [$-$1.1, $-$0.9] \\
+ & CI excludes 0 & 0/5 & 0/5 & 5/5 & 5/5 & 5/5 \\
+\bottomrule
+\end{tabular}

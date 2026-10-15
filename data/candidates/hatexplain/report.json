@@ -1,0 +1,53 @@
+{
+  "dataset": "hatexplain",
+  "built_at": "2026-10-07T06:39:11+00:00",
+  "n_labels": 3,
+  "seed": 20261006,
+  "mode": "all_labels_shuffled",
+  "gold_position": "counterbalanced per split and per candidate set size (each position equally often, ±1)",
+  "k": 3,
+  "splits": {
+    "train": {
+      "n": 15330,
+      "by_set_size": {
+        "3": {
+          "n": 15330,
+          "gold_position_counts": {
+            "0": 5110,
+            "1": 5110,
+            "2": 5110
+          },
+          "max_abs_deviation_from_uniform": 0.0
+        }
+      }
+    },
+    "dev": {
+      "n": 1921,
+      "by_set_size": {
+        "3": {
+          "n": 1921,
+          "gold_position_counts": {
+            "0": 641,
+            "1": 640,
+            "2": 640
+          },
+          "max_abs_deviation_from_uniform": 0.67
+        }
+      }
+    },
+    "test": {
+      "n": 1924,
+      "by_set_size": {
+        "3": {
+          "n": 1924,
+          "gold_position_counts": {
+            "0": 642,
+            "1": 641,
+            "2": 641
+          },
+          "max_abs_deviation_from_uniform": 0.67
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+\documentclass[10pt]{article}
+\usepackage[preprint]{tmlr}
+\raggedbottom  % tmlr.sty sets \flushbottom, which stretches the space above paragraph headings
+
+\input{math_commands.tex}
+\usepackage{hyperref}
+% Consistent spacing: table captions sit above the table, figure captions below the figure, each with a fixed gap.
+% With hyperref loaded, caption also makes links land at the top of the float (hypcap).
+\usepackage{caption}
+\usepackage{placeins}  % \FloatBarrier in the appendix
+\captionsetup[table]{position=top, skip=6pt}
+\captionsetup[figure]{position=bottom, skip=8pt}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+
+\definecolor{tdmblue}{HTML}{2A78D6}
+\definecolor{shiftorange}{HTML}{EB6834}
+\definecolor{inkgray}{HTML}{4A4A4A}
+\definecolor{citeblue}{HTML}{1F5FAD}
+
+% Clickable citations, cross-references and URLs, shown as coloured text instead of boxes.
+\hypersetup{colorlinks=true, citecolor=citeblue, linkcolor=citeblue, urlcolor=citeblue}
+% Clickable DOIs in the bibliography (tmlr.bst only \providecommand's \doi, so this definition wins).
+\newcommand{\doi}[1]{doi: \href{https://doi.org/#1}{\nolinkurl{#1}}}
+
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+\title{Typed Decision Models under Prevalence Shift:\\Decision Training, Calibration, and Implicit Priors}
+
+\author{\name Abdul Rahman Iqbal \email abdul.rahmanmezzi@gmail.com \\
+      \addr Independent Researcher
+      \AND
+      \name Muhammad Fawad Nasim \email fawad.nasim@superior.edu.pk \\
+      \addr Faculty of Computer Science and Information Technology\\
+      The Superior University, Lahore, Pakistan
+      \AND
+      \name Amir Saleem \email mramir401@gmail.com \\
+      \addr Independent Researcher}
+
+\def\month{MM}
+\def\year{YYYY}
+\def\openreview{\url{https://openreview.net/forum?id=XXXX}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Typed decision models (TDMs) return a probability over caller-defined options, and Jev is described by its vendor as
+calibrated. But in deployment class frequencies change, so calibration measured on a fixed test set need not hold where
+thresholds are applied. Existing evaluations leave two gaps: the gains of vendor decision training have not been
+separated from those of the backbone under an identical readout, and TDMs have been tested only at the test set's class
+distribution. We ask whether decision training improves a model over its own backbone, and whether a TDM's calibration
+and thresholds withstand prevalence (label) shift as well as a fine-tuned classifier's. We compare three TDMs (Jev,
+Tev1-4B, Nimble-9B), their base models and two trained classifiers on identical decisions from five public datasets
+under simulated shift, with 35 paired tests fixed before any test was computed. First, decision training is not
+uniformly beneficial: Nimble-9B, which differs from Qwen3.5-9B only by a LoRA adapter, is better calibrated on intent
+tasks but 12.0 Macro-F1 points worse on financial sentiment. Second, under moderate shift Jev's expected calibration
+error (ECE) and threshold risk grow significantly more than a fine-tuned DeBERTa's only on financial sentiment, by 1.7
+and 2.5 percentage points; averaged over 2{,}000 shift scenarios (exploratory), the gap is at most one point on every
+dataset. Third, EM prior correction with the model's mean development prediction as its prior needs no labels and lowers
+Jev's ECE under shift by 2.7 and 1.8 points on the two datasets where it is highest, although labelled recalibration
+lowers it far more. The three TDMs we tested are neither uniformly better than their backbones nor uniquely fragile
+under shift; for calibration, their main weakness is the miscalibration they already have without shift. We release all
+inputs, code and outputs.
+\end{abstract}
+
+\input{sections/1_introduction}
+\input{sections/2_related}
+\input{sections/3_setting}
+\input{sections/4_protocol}
+\input{sections/5_results}
+\input{sections/6_discussion}
+\input{sections/7_limitations}
+\input{sections/8_conclusion}
+\input{sections/9_statements}
+
+\bibliography{refs}
+\bibliographystyle{tmlr}
+
+\appendix
+\input{sections/appendix}
+
+\end{document}

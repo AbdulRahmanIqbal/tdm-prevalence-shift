@@ -1,0 +1,51 @@
+{
+  "dataset": "fpb",
+  "prepared_at": "2026-10-07T06:36:27+00:00",
+  "split_seed": 20261006,
+  "dev_carved_from_train": false,
+  "counts": {
+    "train": 3090,
+    "dev": 775,
+    "test": 970
+  },
+  "label_counts": {
+    "train": {
+      "0": 382,
+      "1": 1842,
+      "2": 866
+    },
+    "dev": {
+      "0": 97,
+      "1": 461,
+      "2": 217
+    },
+    "test": {
+      "0": 125,
+      "1": 565,
+      "2": 280
+    }
+  },
+  "cleaning": {
+    "before": {
+      "train": 3100,
+      "dev": 776,
+      "test": 970
+    },
+    "after": {
+      "train": 3090,
+      "dev": 775,
+      "test": 970
+    },
+    "removed_overlap_with_test": {
+      "train": 3,
+      "dev": 1
+    },
+    "removed_train_overlap_with_dev": 3,
+    "removed_conflicting": {
+      "train": 0,
+      "dev": 0
+    },
+    "conflicting_in_test": 0,
+    "removed_same_label_duplicates_train": 4
+  }
+}

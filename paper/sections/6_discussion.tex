@@ -1,0 +1,65 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{Is a typed decision model enough?}
+Without task labels, Jev had the highest Macro-F1 point estimate among the zero-shot systems of the main comparison on
+all five datasets, and
+under moderate prevalence shift its calibration error and threshold risk were not distinguishable from those of
+DeBERTa-v3-large after correction on four of the five. When the full training set is available, the fine-tuned
+DeBERTa-v3-large still has the higher Macro-F1 point estimate everywhere, by 0.26~points on CLINC150 up to 18.9~points on
+HateXplain. Whether a typed decision model is enough therefore depends on the task and on whether labels exist; how many
+labels a trained model needs to overtake a TDM is a separate question that this study does not answer.
+
+\paragraph{Why can decision training hurt?}
+On FPB the two decision-trained models differ from their backbones in opposite directions: Tev1-4B's Macro-F1 is 10.0~points above Qwen3.5-4B's and Nimble-9B's is 12.0~points below Qwen3.5-9B's. The Nimble release we test was trained on
+2{,}676 synthetic examples, and FPB is labelled from an investor's point of view; one possible explanation is that the
+synthetic data encode a different notion of positive and neutral financial news. The confusion matrices fit this
+reading: the adapter mainly moves neutral sentences to the positive class (\hyperref[tab:fpbconf]{Table~\ref*{tab:fpbconf}}). We cannot test the
+explanation itself without the vendors' training data. Both members of the pair run in the same 8-bit precision, so the comparison is matched, but we
+have not measured the size of the adapter effect in bf16. What the paired design does establish is that, for the same
+backbone, prompt and readout, decision training is not uniformly beneficial; a decision-trained variant should be
+evaluated against its base model on the target task rather than assumed to be better.
+
+\paragraph{Why does moderate shift matter so little?}
+At $\alpha=1$ the target priors are centred on the training prior, so on average the shift is moderate, and for most
+systems the calibration error under shift is dominated by the miscalibration they already have without shift; single
+shifts, however, can be large (\hyperref[tab:excess]{Table~\ref*{tab:excess}}). Stronger shift ($\alpha=0.1$)
+increases Jev's ECE more than DeBERTa-v3-large's on every dataset, but descriptively, and this is not a contrast between
+zero-shot and trained systems: the trained TF-IDF classifier degrades more than Jev on two datasets, DeBERTa-v3-large is
+the most stable system on three of the five, and on FPB and TREC-6 Tev1-4B degrades most of all systems (by 4.8 and 4.4~points, against 0.8 and 2.4 for Jev; \hyperref[tab:exp2delta]{Table~\ref*{tab:exp2delta}}). Two methodological points matter for such comparisons. First, resampling alone inflates
+top-label ECE: on resampled data with no shift, ECE is 0.05 to 1.4~points higher than on the original test set (1.1~points for Jev on FPB, whose shift effect at $\alpha=1$ is 0.2~points), so shift effects must be measured against a
+resampled control. Second, with only a few shift scenarios the result depends on which target priors are drawn
+(\hyperref[sec:rq2]{Section~\ref*{sec:rq2}}), so conclusions should be stated for the shift distribution, not for a single draw.
+
+\paragraph{Why does EM help most where the implicit prior is furthest from the truth?}
+On FPB and HateXplain, Jev's implicit prior is far from the true class distribution (total-variation distance 0.18 and
+0.23; \hyperref[tab:implicitprior]{Table~\ref*{tab:implicitprior}}), yet these are the datasets where EM with that prior helps most. This is less
+paradoxical than it seems. The distance measures the model's label bias, not the quality of $\hat\pi_s$ as a reference
+for EM. EM in \hyperref[eq:em]{Eq.~\ref*{eq:em}} rescales the posteriors by $\hat q/\hat\pi_s$, so what it needs is the prior with which
+the model's own posteriors are consistent, which for a biased model is its own mean prediction and not the true prior.
+Without shift, the mean prediction on the test set is close to $\hat\pi_s$ and EM leaves the posteriors almost
+unchanged (\hyperref[tab:emnoshift]{Table~\ref*{tab:emnoshift}}); under shift, the change in the mean prediction is attributed to the shift, which
+is what EM corrects. With the true prior in place of $\hat\pi_s$, EM would instead also try to remove the label bias,
+which it cannot do reliably because the bias is not a change in class frequencies. EM then has the most to correct
+where the shift moves the most probability mass between classes on which the model is calibrated differently. This is
+the case for the three-class FPB and HateXplain, where Dirichlet draws at $\alpha=1$ often put most of the mass on one
+class, and less so for the intent datasets, whose many classes and small ECE leave little to correct. We offer this as
+an explanation consistent with our results, not as a tested claim.
+
+\paragraph{What should a practitioner do?}
+Three steps follow from our results. First, recalibrate on labelled data: bias-corrected temperature scaling followed by
+EM, fitted on the labelled development sets, gave the lowest calibration error under shift for nearly every
+system--dataset pair where calibration was poor. Second, without labels, EM with the model's implicit prior is a cheap
+correction that lowered the shifted calibration error of every zero-shot system on FPB and HateXplain (descriptive;
+tested only for Jev);
+on the other datasets the intervals exclude harms larger than about half a point for Jev. Third, re-validate confidence
+thresholds on target traffic: averaged over shifts, a single system's excess risk at 80\% coverage was at most 2.3~points at $\alpha=1$ (Nimble-9B on FPB), but individual shifts raised it by up to 35~points (Qwen3.5-4B on FPB) and by
+up to 22~points for Jev on HateXplain (\hyperref[tab:excess]{Table~\ref*{tab:excess}}).
+
+\paragraph{Relation to prior reports.}
+Our FPB accuracy for Jev is consistent with \citet{deusser2026jev}, and so is our calibration pattern: like them, we
+find Jev well calibrated where it is accurate (intent tasks) and miscalibrated where its accuracy is low (HateXplain). That decision training helps on some tasks and not others is consistent
+with \citet{li2026llmasjev} and with the audit's conclusion that the typed readout itself has not shown an independent
+accuracy advantage \citep{tang2026audit}; our paired design adds that the effect can be negative. The strength of BCTS
+followed by EM matches \citet{alexandari2020maximum}; we observe it here also for zero-shot systems with an implicit
+prior, but only descriptively, because our confirmatory test concerns plain EM.

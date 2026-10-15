@@ -1,0 +1,21 @@
+# Label texts for Financial PhraseBank (atrost split, sentences_50agree).
+# STATUS: APPROVED v1.0 (2026-10-06, user approved) — FROZEN; changes only via docs/deviations.md (spec sec 5).
+dataset: fpb
+task_question: "From an investor's point of view, how is this financial news sentence likely to influence the company's stock price?"
+source_notes: >-
+  Annotators judged each sentence "from the view point of an investor only": whether the news may
+  have a positive, negative or neutral influence on the stock price; sentiment that is not
+  economically relevant counts as neutral (Malo et al. 2014, JASIST, p. 9-10).
+labels:
+  - id: 0                      # raw label in atrost split
+    raw_name: negative
+    name: negative
+    description: "The news is likely to have a negative influence on the company's stock price."
+  - id: 1
+    raw_name: neutral
+    name: neutral
+    description: "The news is unlikely to influence the stock price: it is factual, routine, or its sentiment is not economically relevant."
+  - id: 2
+    raw_name: positive
+    name: positive
+    description: "The news is likely to have a positive influence on the company's stock price."

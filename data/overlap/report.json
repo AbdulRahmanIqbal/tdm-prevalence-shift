@@ -1,0 +1,6681 @@
+{
+ "near_dup_threshold": 0.9,
+ "pairs": [
+  {
+   "dataset": "clinc150",
+   "reference": "massive_en_us",
+   "exposure": "Nimble evaluation (not training); HWU64/SLURP lineage",
+   "n_test": 4500,
+   "n_exact": 35,
+   "n_exact_short": 11,
+   "n_near": 39,
+   "near_dup_pass": true,
+   "exact": {
+    "clinc150:test:test000147": "en-US/train/0000.parquet:9107:utt",
+    "clinc150:test:test000369": "en-US/train/0000.parquet:5886:utt",
+    "clinc150:test:test000435": "en-US/train/0000.parquet:1089:utt",
+    "clinc150:test:test000445": "en-US/test/0000.parquet:69:utt",
+    "clinc150:test:test000447": "en-US/train/0000.parquet:2291:utt",
+    "clinc150:test:test000448": "en-US/train/0000.parquet:853:utt",
+    "clinc150:test:test000609": "en-US/train/0000.parquet:7496:utt",
+    "clinc150:test:test000998": "en-US/test/0000.parquet:1964:utt",
+    "clinc150:test:test001487": "en-US/train/0000.parquet:7261:utt",
+    "clinc150:test:test001794": "en-US/train/0000.parquet:1494:utt",
+    "clinc150:test:test001796": "en-US/test/0000.parquet:16:utt",
+    "clinc150:test:test001797": "en-US/test/0000.parquet:24:utt",
+    "clinc150:test:test002219": "en-US/train/0000.parquet:3419:utt",
+    "clinc150:test:test002236": "en-US/test/0000.parquet:1830:utt",
+    "clinc150:test:test002685": "en-US/train/0000.parquet:124:utt",
+    "clinc150:test:test002689": "en-US/train/0000.parquet:2976:utt",
+    "clinc150:test:test002698": "en-US/validation/0000.parquet:675:utt",
+    "clinc150:test:test002847": "en-US/train/0000.parquet:1932:utt",
+    "clinc150:test:test002955": "en-US/train/0000.parquet:3369:utt",
+    "clinc150:test:test002958": "en-US/train/0000.parquet:1635:utt",
+    "clinc150:test:test002960": "en-US/validation/0000.parquet:217:utt",
+    "clinc150:test:test003240": "en-US/test/0000.parquet:56:utt",
+    "clinc150:test:test003242": "en-US/train/0000.parquet:118:utt",
+    "clinc150:test:test003243": "en-US/train/0000.parquet:2111:utt",
+    "clinc150:test:test003244": "en-US/train/0000.parquet:203:utt",
+    "clinc150:test:test003255": "en-US/test/0000.parquet:429:utt",
+    "clinc150:test:test003540": "en-US/train/0000.parquet:205:utt",
+    "clinc150:test:test003549": "en-US/train/0000.parquet:512:utt",
+    "clinc150:test:test003552": "en-US/train/0000.parquet:3263:utt",
+    "clinc150:test:test003603": "en-US/train/0000.parquet:4390:utt",
+    "clinc150:test:test003629": "en-US/test/0000.parquet:1090:utt",
+    "clinc150:test:test003961": "en-US/test/0000.parquet:1291:utt",
+    "clinc150:test:test004162": "en-US/train/0000.parquet:80:utt",
+    "clinc150:test:test004169": "en-US/test/0000.parquet:107:utt",
+    "clinc150:test:test004325": "en-US/train/0000.parquet:6773:utt"
+   },
+   "exact_short": {
+    "clinc150:test:test001014": "en-US/validation/0000.parquet:358:utt",
+    "clinc150:test:test001015": "en-US/test/0000.parquet:302:utt",
+    "clinc150:test:test002188": "en-US/train/0000.parquet:6829:utt",
+    "clinc150:test:test002684": "en-US/train/0000.parquet:539:utt",
+    "clinc150:test:test002686": "en-US/train/0000.parquet:2133:utt",
+    "clinc150:test:test002688": "en-US/train/0000.parquet:1842:utt",
+    "clinc150:test:test003241": "en-US/test/0000.parquet:483:utt",
+    "clinc150:test:test003370": "en-US/test/0000.parquet:734:utt",
+    "clinc150:test:test003383": "en-US/train/0000.parquet:983:utt",
+    "clinc150:test:test003954": "en-US/train/0000.parquet:2099:utt",
+    "clinc150:test:test003995": "en-US/test/0000.parquet:1186:utt"
+   },
+   "near": {
+    "clinc150:test:test000140": [
+     "en-US/train/0000.parquet:8836:utt",
+     0.9177
+    ],
+    "clinc150:test:test000431": [
+     "en-US/train/0000.parquet:3132:utt",
+     0.9124
+    ],
+    "clinc150:test:test000441": [
+     "en-US/train/0000.parquet:3132:utt",
+     0.9493
+    ],
+    "clinc150:test:test000446": [
+     "en-US/train/0000.parquet:1990:utt",
+     0.9701
+    ],
+    "clinc150:test:test000449": [
+     "en-US/train/0000.parquet:130:utt",
+     1.0
+    ],
+    "clinc150:test:test000606": [
+     "en-US/train/0000.parquet:7439:utt",
+     0.9147
+    ],
+    "clinc150:test:test001002": [
+     "en-US/train/0000.parquet:1215:utt",
+     1.0
+    ],
+    "clinc150:test:test001746": [
+     "en-US/train/0000.parquet:9180:utt",
+     0.9095
+    ],
+    "clinc150:test:test001761": [
+     "en-US/train/0000.parquet:9180:utt",
+     0.9095
+    ],
+    "clinc150:test:test001788": [
+     "en-US/validation/0000.parquet:51:utt",
+     0.9608
+    ],
+    "clinc150:test:test001791": [
+     "en-US/train/0000.parquet:5574:utt",
+     0.9661
+    ],
+    "clinc150:test:test001792": [
+     "en-US/train/0000.parquet:5574:utt",
+     0.9075
+    ],
+    "clinc150:test:test001799": [
+     "en-US/validation/0000.parquet:583:utt",
+     0.9152
+    ],
+    "clinc150:test:test002060": [
+     "en-US/train/0000.parquet:6691:utt",
+     0.9439
+    ],
+    "clinc150:test:test002191": [
+     "en-US/train/0000.parquet:1594:utt",
+     0.9058
+    ],
+    "clinc150:test:test002192": [
+     "en-US/train/0000.parquet:2555:utt",
+     0.9287
+    ],
+    "clinc150:test:test002193": [
+     "en-US/train/0000.parquet:628:utt",
+     0.9167
+    ],
+    "clinc150:test:test002197": [
+     "en-US/train/0000.parquet:2682:utt",
+     0.922
+    ],
+    "clinc150:test:test002199": [
+     "en-US/train/0000.parquet:2555:utt",
+     0.9103
+    ],
+    "clinc150:test:test002204": [
+     "en-US/train/0000.parquet:2555:utt",
+     0.9287
+    ],
+    "clinc150:test:test002218": [
+     "en-US/train/0000.parquet:3285:utt",
+     0.9122
+    ],
+    "clinc150:test:test002231": [
+     "en-US/validation/0000.parquet:1317:utt",
+     0.9075
+    ],
+    "clinc150:test:test002238": [
+     "en-US/validation/0000.parquet:1242:utt",
+     0.9091
+    ],
+    "clinc150:test:test002670": [
+     "en-US/train/0000.parquet:2888:utt",
+     0.9333
+    ],
+    "clinc150:test:test002687": [
+     "en-US/validation/0000.parquet:372:utt",
+     1.0
+    ],
+    "clinc150:test:test002820": [
+     "en-US/train/0000.parquet:1933:utt",
+     0.9129
+    ],
+    "clinc150:test:test002941": [
+     "en-US/train/0000.parquet:621:utt",
+     0.9096
+    ],
+    "clinc150:test:test002962": [
+     "en-US/train/0000.parquet:151:utt",
+     0.9177
+    ],
+    "clinc150:test:test003161": [
+     "en-US/test/0000.parquet:673:utt",
+     0.9451
+    ],
+    "clinc150:test:test003167": [
+     "en-US/train/0000.parquet:1589:utt",
+     0.9065
+    ],
+    "clinc150:test:test003171": [
+     "en-US/train/0000.parquet:695:utt",
+     0.9487
+    ],
+    "clinc150:test:test003258": [
+     "en-US/train/0000.parquet:2245:utt",
+     0.9103
+    ],
+    "clinc150:test:test003268": [
+     "en-US/test/0000.parquet:116:utt",
+     0.9282
+    ],
+    "clinc150:test:test003553": [
+     "en-US/train/0000.parquet:746:utt",
+     0.9129
+    ],
+    "clinc150:test:test003622": [
+     "en-US/test/0000.parquet:1090:utt",
+     0.9129
+    ],
+    "clinc150:test:test003796": [
+     "en-US/train/0000.parquet:7272:utt",
+     0.977
+    ],
+    "clinc150:test:test003807": [
+     "en-US/train/0000.parquet:7204:utt",
+     0.9095
+    ],
+    "clinc150:test:test003963": [
+     "en-US/train/0000.parquet:4545:utt",
+     0.9021
+    ],
+    "clinc150:test:test004148": [
+     "en-US/test/0000.parquet:107:utt",
+     0.9258
+    ]
+   }
+  },
+  {
+   "dataset": "hwu64",
+   "reference": "massive_en_us",
+   "exposure": "Nimble evaluation (not training); HWU64/SLURP lineage",
+   "n_test": 1076,
+   "n_exact": 582,
+   "n_exact_short": 85,
+   "n_near": 32,
+   "near_dup_pass": true,
+   "exact": {
+    "hwu64:test:test000000": "en-US/train/0000.parquet:4041:utt",
+    "hwu64:test:test000001": "en-US/train/0000.parquet:3091:utt",
+    "hwu64:test:test000005": "en-US/train/0000.parquet:3777:utt",
+    "hwu64:test:test000006": "en-US/test/0000.parquet:821:utt",
+    "hwu64:test:test000007": "en-US/test/0000.parquet:811:utt",
+    "hwu64:test:test000008": "en-US/train/0000.parquet:558:utt",
+    "hwu64:test:test000009": "en-US/train/0000.parquet:1095:utt",
+    "hwu64:test:test000010": "en-US/test/0000.parquet:13:utt",
+    "hwu64:test:test000011": "en-US/train/0000.parquet:1125:utt",
+    "hwu64:test:test000012": "en-US/train/0000.parquet:2795:utt",
+    "hwu64:test:test000013": "en-US/train/0000.parquet:1118:utt",
+    "hwu64:test:test000014": "en-US/train/0000.parquet:2801:utt",
+    "hwu64:test:test000015": "en-US/train/0000.parquet:420:utt",
+    "hwu64:test:test000017": "en-US/train/0000.parquet:520:utt",
+    "hwu64:test:test000018": "en-US/train/0000.parquet:4065:utt",
+    "hwu64:test:test000021": "en-US/test/0000.parquet:848:utt",
+    "hwu64:test:test000022": "en-US/train/0000.parquet:1957:utt",
+    "hwu64:test:test000023": "en-US/validation/0000.parquet:455:utt",
+    "hwu64:test:test000024": "en-US/train/0000.parquet:614:utt",
+    "hwu64:test:test000025": "en-US/train/0000.parquet:2726:utt",
+    "hwu64:test:test000027": "en-US/test/0000.parquet:40:utt",
+    "hwu64:test:test000028": "en-US/train/0000.parquet:4033:utt",
+    "hwu64:test:test000029": "en-US/train/0000.parquet:2353:utt",
+    "hwu64:test:test000030": "en-US/test/0000.parquet:108:utt",
+    "hwu64:test:test000031": "en-US/train/0000.parquet:391:utt",
+    "hwu64:test:test000033": "en-US/train/0000.parquet:2555:utt",
+    "hwu64:test:test000034": "en-US/train/0000.parquet:61:utt",
+    "hwu64:test:test000035": "en-US/train/0000.parquet:5584:utt",
+    "hwu64:test:test000036": "en-US/train/0000.parquet:1713:utt",
+    "hwu64:test:test000037": "en-US/train/0000.parquet:5590:utt",
+    "hwu64:test:test000038": "en-US/train/0000.parquet:3185:utt",
+    "hwu64:test:test000039": "en-US/train/0000.parquet:4102:utt",
+    "hwu64:test:test000040": "en-US/train/0000.parquet:4890:utt",
+    "hwu64:test:test000042": "en-US/train/0000.parquet:2690:utt",
+    "hwu64:test:test000045": "en-US/train/0000.parquet:3689:utt",
+    "hwu64:test:test000047": "en-US/test/0000.parquet:331:utt",
+    "hwu64:test:test000048": "en-US/train/0000.parquet:271:utt",
+    "hwu64:test:test000049": "en-US/validation/0000.parquet:91:utt",
+    "hwu64:test:test000052": "en-US/train/0000.parquet:448:utt",
+    "hwu64:test:test000055": "en-US/train/0000.parquet:1002:utt",
+    "hwu64:test:test000056": "en-US/test/0000.parquet:291:utt",
+    "hwu64:test:test000058": "en-US/validation/0000.parquet:326:utt",
+    "hwu64:test:test000059": "en-US/test/0000.parquet:1072:utt",
+    "hwu64:test:test000060": "en-US/train/0000.parquet:2781:utt",
+    "hwu64:test:test000062": "en-US/test/0000.parquet:471:utt",
+    "hwu64:test:test000063": "en-US/train/0000.parquet:3322:utt",
+    "hwu64:test:test000064": "en-US/train/0000.parquet:1716:utt",
+    "hwu64:test:test000066": "en-US/train/0000.parquet:4152:utt",
+    "hwu64:test:test000067": "en-US/train/0000.parquet:2117:utt",
+    "hwu64:test:test000069": "en-US/train/0000.parquet:5:utt",
+    "hwu64:test:test000070": "en-US/train/0000.parquet:395:utt",
+    "hwu64:test:test000071": "en-US/train/0000.parquet:2571:utt",
+    "hwu64:test:test000072": "en-US/train/0000.parquet:1174:utt",
+    "hwu64:test:test000074": "en-US/validation/0000.parquet:160:utt",
+    "hwu64:test:test000075": "en-US/validation/0000.parquet:594:utt",
+    "hwu64:test:test000076": "en-US/train/0000.parquet:2961:utt",
+    "hwu64:test:test000077": "en-US/train/0000.parquet:1169:utt",
+    "hwu64:test:test000079": "en-US/train/0000.parquet:347:utt",
+    "hwu64:test:test000081": "en-US/train/0000.parquet:1173:utt",
+    "hwu64:test:test000083": "en-US/train/0000.parquet:2506:utt",
+    "hwu64:test:test000084": "en-US/train/0000.parquet:1336:utt",
+    "hwu64:test:test000088": "en-US/test/0000.parquet:2625:utt",
+    "hwu64:test:test000089": "en-US/train/0000.parquet:4930:utt",
+    "hwu64:test:test000090": "en-US/train/0000.parquet:5414:utt",
+    "hwu64:test:test000091": "en-US/train/0000.parquet:5765:utt",
+    "hwu64:test:test000092": "en-US/train/0000.parquet:5344:utt",
+    "hwu64:test:test000093": "en-US/train/0000.parquet:5698:utt",
+    "hwu64:test:test000094": "en-US/train/0000.parquet:6001:utt",
+    "hwu64:test:test000096": "en-US/train/0000.parquet:5183:utt",
+    "hwu64:test:test000098": "en-US/validation/0000.parquet:224:utt",
+    "hwu64:test:test000100": "en-US/train/0000.parquet:4874:utt",
+    "hwu64:test:test000101": "en-US/train/0000.parquet:5944:utt",
+    "hwu64:test:test000102": "en-US/train/0000.parquet:4826:utt",
+    "hwu64:test:test000103": "en-US/validation/0000.parquet:1037:utt",
+    "hwu64:test:test000104": "en-US/train/0000.parquet:5011:utt",
+    "hwu64:test:test000106": "en-US/train/0000.parquet:4798:utt",
+    "hwu64:test:test000108": "en-US/train/0000.parquet:4709:utt",
+    "hwu64:test:test000110": "en-US/train/0000.parquet:5855:utt",
+    "hwu64:test:test000112": "en-US/test/0000.parquet:1228:utt",
+    "hwu64:test:test000113": "en-US/validation/0000.parquet:801:utt",
+    "hwu64:test:test000116": "en-US/train/0000.parquet:6083:utt",
+    "hwu64:test:test000117": "en-US/test/0000.parquet:1339:utt",
+    "hwu64:test:test000120": "en-US/train/0000.parquet:5208:utt",
+    "hwu64:test:test000121": "en-US/train/0000.parquet:4795:utt",
+    "hwu64:test:test000122": "en-US/train/0000.parquet:5242:utt",
+    "hwu64:test:test000126": "en-US/train/0000.parquet:5270:utt",
+    "hwu64:test:test000128": "en-US/train/0000.parquet:4988:utt",
+    "hwu64:test:test000130": "en-US/train/0000.parquet:5843:utt",
+    "hwu64:test:test000131": "en-US/train/0000.parquet:4993:utt",
+    "hwu64:test:test000132": "en-US/train/0000.parquet:4567:utt",
+    "hwu64:test:test000134": "en-US/train/0000.parquet:5249:utt",
+    "hwu64:test:test000135": "en-US/train/0000.parquet:5578:utt",
+    "hwu64:test:test000136": "en-US/train/0000.parquet:4705:utt",
+    "hwu64:test:test000140": "en-US/train/0000.parquet:5024:utt",
+    "hwu64:test:test000141": "en-US/validation/0000.parquet:1013:utt",
+    "hwu64:test:test000146": "en-US/train/0000.parquet:6852:utt",
+    "hwu64:test:test000147": "en-US/train/0000.parquet:6769:utt",
+    "hwu64:test:test000148": "en-US/test/0000.parquet:1758:utt",
+    "hwu64:test:test000149": "en-US/train/0000.parquet:6800:utt",
+    "hwu64:test:test000150": "en-US/train/0000.parquet:6763:utt",
+    "hwu64:test:test000151": "en-US/test/0000.parquet:1769:utt",
+    "hwu64:test:test000152": "en-US/validation/0000.parquet:1163:utt",
+    "hwu64:test:test000153": "en-US/train/0000.parquet:6793:utt",
+    "hwu64:test:test000154": "en-US/test/0000.parquet:1732:utt",
+    "hwu64:test:test000155": "en-US/train/0000.parquet:6848:utt",
+    "hwu64:test:test000157": "en-US/train/0000.parquet:6747:utt",
+    "hwu64:test:test000158": "en-US/train/0000.parquet:6885:utt",
+    "hwu64:test:test000163": "en-US/train/0000.parquet:2401:utt",
+    "hwu64:test:test000164": "en-US/train/0000.parquet:3612:utt",
+    "hwu64:test:test000165": "en-US/test/0000.parquet:597:utt",
+    "hwu64:test:test000166": "en-US/train/0000.parquet:2294:utt",
+    "hwu64:test:test000167": "en-US/train/0000.parquet:1581:utt",
+    "hwu64:test:test000168": "en-US/train/0000.parquet:2859:utt",
+    "hwu64:test:test000169": "en-US/train/0000.parquet:3378:utt",
+    "hwu64:test:test000172": "en-US/train/0000.parquet:3567:utt",
+    "hwu64:test:test000173": "en-US/validation/0000.parquet:437:utt",
+    "hwu64:test:test000174": "en-US/train/0000.parquet:1102:utt",
+    "hwu64:test:test000175": "en-US/train/0000.parquet:2233:utt",
+    "hwu64:test:test000176": "en-US/validation/0000.parquet:271:utt",
+    "hwu64:test:test000177": "en-US/test/0000.parquet:820:utt",
+    "hwu64:test:test000178": "en-US/train/0000.parquet:3623:utt",
+    "hwu64:test:test000180": "en-US/train/0000.parquet:307:utt",
+    "hwu64:test:test000182": "en-US/train/0000.parquet:2874:utt",
+    "hwu64:test:test000183": "en-US/validation/0000.parquet:241:utt",
+    "hwu64:test:test000185": "en-US/test/0000.parquet:992:utt",
+    "hwu64:test:test000186": "en-US/train/0000.parquet:1646:utt",
+    "hwu64:test:test000187": "en-US/train/0000.parquet:883:utt",
+    "hwu64:test:test000192": "en-US/validation/0000.parquet:2015:utt",
+    "hwu64:test:test000194": "en-US/train/0000.parquet:10727:utt",
+    "hwu64:test:test000195": "en-US/train/0000.parquet:10721:utt",
+    "hwu64:test:test000196": "en-US/train/0000.parquet:10734:utt",
+    "hwu64:test:test000197": "en-US/train/0000.parquet:11487:utt",
+    "hwu64:test:test000199": "en-US/train/0000.parquet:11248:utt",
+    "hwu64:test:test000201": "en-US/train/0000.parquet:11328:utt",
+    "hwu64:test:test000202": "en-US/validation/0000.parquet:1889:utt",
+    "hwu64:test:test000203": "en-US/train/0000.parquet:11268:utt",
+    "hwu64:test:test000204": "en-US/train/0000.parquet:11055:utt",
+    "hwu64:test:test000206": "en-US/test/0000.parquet:2904:utt",
+    "hwu64:test:test000207": "en-US/train/0000.parquet:10825:utt",
+    "hwu64:test:test000208": "en-US/train/0000.parquet:11272:utt",
+    "hwu64:test:test000210": "en-US/train/0000.parquet:11221:utt",
+    "hwu64:test:test000211": "en-US/train/0000.parquet:10815:utt",
+    "hwu64:test:test000213": "en-US/train/0000.parquet:11408:utt",
+    "hwu64:test:test000216": "en-US/train/0000.parquet:11256:utt",
+    "hwu64:test:test000218": "en-US/train/0000.parquet:10863:utt",
+    "hwu64:test:test000219": "en-US/train/0000.parquet:10644:utt",
+    "hwu64:test:test000220": "en-US/validation/0000.parquet:1926:utt",
+    "hwu64:test:test000221": "en-US/train/0000.parquet:11357:utt",
+    "hwu64:test:test000223": "en-US/train/0000.parquet:10778:utt",
+    "hwu64:test:test000224": "en-US/train/0000.parquet:10653:utt",
+    "hwu64:test:test000225": "en-US/train/0000.parquet:11284:utt",
+    "hwu64:test:test000228": "en-US/train/0000.parquet:10880:utt",
+    "hwu64:test:test000229": "en-US/train/0000.parquet:11034:utt",
+    "hwu64:test:test000232": "en-US/train/0000.parquet:10720:utt",
+    "hwu64:test:test000233": "en-US/train/0000.parquet:10800:utt",
+    "hwu64:test:test000235": "en-US/test/0000.parquet:2787:utt",
+    "hwu64:test:test000239": "en-US/train/0000.parquet:10578:utt",
+    "hwu64:test:test000240": "en-US/train/0000.parquet:11071:utt",
+    "hwu64:test:test000241": "en-US/validation/0000.parquet:1916:utt",
+    "hwu64:test:test000242": "en-US/train/0000.parquet:11481:utt",
+    "hwu64:test:test000244": "en-US/train/0000.parquet:10667:utt",
+    "hwu64:test:test000246": "en-US/train/0000.parquet:10626:utt",
+    "hwu64:test:test000248": "en-US/train/0000.parquet:10787:utt",
+    "hwu64:test:test000249": "en-US/test/0000.parquet:2838:utt",
+    "hwu64:test:test000250": "en-US/train/0000.parquet:11200:utt",
+    "hwu64:test:test000251": "en-US/train/0000.parquet:10872:utt",
+    "hwu64:test:test000348": "en-US/train/0000.parquet:334:utt",
+    "hwu64:test:test000349": "en-US/test/0000.parquet:265:utt",
+    "hwu64:test:test000352": "en-US/train/0000.parquet:2897:utt",
+    "hwu64:test:test000353": "en-US/train/0000.parquet:335:utt",
+    "hwu64:test:test000356": "en-US/validation/0000.parquet:547:utt",
+    "hwu64:test:test000357": "en-US/train/0000.parquet:3328:utt",
+    "hwu64:test:test000400": "en-US/train/0000.parquet:9946:utt",
+    "hwu64:test:test000403": "en-US/train/0000.parquet:3650:utt",
+    "hwu64:test:test000405": "en-US/validation/0000.parquet:1558:utt",
+    "hwu64:test:test000406": "en-US/train/0000.parquet:8886:utt",
+    "hwu64:test:test000409": "en-US/train/0000.parquet:8754:utt",
+    "hwu64:test:test000411": "en-US/train/0000.parquet:9542:utt",
+    "hwu64:test:test000412": "en-US/train/0000.parquet:4364:utt",
+    "hwu64:test:test000413": "en-US/train/0000.parquet:9408:utt",
+    "hwu64:test:test000415": "en-US/train/0000.parquet:4489:utt",
+    "hwu64:test:test000438": "en-US/validation/0000.parquet:332:utt",
+    "hwu64:test:test000440": "en-US/train/0000.parquet:2833:utt",
+    "hwu64:test:test000441": "en-US/train/0000.parquet:2261:utt",
+    "hwu64:test:test000442": "en-US/train/0000.parquet:1375:utt",
+    "hwu64:test:test000444": "en-US/train/0000.parquet:787:utt",
+    "hwu64:test:test000446": "en-US/train/0000.parquet:1163:utt",
+    "hwu64:test:test000448": "en-US/validation/0000.parquet:445:utt",
+    "hwu64:test:test000450": "en-US/train/0000.parquet:781:utt",
+    "hwu64:test:test000451": "en-US/train/0000.parquet:722:utt",
+    "hwu64:test:test000452": "en-US/validation/0000.parquet:702:utt",
+    "hwu64:test:test000454": "en-US/train/0000.parquet:3379:utt",
+    "hwu64:test:test000455": "en-US/test/0000.parquet:383:utt",
+    "hwu64:test:test000456": "en-US/train/0000.parquet:2464:utt",
+    "hwu64:test:test000457": "en-US/train/0000.parquet:1073:utt",
+    "hwu64:test:test000458": "en-US/validation/0000.parquet:703:utt",
+    "hwu64:test:test000459": "en-US/train/0000.parquet:1833:utt",
+    "hwu64:test:test000461": "en-US/train/0000.parquet:2375:utt",
+    "hwu64:test:test000464": "en-US/train/0000.parquet:1909:utt",
+    "hwu64:test:test000465": "en-US/validation/0000.parquet:312:utt",
+    "hwu64:test:test000466": "en-US/train/0000.parquet:228:utt",
+    "hwu64:test:test000468": "en-US/train/0000.parquet:1072:utt",
+    "hwu64:test:test000471": "en-US/test/0000.parquet:873:utt",
+    "hwu64:test:test000472": "en-US/train/0000.parquet:2295:utt",
+    "hwu64:test:test000473": "en-US/train/0000.parquet:261:utt",
+    "hwu64:test:test000474": "en-US/train/0000.parquet:1931:utt",
+    "hwu64:test:test000475": "en-US/validation/0000.parquet:234:utt",
+    "hwu64:test:test000480": "en-US/train/0000.parquet:316:utt",
+    "hwu64:test:test000481": "en-US/train/0000.parquet:1929:utt",
+    "hwu64:test:test000483": "en-US/train/0000.parquet:1008:utt",
+    "hwu64:test:test000484": "en-US/train/0000.parquet:2828:utt",
+    "hwu64:test:test000485": "en-US/train/0000.parquet:2340:utt",
+    "hwu64:test:test000486": "en-US/train/0000.parquet:1293:utt",
+    "hwu64:test:test000487": "en-US/train/0000.parquet:1385:utt",
+    "hwu64:test:test000488": "en-US/test/0000.parquet:513:utt",
+    "hwu64:test:test000490": "en-US/train/0000.parquet:2194:utt",
+    "hwu64:test:test000492": "en-US/test/0000.parquet:129:utt",
+    "hwu64:test:test000493": "en-US/train/0000.parquet:646:utt",
+    "hwu64:test:test000494": "en-US/train/0000.parquet:3157:utt",
+    "hwu64:test:test000497": "en-US/train/0000.parquet:3156:utt",
+    "hwu64:test:test000499": "en-US/train/0000.parquet:1407:utt",
+    "hwu64:test:test000502": "en-US/train/0000.parquet:1351:utt",
+    "hwu64:test:test000503": "en-US/train/0000.parquet:1199:utt",
+    "hwu64:test:test000504": "en-US/train/0000.parquet:3764:utt",
+    "hwu64:test:test000505": "en-US/train/0000.parquet:3147:utt",
+    "hwu64:test:test000506": "en-US/test/0000.parquet:86:utt",
+    "hwu64:test:test000507": "en-US/train/0000.parquet:1961:utt",
+    "hwu64:test:test000508": "en-US/train/0000.parquet:3722:utt",
+    "hwu64:test:test000509": "en-US/validation/0000.parquet:315:utt",
+    "hwu64:test:test000510": "en-US/train/0000.parquet:3638:utt",
+    "hwu64:test:test000512": "en-US/train/0000.parquet:1175:utt",
+    "hwu64:test:test000513": "en-US/train/0000.parquet:2396:utt",
+    "hwu64:test:test000514": "en-US/validation/0000.parquet:0:utt",
+    "hwu64:test:test000515": "en-US/train/0000.parquet:4085:utt",
+    "hwu64:test:test000516": "en-US/test/0000.parquet:173:utt",
+    "hwu64:test:test000517": "en-US/test/0000.parquet:172:utt",
+    "hwu64:test:test000518": "en-US/test/0000.parquet:72:utt",
+    "hwu64:test:test000519": "en-US/validation/0000.parquet:487:utt",
+    "hwu64:test:test000520": "en-US/train/0000.parquet:1027:utt",
+    "hwu64:test:test000522": "en-US/train/0000.parquet:3685:utt",
+    "hwu64:test:test000523": "en-US/train/0000.parquet:1914:utt",
+    "hwu64:test:test000527": "en-US/train/0000.parquet:212:utt",
+    "hwu64:test:test000529": "en-US/test/0000.parquet:332:utt",
+    "hwu64:test:test000532": "en-US/train/0000.parquet:2719:utt",
+    "hwu64:test:test000535": "en-US/train/0000.parquet:1301:utt",
+    "hwu64:test:test000539": "en-US/train/0000.parquet:156:utt",
+    "hwu64:test:test000540": "en-US/train/0000.parquet:1855:utt",
+    "hwu64:test:test000541": "en-US/train/0000.parquet:3105:utt",
+    "hwu64:test:test000542": "en-US/train/0000.parquet:3667:utt",
+    "hwu64:test:test000543": "en-US/train/0000.parquet:1831:utt",
+    "hwu64:test:test000545": "en-US/train/0000.parquet:4925:utt",
+    "hwu64:test:test000546": "en-US/train/0000.parquet:2796:utt",
+    "hwu64:test:test000547": "en-US/train/0000.parquet:497:utt",
+    "hwu64:test:test000548": "en-US/train/0000.parquet:125:utt",
+    "hwu64:test:test000549": "en-US/train/0000.parquet:3418:utt",
+    "hwu64:test:test000550": "en-US/validation/0000.parquet:666:utt",
+    "hwu64:test:test000552": "en-US/validation/0000.parquet:527:utt",
+    "hwu64:test:test000554": "en-US/validation/0000.parquet:1328:utt",
+    "hwu64:test:test000555": "en-US/train/0000.parquet:7502:utt",
+    "hwu64:test:test000556": "en-US/train/0000.parquet:7382:utt",
+    "hwu64:test:test000558": "en-US/train/0000.parquet:7149:utt",
+    "hwu64:test:test000559": "en-US/train/0000.parquet:7092:utt",
+    "hwu64:test:test000560": "en-US/train/0000.parquet:7016:utt",
+    "hwu64:test:test000566": "en-US/validation/0000.parquet:1269:utt",
+    "hwu64:test:test000567": "en-US/test/0000.parquet:1885:utt",
+    "hwu64:test:test000568": "en-US/train/0000.parquet:7560:utt",
+    "hwu64:test:test000569": "en-US/train/0000.parquet:7135:utt",
+    "hwu64:test:test000572": "en-US/train/0000.parquet:7196:utt",
+    "hwu64:test:test000575": "en-US/train/0000.parquet:7302:utt",
+    "hwu64:test:test000577": "en-US/train/0000.parquet:7066:utt",
+    "hwu64:test:test000579": "en-US/train/0000.parquet:7263:utt",
+    "hwu64:test:test000580": "en-US/train/0000.parquet:7328:utt",
+    "hwu64:test:test000581": "en-US/train/0000.parquet:7361:utt",
+    "hwu64:test:test000582": "en-US/train/0000.parquet:7144:utt",
+    "hwu64:test:test000583": "en-US/validation/0000.parquet:1279:utt",
+    "hwu64:test:test000585": "en-US/test/0000.parquet:1874:utt",
+    "hwu64:test:test000587": "en-US/train/0000.parquet:7265:utt",
+    "hwu64:test:test000588": "en-US/train/0000.parquet:7343:utt",
+    "hwu64:test:test000589": "en-US/test/0000.parquet:1912:utt",
+    "hwu64:test:test000590": "en-US/train/0000.parquet:7116:utt",
+    "hwu64:test:test000592": "en-US/test/0000.parquet:1870:utt",
+    "hwu64:test:test000594": "en-US/train/0000.parquet:7060:utt",
+    "hwu64:test:test000595": "en-US/test/0000.parquet:1913:utt",
+    "hwu64:test:test000597": "en-US/train/0000.parquet:7026:utt",
+    "hwu64:test:test000599": "en-US/train/0000.parquet:7173:utt",
+    "hwu64:test:test000601": "en-US/train/0000.parquet:7493:utt",
+    "hwu64:test:test000603": "en-US/validation/0000.parquet:1306:utt",
+    "hwu64:test:test000604": "en-US/test/0000.parquet:1898:utt",
+    "hwu64:test:test000605": "en-US/test/0000.parquet:1947:utt",
+    "hwu64:test:test000606": "en-US/validation/0000.parquet:1253:utt",
+    "hwu64:test:test000611": "en-US/train/0000.parquet:3355:utt",
+    "hwu64:test:test000612": "en-US/train/0000.parquet:2218:utt",
+    "hwu64:test:test000613": "en-US/train/0000.parquet:2926:utt",
+    "hwu64:test:test000614": "en-US/test/0000.parquet:322:utt",
+    "hwu64:test:test000615": "en-US/train/0000.parquet:1862:utt",
+    "hwu64:test:test000616": "en-US/train/0000.parquet:1763:utt",
+    "hwu64:test:test000621": "en-US/test/0000.parquet:809:utt",
+    "hwu64:test:test000622": "en-US/validation/0000.parquet:458:utt",
+    "hwu64:test:test000623": "en-US/train/0000.parquet:3252:utt",
+    "hwu64:test:test000624": "en-US/train/0000.parquet:2004:utt",
+    "hwu64:test:test000626": "en-US/train/0000.parquet:51:utt",
+    "hwu64:test:test000628": "en-US/train/0000.parquet:2944:utt",
+    "hwu64:test:test000629": "en-US/train/0000.parquet:1323:utt",
+    "hwu64:test:test000630": "en-US/validation/0000.parquet:633:utt",
+    "hwu64:test:test000631": "en-US/train/0000.parquet:5485:utt",
+    "hwu64:test:test000632": "en-US/train/0000.parquet:3743:utt",
+    "hwu64:test:test000635": "en-US/train/0000.parquet:351:utt",
+    "hwu64:test:test000637": "en-US/train/0000.parquet:905:utt",
+    "hwu64:test:test000639": "en-US/train/0000.parquet:7046:utt",
+    "hwu64:test:test000642": "en-US/train/0000.parquet:76:utt",
+    "hwu64:test:test000643": "en-US/train/0000.parquet:1157:utt",
+    "hwu64:test:test000649": "en-US/train/0000.parquet:831:utt",
+    "hwu64:test:test000650": "en-US/test/0000.parquet:1019:utt",
+    "hwu64:test:test000652": "en-US/train/0000.parquet:349:utt",
+    "hwu64:test:test000654": "en-US/train/0000.parquet:369:utt",
+    "hwu64:test:test000655": "en-US/train/0000.parquet:2259:utt",
+    "hwu64:test:test000656": "en-US/train/0000.parquet:1486:utt",
+    "hwu64:test:test000658": "en-US/validation/0000.parquet:307:utt",
+    "hwu64:test:test000659": "en-US/validation/0000.parquet:182:utt",
+    "hwu64:test:test000660": "en-US/train/0000.parquet:2075:utt",
+    "hwu64:test:test000661": "en-US/test/0000.parquet:138:utt",
+    "hwu64:test:test000662": "en-US/train/0000.parquet:3313:utt",
+    "hwu64:test:test000663": "en-US/test/0000.parquet:402:utt",
+    "hwu64:test:test000664": "en-US/test/0000.parquet:702:utt",
+    "hwu64:test:test000665": "en-US/train/0000.parquet:3426:utt",
+    "hwu64:test:test000666": "en-US/train/0000.parquet:3565:utt",
+    "hwu64:test:test000667": "en-US/train/0000.parquet:808:utt",
+    "hwu64:test:test000668": "en-US/test/0000.parquet:616:utt",
+    "hwu64:test:test000669": "en-US/test/0000.parquet:654:utt",
+    "hwu64:test:test000671": "en-US/train/0000.parquet:191:utt",
+    "hwu64:test:test000672": "en-US/test/0000.parquet:219:utt",
+    "hwu64:test:test000673": "en-US/validation/0000.parquet:152:utt",
+    "hwu64:test:test000674": "en-US/train/0000.parquet:6579:utt",
+    "hwu64:test:test000676": "en-US/test/0000.parquet:1673:utt",
+    "hwu64:test:test000678": "en-US/train/0000.parquet:6535:utt",
+    "hwu64:test:test000680": "en-US/test/0000.parquet:1677:utt",
+    "hwu64:test:test000683": "en-US/train/0000.parquet:6648:utt",
+    "hwu64:test:test000685": "en-US/train/0000.parquet:6655:utt",
+    "hwu64:test:test000686": "en-US/validation/0000.parquet:1158:utt",
+    "hwu64:test:test000687": "en-US/validation/0000.parquet:1135:utt",
+    "hwu64:test:test000688": "en-US/validation/0000.parquet:1142:utt",
+    "hwu64:test:test000689": "en-US/train/0000.parquet:6547:utt",
+    "hwu64:test:test000690": "en-US/train/0000.parquet:6533:utt",
+    "hwu64:test:test000692": "en-US/test/0000.parquet:1672:utt",
+    "hwu64:test:test000693": "en-US/train/0000.parquet:6954:utt",
+    "hwu64:test:test000694": "en-US/train/0000.parquet:7003:utt",
+    "hwu64:test:test000695": "en-US/train/0000.parquet:6982:utt",
+    "hwu64:test:test000696": "en-US/train/0000.parquet:6943:utt",
+    "hwu64:test:test000699": "en-US/train/0000.parquet:6993:utt",
+    "hwu64:test:test000702": "en-US/train/0000.parquet:6972:utt",
+    "hwu64:test:test000704": "en-US/test/0000.parquet:1813:utt",
+    "hwu64:test:test000705": "en-US/train/0000.parquet:6902:utt",
+    "hwu64:test:test000706": "en-US/train/0000.parquet:6978:utt",
+    "hwu64:test:test000707": "en-US/test/0000.parquet:1809:utt",
+    "hwu64:test:test000708": "en-US/train/0000.parquet:6933:utt",
+    "hwu64:test:test000709": "en-US/train/0000.parquet:6942:utt",
+    "hwu64:test:test000710": "en-US/train/0000.parquet:6986:utt",
+    "hwu64:test:test000712": "en-US/train/0000.parquet:480:utt",
+    "hwu64:test:test000714": "en-US/train/0000.parquet:2846:utt",
+    "hwu64:test:test000718": "en-US/train/0000.parquet:4130:utt",
+    "hwu64:test:test000720": "en-US/validation/0000.parquet:656:utt",
+    "hwu64:test:test000721": "en-US/train/0000.parquet:2113:utt",
+    "hwu64:test:test000722": "en-US/train/0000.parquet:1993:utt",
+    "hwu64:test:test000723": "en-US/train/0000.parquet:3389:utt",
+    "hwu64:test:test000724": "en-US/train/0000.parquet:3821:utt",
+    "hwu64:test:test000725": "en-US/train/0000.parquet:1899:utt",
+    "hwu64:test:test000726": "en-US/train/0000.parquet:4117:utt",
+    "hwu64:test:test000728": "en-US/train/0000.parquet:2548:utt",
+    "hwu64:test:test000730": "en-US/train/0000.parquet:3361:utt",
+    "hwu64:test:test000732": "en-US/test/0000.parquet:1978:utt",
+    "hwu64:test:test000736": "en-US/train/0000.parquet:7708:utt",
+    "hwu64:test:test000737": "en-US/train/0000.parquet:7749:utt",
+    "hwu64:test:test000741": "en-US/train/0000.parquet:7658:utt",
+    "hwu64:test:test000742": "en-US/train/0000.parquet:7723:utt",
+    "hwu64:test:test000744": "en-US/train/0000.parquet:7622:utt",
+    "hwu64:test:test000745": "en-US/test/0000.parquet:1992:utt",
+    "hwu64:test:test000749": "en-US/test/0000.parquet:1989:utt",
+    "hwu64:test:test000751": "en-US/validation/0000.parquet:1094:utt",
+    "hwu64:test:test000753": "en-US/train/0000.parquet:6410:utt",
+    "hwu64:test:test000760": "en-US/train/0000.parquet:6341:utt",
+    "hwu64:test:test000761": "en-US/validation/0000.parquet:1108:utt",
+    "hwu64:test:test000762": "en-US/train/0000.parquet:6351:utt",
+    "hwu64:test:test000763": "en-US/train/0000.parquet:6398:utt",
+    "hwu64:test:test000765": "en-US/train/0000.parquet:6414:utt",
+    "hwu64:test:test000766": "en-US/train/0000.parquet:6244:utt",
+    "hwu64:test:test000767": "en-US/train/0000.parquet:6242:utt",
+    "hwu64:test:test000768": "en-US/train/0000.parquet:6250:utt",
+    "hwu64:test:test000769": "en-US/test/0000.parquet:2351:utt",
+    "hwu64:test:test000774": "en-US/train/0000.parquet:9124:utt",
+    "hwu64:test:test000776": "en-US/test/0000.parquet:2489:utt",
+    "hwu64:test:test000777": "en-US/train/0000.parquet:9856:utt",
+    "hwu64:test:test000778": "en-US/train/0000.parquet:9912:utt",
+    "hwu64:test:test000780": "en-US/test/0000.parquet:2446:utt",
+    "hwu64:test:test000781": "en-US/train/0000.parquet:9131:utt",
+    "hwu64:test:test000782": "en-US/train/0000.parquet:9700:utt",
+    "hwu64:test:test000783": "en-US/train/0000.parquet:9259:utt",
+    "hwu64:test:test000784": "en-US/train/0000.parquet:9353:utt",
+    "hwu64:test:test000786": "en-US/train/0000.parquet:9692:utt",
+    "hwu64:test:test000787": "en-US/train/0000.parquet:9257:utt",
+    "hwu64:test:test000790": "en-US/train/0000.parquet:8901:utt",
+    "hwu64:test:test000792": "en-US/train/0000.parquet:9478:utt",
+    "hwu64:test:test000793": "en-US/validation/0000.parquet:1644:utt",
+    "hwu64:test:test000794": "en-US/train/0000.parquet:9006:utt",
+    "hwu64:test:test000798": "en-US/train/0000.parquet:9496:utt",
+    "hwu64:test:test000802": "en-US/validation/0000.parquet:1770:utt",
+    "hwu64:test:test000806": "en-US/train/0000.parquet:9626:utt",
+    "hwu64:test:test000808": "en-US/test/0000.parquet:1583:utt",
+    "hwu64:test:test000809": "en-US/train/0000.parquet:9086:utt",
+    "hwu64:test:test000811": "en-US/train/0000.parquet:9204:utt",
+    "hwu64:test:test000814": "en-US/train/0000.parquet:9709:utt",
+    "hwu64:test:test000815": "en-US/train/0000.parquet:8912:utt",
+    "hwu64:test:test000816": "en-US/train/0000.parquet:9514:utt",
+    "hwu64:test:test000817": "en-US/test/0000.parquet:2583:utt",
+    "hwu64:test:test000819": "en-US/train/0000.parquet:10029:utt",
+    "hwu64:test:test000820": "en-US/test/0000.parquet:2584:utt",
+    "hwu64:test:test000821": "en-US/validation/0000.parquet:1575:utt",
+    "hwu64:test:test000822": "en-US/test/0000.parquet:2418:utt",
+    "hwu64:test:test000823": "en-US/train/0000.parquet:9045:utt",
+    "hwu64:test:test000824": "en-US/train/0000.parquet:9360:utt",
+    "hwu64:test:test000825": "en-US/train/0000.parquet:8821:utt",
+    "hwu64:test:test000826": "en-US/test/0000.parquet:2370:utt",
+    "hwu64:test:test000828": "en-US/test/0000.parquet:2520:utt",
+    "hwu64:test:test000829": "en-US/test/0000.parquet:2253:utt",
+    "hwu64:test:test000830": "en-US/train/0000.parquet:9799:utt",
+    "hwu64:test:test000831": "en-US/train/0000.parquet:9560:utt",
+    "hwu64:test:test000833": "en-US/train/0000.parquet:8739:utt",
+    "hwu64:test:test000834": "en-US/validation/0000.parquet:1696:utt",
+    "hwu64:test:test000835": "en-US/train/0000.parquet:9273:utt",
+    "hwu64:test:test000836": "en-US/train/0000.parquet:8898:utt",
+    "hwu64:test:test000837": "en-US/train/0000.parquet:9728:utt",
+    "hwu64:test:test000838": "en-US/train/0000.parquet:9026:utt",
+    "hwu64:test:test000843": "en-US/train/0000.parquet:9329:utt",
+    "hwu64:test:test000845": "en-US/train/0000.parquet:9800:utt",
+    "hwu64:test:test000846": "en-US/test/0000.parquet:2383:utt",
+    "hwu64:test:test000848": "en-US/train/0000.parquet:9211:utt",
+    "hwu64:test:test000849": "en-US/train/0000.parquet:10128:utt",
+    "hwu64:test:test000850": "en-US/train/0000.parquet:9811:utt",
+    "hwu64:test:test000851": "en-US/train/0000.parquet:9933:utt",
+    "hwu64:test:test000852": "en-US/train/0000.parquet:9884:utt",
+    "hwu64:test:test000854": "en-US/validation/0000.parquet:1705:utt",
+    "hwu64:test:test000857": "en-US/train/0000.parquet:10002:utt",
+    "hwu64:test:test000859": "en-US/train/0000.parquet:5671:utt",
+    "hwu64:test:test000860": "en-US/train/0000.parquet:8130:utt",
+    "hwu64:test:test000861": "en-US/train/0000.parquet:8117:utt",
+    "hwu64:test:test000863": "en-US/test/0000.parquet:2051:utt",
+    "hwu64:test:test000865": "en-US/train/0000.parquet:8100:utt",
+    "hwu64:test:test000866": "en-US/train/0000.parquet:7975:utt",
+    "hwu64:test:test000872": "en-US/test/0000.parquet:2035:utt",
+    "hwu64:test:test000873": "en-US/train/0000.parquet:7849:utt",
+    "hwu64:test:test000874": "en-US/test/0000.parquet:2104:utt",
+    "hwu64:test:test000876": "en-US/train/0000.parquet:7984:utt",
+    "hwu64:test:test000877": "en-US/test/0000.parquet:2033:utt",
+    "hwu64:test:test000878": "en-US/train/0000.parquet:8087:utt",
+    "hwu64:test:test000879": "en-US/validation/0000.parquet:1387:utt",
+    "hwu64:test:test000880": "en-US/train/0000.parquet:7800:utt",
+    "hwu64:test:test000883": "en-US/train/0000.parquet:8623:utt",
+    "hwu64:test:test000884": "en-US/test/0000.parquet:2105:utt",
+    "hwu64:test:test000885": "en-US/train/0000.parquet:8035:utt",
+    "hwu64:test:test000886": "en-US/validation/0000.parquet:1418:utt",
+    "hwu64:test:test000887": "en-US/train/0000.parquet:8008:utt",
+    "hwu64:test:test000888": "en-US/train/0000.parquet:7905:utt",
+    "hwu64:test:test000890": "en-US/train/0000.parquet:8923:utt",
+    "hwu64:test:test000894": "en-US/train/0000.parquet:7904:utt",
+    "hwu64:test:test000896": "en-US/train/0000.parquet:7930:utt",
+    "hwu64:test:test000897": "en-US/train/0000.parquet:7993:utt",
+    "hwu64:test:test000898": "en-US/train/0000.parquet:7804:utt",
+    "hwu64:test:test000899": "en-US/validation/0000.parquet:1389:utt",
+    "hwu64:test:test000901": "en-US/train/0000.parquet:7961:utt",
+    "hwu64:test:test000903": "en-US/test/0000.parquet:2076:utt",
+    "hwu64:test:test000904": "en-US/train/0000.parquet:7972:utt",
+    "hwu64:test:test000905": "en-US/test/0000.parquet:2075:utt",
+    "hwu64:test:test000910": "en-US/validation/0000.parquet:1868:utt",
+    "hwu64:test:test000911": "en-US/train/0000.parquet:10530:utt",
+    "hwu64:test:test000912": "en-US/validation/0000.parquet:1849:utt",
+    "hwu64:test:test000913": "en-US/test/0000.parquet:2692:utt",
+    "hwu64:test:test000915": "en-US/test/0000.parquet:2696:utt",
+    "hwu64:test:test000916": "en-US/train/0000.parquet:10373:utt",
+    "hwu64:test:test000917": "en-US/train/0000.parquet:10496:utt",
+    "hwu64:test:test000918": "en-US/train/0000.parquet:10428:utt",
+    "hwu64:test:test000920": "en-US/train/0000.parquet:10552:utt",
+    "hwu64:test:test000926": "en-US/test/0000.parquet:2633:utt",
+    "hwu64:test:test000928": "en-US/train/0000.parquet:10356:utt",
+    "hwu64:test:test000929": "en-US/train/0000.parquet:10206:utt",
+    "hwu64:test:test000930": "en-US/test/0000.parquet:2632:utt",
+    "hwu64:test:test000931": "en-US/test/0000.parquet:2622:utt",
+    "hwu64:test:test000932": "en-US/validation/0000.parquet:1810:utt",
+    "hwu64:test:test000933": "en-US/train/0000.parquet:10357:utt",
+    "hwu64:test:test000934": "en-US/test/0000.parquet:2615:utt",
+    "hwu64:test:test000935": "en-US/train/0000.parquet:10237:utt",
+    "hwu64:test:test000936": "en-US/train/0000.parquet:10177:utt",
+    "hwu64:test:test000938": "en-US/train/0000.parquet:10261:utt",
+    "hwu64:test:test000939": "en-US/train/0000.parquet:10444:utt",
+    "hwu64:test:test000940": "en-US/train/0000.parquet:10333:utt",
+    "hwu64:test:test000941": "en-US/train/0000.parquet:10293:utt",
+    "hwu64:test:test000942": "en-US/train/0000.parquet:10166:utt",
+    "hwu64:test:test000943": "en-US/train/0000.parquet:10170:utt",
+    "hwu64:test:test000944": "en-US/train/0000.parquet:2636:utt",
+    "hwu64:test:test000946": "en-US/train/0000.parquet:1723:utt",
+    "hwu64:test:test000947": "en-US/validation/0000.parquet:430:utt",
+    "hwu64:test:test000949": "en-US/train/0000.parquet:2605:utt",
+    "hwu64:test:test000950": "en-US/train/0000.parquet:1668:utt",
+    "hwu64:test:test000951": "en-US/train/0000.parquet:4120:utt",
+    "hwu64:test:test000952": "en-US/validation/0000.parquet:700:utt",
+    "hwu64:test:test000955": "en-US/train/0000.parquet:993:utt",
+    "hwu64:test:test000956": "en-US/train/0000.parquet:8973:utt",
+    "hwu64:test:test000958": "en-US/train/0000.parquet:435:utt",
+    "hwu64:test:test000959": "en-US/train/0000.parquet:1614:utt",
+    "hwu64:test:test000960": "en-US/train/0000.parquet:207:utt",
+    "hwu64:test:test000962": "en-US/train/0000.parquet:1038:utt",
+    "hwu64:test:test000963": "en-US/train/0000.parquet:2743:utt",
+    "hwu64:test:test000964": "en-US/test/0000.parquet:943:utt",
+    "hwu64:test:test000965": "en-US/test/0000.parquet:212:utt",
+    "hwu64:test:test000966": "en-US/train/0000.parquet:3769:utt",
+    "hwu64:test:test000967": "en-US/train/0000.parquet:1400:utt",
+    "hwu64:test:test000968": "en-US/train/0000.parquet:3126:utt",
+    "hwu64:test:test000969": "en-US/test/0000.parquet:505:utt",
+    "hwu64:test:test000971": "en-US/validation/0000.parquet:705:utt",
+    "hwu64:test:test000972": "en-US/train/0000.parquet:3590:utt",
+    "hwu64:test:test000973": "en-US/test/0000.parquet:29:utt",
+    "hwu64:test:test000976": "en-US/train/0000.parquet:2222:utt",
+    "hwu64:test:test000977": "en-US/test/0000.parquet:31:utt",
+    "hwu64:test:test000978": "en-US/train/0000.parquet:1948:utt",
+    "hwu64:test:test000981": "en-US/test/0000.parquet:30:utt",
+    "hwu64:test:test000982": "en-US/train/0000.parquet:8412:utt",
+    "hwu64:test:test000984": "en-US/validation/0000.parquet:1487:utt",
+    "hwu64:test:test000985": "en-US/validation/0000.parquet:1539:utt",
+    "hwu64:test:test000987": "en-US/train/0000.parquet:8386:utt",
+    "hwu64:test:test000988": "en-US/train/0000.parquet:8571:utt",
+    "hwu64:test:test000990": "en-US/test/0000.parquet:2139:utt",
+    "hwu64:test:test000991": "en-US/train/0000.parquet:8252:utt",
+    "hwu64:test:test000995": "en-US/train/0000.parquet:8469:utt",
+    "hwu64:test:test000997": "en-US/train/0000.parquet:8421:utt",
+    "hwu64:test:test001000": "en-US/train/0000.parquet:8503:utt",
+    "hwu64:test:test001002": "en-US/train/0000.parquet:8590:utt",
+    "hwu64:test:test001004": "en-US/train/0000.parquet:8389:utt",
+    "hwu64:test:test001008": "en-US/train/0000.parquet:8563:utt",
+    "hwu64:test:test001011": "en-US/train/0000.parquet:8437:utt",
+    "hwu64:test:test001012": "en-US/train/0000.parquet:8149:utt",
+    "hwu64:test:test001013": "en-US/train/0000.parquet:8501:utt",
+    "hwu64:test:test001016": "en-US/train/0000.parquet:8656:utt",
+    "hwu64:test:test001018": "en-US/train/0000.parquet:8348:utt",
+    "hwu64:test:test001019": "en-US/validation/0000.parquet:1500:utt",
+    "hwu64:test:test001022": "en-US/train/0000.parquet:8462:utt",
+    "hwu64:test:test001023": "en-US/test/0000.parquet:2142:utt",
+    "hwu64:test:test001024": "en-US/train/0000.parquet:8204:utt",
+    "hwu64:test:test001027": "en-US/train/0000.parquet:8369:utt",
+    "hwu64:test:test001028": "en-US/test/0000.parquet:2135:utt",
+    "hwu64:test:test001029": "en-US/train/0000.parquet:8478:utt",
+    "hwu64:test:test001030": "en-US/validation/0000.parquet:1517:utt",
+    "hwu64:test:test001032": "en-US/train/0000.parquet:8414:utt",
+    "hwu64:test:test001033": "en-US/train/0000.parquet:8586:utt",
+    "hwu64:test:test001035": "en-US/test/0000.parquet:2199:utt",
+    "hwu64:test:test001036": "en-US/validation/0000.parquet:1535:utt",
+    "hwu64:test:test001037": "en-US/validation/0000.parquet:1529:utt",
+    "hwu64:test:test001039": "en-US/test/0000.parquet:2188:utt",
+    "hwu64:test:test001041": "en-US/train/0000.parquet:8664:utt",
+    "hwu64:test:test001042": "en-US/train/0000.parquet:8447:utt",
+    "hwu64:test:test001043": "en-US/train/0000.parquet:8173:utt",
+    "hwu64:test:test001044": "en-US/train/0000.parquet:8300:utt",
+    "hwu64:test:test001045": "en-US/train/0000.parquet:8353:utt",
+    "hwu64:test:test001046": "en-US/train/0000.parquet:8608:utt",
+    "hwu64:test:test001047": "en-US/train/0000.parquet:8280:utt",
+    "hwu64:test:test001048": "en-US/train/0000.parquet:4397:utt",
+    "hwu64:test:test001049": "en-US/validation/0000.parquet:1509:utt",
+    "hwu64:test:test001050": "en-US/train/0000.parquet:8181:utt",
+    "hwu64:test:test001051": "en-US/train/0000.parquet:8554:utt",
+    "hwu64:test:test001052": "en-US/train/0000.parquet:8288:utt",
+    "hwu64:test:test001053": "en-US/train/0000.parquet:8276:utt",
+    "hwu64:test:test001054": "en-US/test/0000.parquet:2118:utt",
+    "hwu64:test:test001056": "en-US/train/0000.parquet:8380:utt",
+    "hwu64:test:test001058": "en-US/train/0000.parquet:4082:utt",
+    "hwu64:test:test001059": "en-US/train/0000.parquet:4076:utt",
+    "hwu64:test:test001061": "en-US/test/0000.parquet:800:utt",
+    "hwu64:test:test001062": "en-US/train/0000.parquet:3803:utt",
+    "hwu64:test:test001063": "en-US/train/0000.parquet:517:utt",
+    "hwu64:test:test001065": "en-US/train/0000.parquet:5162:utt",
+    "hwu64:test:test001067": "en-US/test/0000.parquet:1033:utt",
+    "hwu64:test:test001068": "en-US/train/0000.parquet:3039:utt",
+    "hwu64:test:test001069": "en-US/train/0000.parquet:483:utt",
+    "hwu64:test:test001071": "en-US/train/0000.parquet:886:utt",
+    "hwu64:test:test001073": "en-US/train/0000.parquet:4118:utt",
+    "hwu64:test:test001074": "en-US/train/0000.parquet:9643:utt"
+   },
+   "exact_short": {
+    "hwu64:test:test000002": "en-US/test/0000.parquet:153:utt",
+    "hwu64:test:test000020": "en-US/train/0000.parquet:2027:utt",
+    "hwu64:test:test000026": "en-US/test/0000.parquet:500:utt",
+    "hwu64:test:test000032": "en-US/test/0000.parquet:983:utt",
+    "hwu64:test:test000050": "en-US/train/0000.parquet:3349:utt",
+    "hwu64:test:test000053": "en-US/train/0000.parquet:388:utt",
+    "hwu64:test:test000054": "en-US/test/0000.parquet:979:utt",
+    "hwu64:test:test000057": "en-US/train/0000.parquet:323:utt",
+    "hwu64:test:test000061": "en-US/train/0000.parquet:2349:utt",
+    "hwu64:test:test000065": "en-US/validation/0000.parquet:403:utt",
+    "hwu64:test:test000068": "en-US/test/0000.parquet:658:utt",
+    "hwu64:test:test000073": "en-US/train/0000.parquet:1121:utt",
+    "hwu64:test:test000078": "en-US/train/0000.parquet:1330:utt",
+    "hwu64:test:test000082": "en-US/validation/0000.parquet:406:utt",
+    "hwu64:test:test000105": "en-US/train/0000.parquet:5381:utt",
+    "hwu64:test:test000115": "en-US/train/0000.parquet:6003:utt",
+    "hwu64:test:test000118": "en-US/train/0000.parquet:4760:utt",
+    "hwu64:test:test000144": "en-US/train/0000.parquet:6884:utt",
+    "hwu64:test:test000170": "en-US/test/0000.parquet:307:utt",
+    "hwu64:test:test000171": "en-US/train/0000.parquet:1778:utt",
+    "hwu64:test:test000198": "en-US/train/0000.parquet:11432:utt",
+    "hwu64:test:test000200": "en-US/train/0000.parquet:10738:utt",
+    "hwu64:test:test000214": "en-US/test/0000.parquet:2900:utt",
+    "hwu64:test:test000226": "en-US/train/0000.parquet:10799:utt",
+    "hwu64:test:test000351": "en-US/train/0000.parquet:3325:utt",
+    "hwu64:test:test000402": "en-US/train/0000.parquet:4473:utt",
+    "hwu64:test:test000439": "en-US/train/0000.parquet:1075:utt",
+    "hwu64:test:test000445": "en-US/train/0000.parquet:3773:utt",
+    "hwu64:test:test000447": "en-US/train/0000.parquet:1328:utt",
+    "hwu64:test:test000463": "en-US/test/0000.parquet:744:utt",
+    "hwu64:test:test000479": "en-US/test/0000.parquet:112:utt",
+    "hwu64:test:test000495": "en-US/test/0000.parquet:28:utt",
+    "hwu64:test:test000500": "en-US/train/0000.parquet:433:utt",
+    "hwu64:test:test000524": "en-US/validation/0000.parquet:489:utt",
+    "hwu64:test:test000525": "en-US/train/0000.parquet:197:utt",
+    "hwu64:test:test000534": "en-US/test/0000.parquet:643:utt",
+    "hwu64:test:test000537": "en-US/test/0000.parquet:298:utt",
+    "hwu64:test:test000557": "en-US/test/0000.parquet:1931:utt",
+    "hwu64:test:test000561": "en-US/test/0000.parquet:1853:utt",
+    "hwu64:test:test000563": "en-US/train/0000.parquet:7285:utt",
+    "hwu64:test:test000570": "en-US/train/0000.parquet:7183:utt",
+    "hwu64:test:test000573": "en-US/test/0000.parquet:1949:utt",
+    "hwu64:test:test000578": "en-US/train/0000.parquet:7451:utt",
+    "hwu64:test:test000584": "en-US/test/0000.parquet:1999:utt",
+    "hwu64:test:test000593": "en-US/train/0000.parquet:7257:utt",
+    "hwu64:test:test000607": "en-US/test/0000.parquet:1824:utt",
+    "hwu64:test:test000608": "en-US/train/0000.parquet:7165:utt",
+    "hwu64:test:test000618": "en-US/train/0000.parquet:97:utt",
+    "hwu64:test:test000638": "en-US/test/0000.parquet:401:utt",
+    "hwu64:test:test000640": "en-US/train/0000.parquet:3611:utt",
+    "hwu64:test:test000648": "en-US/train/0000.parquet:74:utt",
+    "hwu64:test:test000651": "en-US/train/0000.parquet:3584:utt",
+    "hwu64:test:test000653": "en-US/train/0000.parquet:623:utt",
+    "hwu64:test:test000675": "en-US/train/0000.parquet:6592:utt",
+    "hwu64:test:test000677": "en-US/train/0000.parquet:6672:utt",
+    "hwu64:test:test000682": "en-US/test/0000.parquet:1682:utt",
+    "hwu64:test:test000684": "en-US/train/0000.parquet:6641:utt",
+    "hwu64:test:test000691": "en-US/train/0000.parquet:6543:utt",
+    "hwu64:test:test000698": "en-US/test/0000.parquet:1800:utt",
+    "hwu64:test:test000703": "en-US/validation/0000.parquet:1201:utt",
+    "hwu64:test:test000717": "en-US/test/0000.parquet:929:utt",
+    "hwu64:test:test000719": "en-US/test/0000.parquet:535:utt",
+    "hwu64:test:test000735": "en-US/validation/0000.parquet:1338:utt",
+    "hwu64:test:test000738": "en-US/train/0000.parquet:7707:utt",
+    "hwu64:test:test000743": "en-US/test/0000.parquet:1987:utt",
+    "hwu64:test:test000746": "en-US/train/0000.parquet:7651:utt",
+    "hwu64:test:test000747": "en-US/train/0000.parquet:7633:utt",
+    "hwu64:test:test000750": "en-US/train/0000.parquet:6296:utt",
+    "hwu64:test:test000752": "en-US/train/0000.parquet:6243:utt",
+    "hwu64:test:test000788": "en-US/test/0000.parquet:2231:utt",
+    "hwu64:test:test000795": "en-US/train/0000.parquet:9123:utt",
+    "hwu64:test:test000797": "en-US/train/0000.parquet:8853:utt",
+    "hwu64:test:test000801": "en-US/test/0000.parquet:2357:utt",
+    "hwu64:test:test000803": "en-US/test/0000.parquet:2393:utt",
+    "hwu64:test:test000818": "en-US/train/0000.parquet:9806:utt",
+    "hwu64:test:test000892": "en-US/train/0000.parquet:8309:utt",
+    "hwu64:test:test000914": "en-US/train/0000.parquet:10502:utt",
+    "hwu64:test:test000922": "en-US/train/0000.parquet:10348:utt",
+    "hwu64:test:test000974": "en-US/validation/0000.parquet:209:utt",
+    "hwu64:test:test000983": "en-US/test/0000.parquet:2193:utt",
+    "hwu64:test:test000986": "en-US/test/0000.parquet:2219:utt",
+    "hwu64:test:test001003": "en-US/test/0000.parquet:2144:utt",
+    "hwu64:test:test001006": "en-US/train/0000.parquet:8282:utt",
+    "hwu64:test:test001007": "en-US/validation/0000.parquet:1471:utt",
+    "hwu64:test:test001017": "en-US/train/0000.parquet:8668:utt"
+   },
+   "near": {
+    "hwu64:test:test000019": [
+     "en-US/train/0000.parquet:3817:utt",
+     0.9504
+    ],
+    "hwu64:test:test000044": [
+     "en-US/train/0000.parquet:4664:utt",
+     0.9738
+    ],
+    "hwu64:test:test000046": [
+     "en-US/train/0000.parquet:5318:utt",
+     0.9611
+    ],
+    "hwu64:test:test000087": [
+     "en-US/train/0000.parquet:5227:utt",
+     0.9283
+    ],
+    "hwu64:test:test000097": [
+     "en-US/test/0000.parquet:1424:utt",
+     0.9725
+    ],
+    "hwu64:test:test000109": [
+     "en-US/train/0000.parquet:5706:utt",
+     0.9271
+    ],
+    "hwu64:test:test000114": [
+     "en-US/train/0000.parquet:5707:utt",
+     0.9562
+    ],
+    "hwu64:test:test000137": [
+     "en-US/train/0000.parquet:5116:utt",
+     0.9449
+    ],
+    "hwu64:test:test000145": [
+     "en-US/train/0000.parquet:6743:utt",
+     0.9293
+    ],
+    "hwu64:test:test000161": [
+     "en-US/validation/0000.parquet:111:utt",
+     0.9695
+    ],
+    "hwu64:test:test000162": [
+     "en-US/train/0000.parquet:1028:utt",
+     0.9586
+    ],
+    "hwu64:test:test000398": [
+     "en-US/train/0000.parquet:4485:utt",
+     0.9321
+    ],
+    "hwu64:test:test000469": [
+     "en-US/train/0000.parquet:528:utt",
+     0.9661
+    ],
+    "hwu64:test:test000476": [
+     "en-US/train/0000.parquet:2576:utt",
+     0.9354
+    ],
+    "hwu64:test:test000477": [
+     "en-US/train/0000.parquet:3863:utt",
+     0.9247
+    ],
+    "hwu64:test:test000482": [
+     "en-US/train/0000.parquet:969:utt",
+     0.9354
+    ],
+    "hwu64:test:test000491": [
+     "en-US/test/0000.parquet:901:utt",
+     0.9733
+    ],
+    "hwu64:test:test000757": [
+     "en-US/train/0000.parquet:6500:utt",
+     0.9326
+    ],
+    "hwu64:test:test000759": [
+     "en-US/train/0000.parquet:6448:utt",
+     0.9456
+    ],
+    "hwu64:test:test000842": [
+     "en-US/train/0000.parquet:9530:utt",
+     0.9428
+    ],
+    "hwu64:test:test000844": [
+     "en-US/train/0000.parquet:9531:utt",
+     0.901
+    ],
+    "hwu64:test:test000871": [
+     "en-US/train/0000.parquet:7878:utt",
+     0.9722
+    ],
+    "hwu64:test:test000889": [
+     "en-US/validation/0000.parquet:1426:utt",
+     0.9549
+    ],
+    "hwu64:test:test000895": [
+     "en-US/validation/0000.parquet:1432:utt",
+     0.9553
+    ],
+    "hwu64:test:test000907": [
+     "en-US/train/0000.parquet:10316:utt",
+     0.959
+    ],
+    "hwu64:test:test000919": [
+     "en-US/validation/0000.parquet:1870:utt",
+     0.9142
+    ],
+    "hwu64:test:test000961": [
+     "en-US/train/0000.parquet:2979:utt",
+     0.968
+    ],
+    "hwu64:test:test000979": [
+     "en-US/train/0000.parquet:2450:utt",
+     0.9718
+    ],
+    "hwu64:test:test001010": [
+     "en-US/validation/0000.parquet:1484:utt",
+     0.9601
+    ],
+    "hwu64:test:test001021": [
+     "en-US/test/0000.parquet:2122:utt",
+     0.9436
+    ],
+    "hwu64:test:test001025": [
+     "en-US/train/0000.parquet:8336:utt",
+     0.9657
+    ],
+    "hwu64:test:test001064": [
+     "en-US/train/0000.parquet:3906:utt",
+     0.9722
+    ]
+   }
+  },
+  {
+   "dataset": "fpb",
+   "reference": "massive_en_us",
+   "exposure": "Nimble evaluation (not training); HWU64/SLURP lineage",
+   "n_test": 970,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "hatexplain",
+   "reference": "massive_en_us",
+   "exposure": "Nimble evaluation (not training); HWU64/SLURP lineage",
+   "n_test": 1924,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "trec6",
+   "reference": "massive_en_us",
+   "exposure": "Nimble evaluation (not training); HWU64/SLURP lineage",
+   "n_test": 500,
+   "n_exact": 2,
+   "n_exact_short": 0,
+   "n_near": 2,
+   "near_dup_pass": true,
+   "exact": {
+    "trec6:test:test000031": "en-US/test/0000.parquet:2424:utt",
+    "trec6:test:test000228": "en-US/train/0000.parquet:9243:utt"
+   },
+   "exact_short": {},
+   "near": {
+    "trec6:test:test000328": [
+     "en-US/train/0000.parquet:9393:utt",
+     0.9918
+    ],
+    "trec6:test:test000399": [
+     "en-US/train/0000.parquet:9183:utt",
+     0.923
+    ]
+   }
+  },
+  {
+   "dataset": "clinc150",
+   "reference": "banking77",
+   "exposure": "Tev1 training; Nimble training (2000 rows)",
+   "n_test": 4500,
+   "n_exact": 0,
+   "n_exact_short": 1,
+   "n_near": 1,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {
+    "clinc150:test:test004485": "test.csv:1807:text"
+   },
+   "near": {
+    "clinc150:test:test002128": [
+     "train.csv:1513:text",
+     0.9014
+    ]
+   }
+  },
+  {
+   "dataset": "hwu64",
+   "reference": "banking77",
+   "exposure": "Tev1 training; Nimble training (2000 rows)",
+   "n_test": 1076,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "fpb",
+   "reference": "banking77",
+   "exposure": "Tev1 training; Nimble training (2000 rows)",
+   "n_test": 970,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "hatexplain",
+   "reference": "banking77",
+   "exposure": "Tev1 training; Nimble training (2000 rows)",
+   "n_test": 1924,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "trec6",
+   "reference": "banking77",
+   "exposure": "Tev1 training; Nimble training (2000 rows)",
+   "n_test": 500,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "clinc150",
+   "reference": "ag_news",
+   "exposure": "Tev1 training; Nimble training (500 rows)",
+   "n_test": 4500,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "hwu64",
+   "reference": "ag_news",
+   "exposure": "Tev1 training; Nimble training (500 rows)",
+   "n_test": 1076,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "fpb",
+   "reference": "ag_news",
+   "exposure": "Tev1 training; Nimble training (500 rows)",
+   "n_test": 970,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 1,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {
+    "fpb:test:test000260": [
+     "data/train-00000-of-00001.parquet:1820:text",
+     0.9377
+    ]
+   }
+  },
+  {
+   "dataset": "hatexplain",
+   "reference": "ag_news",
+   "exposure": "Tev1 training; Nimble training (500 rows)",
+   "n_test": 1924,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "trec6",
+   "reference": "ag_news",
+   "exposure": "Tev1 training; Nimble training (500 rows)",
+   "n_test": 500,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "clinc150",
+   "reference": "sst5",
+   "exposure": "Tev1 training",
+   "n_test": 4500,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "hwu64",
+   "reference": "sst5",
+   "exposure": "Tev1 training",
+   "n_test": 1076,
+   "n_exact": 0,
+   "n_exact_short": 1,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {
+    "hwu64:test:test000618": "train.jsonl:1703:text"
+   },
+   "near": {}
+  },
+  {
+   "dataset": "fpb",
+   "reference": "sst5",
+   "exposure": "Tev1 training",
+   "n_test": 970,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "hatexplain",
+   "reference": "sst5",
+   "exposure": "Tev1 training",
+   "n_test": 1924,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "trec6",
+   "reference": "sst5",
+   "exposure": "Tev1 training",
+   "n_test": 500,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "clinc150",
+   "reference": "boolq",
+   "exposure": "Tev1 training; Nimble training (500 rows)",
+   "n_test": 4500,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "hwu64",
+   "reference": "boolq",
+   "exposure": "Tev1 training; Nimble training (500 rows)",
+   "n_test": 1076,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "fpb",
+   "reference": "boolq",
+   "exposure": "Tev1 training; Nimble training (500 rows)",
+   "n_test": 970,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "hatexplain",
+   "reference": "boolq",
+   "exposure": "Tev1 training; Nimble training (500 rows)",
+   "n_test": 1924,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "trec6",
+   "reference": "boolq",
+   "exposure": "Tev1 training; Nimble training (500 rows)",
+   "n_test": 500,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": true,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "clinc150",
+   "reference": "multi_nli",
+   "exposure": "Tev1 training; Nimble training (1000 rows)",
+   "n_test": 4500,
+   "n_exact": 27,
+   "n_exact_short": 32,
+   "n_near": 0,
+   "near_dup_pass": false,
+   "exact": {
+    "clinc150:test:test000435": "data/train-00000-of-00001.parquet:373954:hypothesis",
+    "clinc150:test:test000576": "data/train-00000-of-00001.parquet:259466:hypothesis",
+    "clinc150:test:test000671": "data/train-00000-of-00001.parquet:13650:hypothesis",
+    "clinc150:test:test000676": "data/train-00000-of-00001.parquet:340661:hypothesis",
+    "clinc150:test:test000678": "data/train-00000-of-00001.parquet:36074:premise",
+    "clinc150:test:test001301": "data/train-00000-of-00001.parquet:241638:hypothesis",
+    "clinc150:test:test001307": "data/train-00000-of-00001.parquet:210115:hypothesis",
+    "clinc150:test:test001316": "data/train-00000-of-00001.parquet:220275:hypothesis",
+    "clinc150:test:test001590": "data/train-00000-of-00001.parquet:98988:hypothesis",
+    "clinc150:test:test001595": "data/validation_matched-00000-of-00001.parquet:8325:hypothesis",
+    "clinc150:test:test001598": "data/train-00000-of-00001.parquet:21595:hypothesis",
+    "clinc150:test:test001602": "data/train-00000-of-00001.parquet:213670:hypothesis",
+    "clinc150:test:test001959": "data/validation_matched-00000-of-00001.parquet:529:hypothesis",
+    "clinc150:test:test001970": "data/train-00000-of-00001.parquet:63059:premise",
+    "clinc150:test:test001973": "data/train-00000-of-00001.parquet:76918:hypothesis",
+    "clinc150:test:test002470": "data/train-00000-of-00001.parquet:45090:hypothesis",
+    "clinc150:test:test002722": "data/train-00000-of-00001.parquet:8599:premise",
+    "clinc150:test:test002899": "data/train-00000-of-00001.parquet:68114:hypothesis",
+    "clinc150:test:test002902": "data/train-00000-of-00001.parquet:263621:hypothesis",
+    "clinc150:test:test003360": "data/train-00000-of-00001.parquet:298266:hypothesis",
+    "clinc150:test:test003540": "data/train-00000-of-00001.parquet:143961:hypothesis",
+    "clinc150:test:test003549": "data/train-00000-of-00001.parquet:181298:hypothesis",
+    "clinc150:test:test003553": "data/train-00000-of-00001.parquet:198834:premise",
+    "clinc150:test:test003557": "data/train-00000-of-00001.parquet:58520:hypothesis",
+    "clinc150:test:test003603": "data/train-00000-of-00001.parquet:50050:premise",
+    "clinc150:test:test003629": "data/train-00000-of-00001.parquet:27974:hypothesis",
+    "clinc150:test:test004223": "data/validation_mismatched-00000-of-00001.parquet:2287:hypothesis"
+   },
+   "exact_short": {
+    "clinc150:test:test000674": "data/train-00000-of-00001.parquet:15610:premise",
+    "clinc150:test:test000689": "data/train-00000-of-00001.parquet:121502:hypothesis",
+    "clinc150:test:test001384": "data/train-00000-of-00001.parquet:20335:hypothesis",
+    "clinc150:test:test001385": "data/train-00000-of-00001.parquet:20084:hypothesis",
+    "clinc150:test:test001387": "data/train-00000-of-00001.parquet:10412:hypothesis",
+    "clinc150:test:test001388": "data/train-00000-of-00001.parquet:40930:hypothesis",
+    "clinc150:test:test001394": "data/train-00000-of-00001.parquet:108892:hypothesis",
+    "clinc150:test:test001395": "data/train-00000-of-00001.parquet:131160:hypothesis",
+    "clinc150:test:test001396": "data/train-00000-of-00001.parquet:27716:hypothesis",
+    "clinc150:test:test001398": "data/train-00000-of-00001.parquet:16761:hypothesis",
+    "clinc150:test:test001399": "data/train-00000-of-00001.parquet:9481:premise",
+    "clinc150:test:test001400": "data/train-00000-of-00001.parquet:388064:hypothesis",
+    "clinc150:test:test001403": "data/train-00000-of-00001.parquet:115577:premise",
+    "clinc150:test:test001405": "data/train-00000-of-00001.parquet:115577:premise",
+    "clinc150:test:test001409": "data/train-00000-of-00001.parquet:183077:hypothesis",
+    "clinc150:test:test001591": "data/train-00000-of-00001.parquet:210864:hypothesis",
+    "clinc150:test:test001596": "data/train-00000-of-00001.parquet:173296:hypothesis",
+    "clinc150:test:test001597": "data/train-00000-of-00001.parquet:138660:hypothesis",
+    "clinc150:test:test001600": "data/train-00000-of-00001.parquet:86882:hypothesis",
+    "clinc150:test:test001603": "data/train-00000-of-00001.parquet:88998:hypothesis",
+    "clinc150:test:test001604": "data/train-00000-of-00001.parquet:96762:hypothesis",
+    "clinc150:test:test001619": "data/train-00000-of-00001.parquet:68519:hypothesis",
+    "clinc150:test:test002681": "data/train-00000-of-00001.parquet:346897:hypothesis",
+    "clinc150:test:test002891": "data/train-00000-of-00001.parquet:188837:hypothesis",
+    "clinc150:test:test002892": "data/train-00000-of-00001.parquet:68927:premise",
+    "clinc150:test:test002893": "data/train-00000-of-00001.parquet:10086:hypothesis",
+    "clinc150:test:test003231": "data/train-00000-of-00001.parquet:29748:premise",
+    "clinc150:test:test003370": "data/validation_matched-00000-of-00001.parquet:3150:hypothesis",
+    "clinc150:test:test003383": "data/train-00000-of-00001.parquet:306125:hypothesis",
+    "clinc150:test:test003541": "data/train-00000-of-00001.parquet:104718:hypothesis",
+    "clinc150:test:test003559": "data/train-00000-of-00001.parquet:111887:premise",
+    "clinc150:test:test004227": "data/train-00000-of-00001.parquet:31845:hypothesis"
+   },
+   "near": {}
+  },
+  {
+   "dataset": "hwu64",
+   "reference": "multi_nli",
+   "exposure": "Tev1 training; Nimble training (1000 rows)",
+   "n_test": 1076,
+   "n_exact": 0,
+   "n_exact_short": 1,
+   "n_near": 0,
+   "near_dup_pass": false,
+   "exact": {},
+   "exact_short": {
+    "hwu64:test:test000618": "data/train-00000-of-00001.parquet:108084:hypothesis"
+   },
+   "near": {}
+  },
+  {
+   "dataset": "fpb",
+   "reference": "multi_nli",
+   "exposure": "Tev1 training; Nimble training (1000 rows)",
+   "n_test": 970,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": false,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "hatexplain",
+   "reference": "multi_nli",
+   "exposure": "Tev1 training; Nimble training (1000 rows)",
+   "n_test": 1924,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": false,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "trec6",
+   "reference": "multi_nli",
+   "exposure": "Tev1 training; Nimble training (1000 rows)",
+   "n_test": 500,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": false,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "clinc150",
+   "reference": "dbpedia_14",
+   "exposure": "Nimble training (500 rows)",
+   "n_test": 4500,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": false,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "hwu64",
+   "reference": "dbpedia_14",
+   "exposure": "Nimble training (500 rows)",
+   "n_test": 1076,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": false,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "fpb",
+   "reference": "dbpedia_14",
+   "exposure": "Nimble training (500 rows)",
+   "n_test": 970,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": false,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "hatexplain",
+   "reference": "dbpedia_14",
+   "exposure": "Nimble training (500 rows)",
+   "n_test": 1924,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": false,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  },
+  {
+   "dataset": "trec6",
+   "reference": "dbpedia_14",
+   "exposure": "Nimble training (500 rows)",
+   "n_test": 500,
+   "n_exact": 0,
+   "n_exact_short": 0,
+   "n_near": 0,
+   "near_dup_pass": false,
+   "exact": {},
+   "exact_short": {},
+   "near": {}
+  }
+ ],
+ "flagged": {
+  "clinc150": {
+   "clinc150:test:test000140": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:8836:utt",
+     "cosine": 0.9177
+    }
+   ],
+   "clinc150:test:test000147": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9107:utt"
+    }
+   ],
+   "clinc150:test:test000369": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5886:utt"
+    }
+   ],
+   "clinc150:test:test000431": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:3132:utt",
+     "cosine": 0.9124
+    }
+   ],
+   "clinc150:test:test000435": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1089:utt"
+    },
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:373954:hypothesis"
+    }
+   ],
+   "clinc150:test:test000441": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:3132:utt",
+     "cosine": 0.9493
+    }
+   ],
+   "clinc150:test:test000445": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:69:utt"
+    }
+   ],
+   "clinc150:test:test000446": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:1990:utt",
+     "cosine": 0.9701
+    }
+   ],
+   "clinc150:test:test000447": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2291:utt"
+    }
+   ],
+   "clinc150:test:test000448": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:853:utt"
+    }
+   ],
+   "clinc150:test:test000449": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:130:utt",
+     "cosine": 1.0
+    }
+   ],
+   "clinc150:test:test000576": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:259466:hypothesis"
+    }
+   ],
+   "clinc150:test:test000606": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:7439:utt",
+     "cosine": 0.9147
+    }
+   ],
+   "clinc150:test:test000609": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7496:utt"
+    }
+   ],
+   "clinc150:test:test000671": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:13650:hypothesis"
+    }
+   ],
+   "clinc150:test:test000676": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:340661:hypothesis"
+    }
+   ],
+   "clinc150:test:test000678": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:36074:premise"
+    }
+   ],
+   "clinc150:test:test000998": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1964:utt"
+    }
+   ],
+   "clinc150:test:test001002": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:1215:utt",
+     "cosine": 1.0
+    }
+   ],
+   "clinc150:test:test001301": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:241638:hypothesis"
+    }
+   ],
+   "clinc150:test:test001307": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:210115:hypothesis"
+    }
+   ],
+   "clinc150:test:test001316": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:220275:hypothesis"
+    }
+   ],
+   "clinc150:test:test001487": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7261:utt"
+    }
+   ],
+   "clinc150:test:test001590": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:98988:hypothesis"
+    }
+   ],
+   "clinc150:test:test001595": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/validation_matched-00000-of-00001.parquet:8325:hypothesis"
+    }
+   ],
+   "clinc150:test:test001598": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:21595:hypothesis"
+    }
+   ],
+   "clinc150:test:test001602": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:213670:hypothesis"
+    }
+   ],
+   "clinc150:test:test001746": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:9180:utt",
+     "cosine": 0.9095
+    }
+   ],
+   "clinc150:test:test001761": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:9180:utt",
+     "cosine": 0.9095
+    }
+   ],
+   "clinc150:test:test001788": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/validation/0000.parquet:51:utt",
+     "cosine": 0.9608
+    }
+   ],
+   "clinc150:test:test001791": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:5574:utt",
+     "cosine": 0.9661
+    }
+   ],
+   "clinc150:test:test001792": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:5574:utt",
+     "cosine": 0.9075
+    }
+   ],
+   "clinc150:test:test001794": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1494:utt"
+    }
+   ],
+   "clinc150:test:test001796": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:16:utt"
+    }
+   ],
+   "clinc150:test:test001797": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:24:utt"
+    }
+   ],
+   "clinc150:test:test001799": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/validation/0000.parquet:583:utt",
+     "cosine": 0.9152
+    }
+   ],
+   "clinc150:test:test001959": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/validation_matched-00000-of-00001.parquet:529:hypothesis"
+    }
+   ],
+   "clinc150:test:test001970": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:63059:premise"
+    }
+   ],
+   "clinc150:test:test001973": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:76918:hypothesis"
+    }
+   ],
+   "clinc150:test:test002060": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:6691:utt",
+     "cosine": 0.9439
+    }
+   ],
+   "clinc150:test:test002128": [
+    {
+     "reference": "banking77",
+     "kind": "near",
+     "location": "train.csv:1513:text",
+     "cosine": 0.9014
+    }
+   ],
+   "clinc150:test:test002191": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:1594:utt",
+     "cosine": 0.9058
+    }
+   ],
+   "clinc150:test:test002192": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:2555:utt",
+     "cosine": 0.9287
+    }
+   ],
+   "clinc150:test:test002193": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:628:utt",
+     "cosine": 0.9167
+    }
+   ],
+   "clinc150:test:test002197": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:2682:utt",
+     "cosine": 0.922
+    }
+   ],
+   "clinc150:test:test002199": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:2555:utt",
+     "cosine": 0.9103
+    }
+   ],
+   "clinc150:test:test002204": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:2555:utt",
+     "cosine": 0.9287
+    }
+   ],
+   "clinc150:test:test002218": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:3285:utt",
+     "cosine": 0.9122
+    }
+   ],
+   "clinc150:test:test002219": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3419:utt"
+    }
+   ],
+   "clinc150:test:test002231": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/validation/0000.parquet:1317:utt",
+     "cosine": 0.9075
+    }
+   ],
+   "clinc150:test:test002236": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1830:utt"
+    }
+   ],
+   "clinc150:test:test002238": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/validation/0000.parquet:1242:utt",
+     "cosine": 0.9091
+    }
+   ],
+   "clinc150:test:test002470": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:45090:hypothesis"
+    }
+   ],
+   "clinc150:test:test002670": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:2888:utt",
+     "cosine": 0.9333
+    }
+   ],
+   "clinc150:test:test002685": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:124:utt"
+    }
+   ],
+   "clinc150:test:test002687": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/validation/0000.parquet:372:utt",
+     "cosine": 1.0
+    }
+   ],
+   "clinc150:test:test002689": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2976:utt"
+    }
+   ],
+   "clinc150:test:test002698": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:675:utt"
+    }
+   ],
+   "clinc150:test:test002722": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:8599:premise"
+    }
+   ],
+   "clinc150:test:test002820": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:1933:utt",
+     "cosine": 0.9129
+    }
+   ],
+   "clinc150:test:test002847": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1932:utt"
+    }
+   ],
+   "clinc150:test:test002899": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:68114:hypothesis"
+    }
+   ],
+   "clinc150:test:test002902": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:263621:hypothesis"
+    }
+   ],
+   "clinc150:test:test002941": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:621:utt",
+     "cosine": 0.9096
+    }
+   ],
+   "clinc150:test:test002955": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3369:utt"
+    }
+   ],
+   "clinc150:test:test002958": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1635:utt"
+    }
+   ],
+   "clinc150:test:test002960": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:217:utt"
+    }
+   ],
+   "clinc150:test:test002962": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:151:utt",
+     "cosine": 0.9177
+    }
+   ],
+   "clinc150:test:test003161": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/test/0000.parquet:673:utt",
+     "cosine": 0.9451
+    }
+   ],
+   "clinc150:test:test003167": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:1589:utt",
+     "cosine": 0.9065
+    }
+   ],
+   "clinc150:test:test003171": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:695:utt",
+     "cosine": 0.9487
+    }
+   ],
+   "clinc150:test:test003240": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:56:utt"
+    }
+   ],
+   "clinc150:test:test003242": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:118:utt"
+    }
+   ],
+   "clinc150:test:test003243": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2111:utt"
+    }
+   ],
+   "clinc150:test:test003244": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:203:utt"
+    }
+   ],
+   "clinc150:test:test003255": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:429:utt"
+    }
+   ],
+   "clinc150:test:test003258": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:2245:utt",
+     "cosine": 0.9103
+    }
+   ],
+   "clinc150:test:test003268": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/test/0000.parquet:116:utt",
+     "cosine": 0.9282
+    }
+   ],
+   "clinc150:test:test003360": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:298266:hypothesis"
+    }
+   ],
+   "clinc150:test:test003540": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:205:utt"
+    },
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:143961:hypothesis"
+    }
+   ],
+   "clinc150:test:test003549": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:512:utt"
+    },
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:181298:hypothesis"
+    }
+   ],
+   "clinc150:test:test003552": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3263:utt"
+    }
+   ],
+   "clinc150:test:test003553": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:746:utt",
+     "cosine": 0.9129
+    },
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:198834:premise"
+    }
+   ],
+   "clinc150:test:test003557": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:58520:hypothesis"
+    }
+   ],
+   "clinc150:test:test003603": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4390:utt"
+    },
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:50050:premise"
+    }
+   ],
+   "clinc150:test:test003622": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/test/0000.parquet:1090:utt",
+     "cosine": 0.9129
+    }
+   ],
+   "clinc150:test:test003629": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1090:utt"
+    },
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/train-00000-of-00001.parquet:27974:hypothesis"
+    }
+   ],
+   "clinc150:test:test003796": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:7272:utt",
+     "cosine": 0.977
+    }
+   ],
+   "clinc150:test:test003807": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:7204:utt",
+     "cosine": 0.9095
+    }
+   ],
+   "clinc150:test:test003961": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1291:utt"
+    }
+   ],
+   "clinc150:test:test003963": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:4545:utt",
+     "cosine": 0.9021
+    }
+   ],
+   "clinc150:test:test004148": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/test/0000.parquet:107:utt",
+     "cosine": 0.9258
+    }
+   ],
+   "clinc150:test:test004162": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:80:utt"
+    }
+   ],
+   "clinc150:test:test004169": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:107:utt"
+    }
+   ],
+   "clinc150:test:test004223": [
+    {
+     "reference": "multi_nli",
+     "kind": "exact",
+     "location": "data/validation_mismatched-00000-of-00001.parquet:2287:hypothesis"
+    }
+   ],
+   "clinc150:test:test004325": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6773:utt"
+    }
+   ]
+  },
+  "hwu64": {
+   "hwu64:test:test000000": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4041:utt"
+    }
+   ],
+   "hwu64:test:test000001": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3091:utt"
+    }
+   ],
+   "hwu64:test:test000005": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3777:utt"
+    }
+   ],
+   "hwu64:test:test000006": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:821:utt"
+    }
+   ],
+   "hwu64:test:test000007": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:811:utt"
+    }
+   ],
+   "hwu64:test:test000008": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:558:utt"
+    }
+   ],
+   "hwu64:test:test000009": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1095:utt"
+    }
+   ],
+   "hwu64:test:test000010": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:13:utt"
+    }
+   ],
+   "hwu64:test:test000011": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1125:utt"
+    }
+   ],
+   "hwu64:test:test000012": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2795:utt"
+    }
+   ],
+   "hwu64:test:test000013": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1118:utt"
+    }
+   ],
+   "hwu64:test:test000014": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2801:utt"
+    }
+   ],
+   "hwu64:test:test000015": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:420:utt"
+    }
+   ],
+   "hwu64:test:test000017": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:520:utt"
+    }
+   ],
+   "hwu64:test:test000018": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4065:utt"
+    }
+   ],
+   "hwu64:test:test000019": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:3817:utt",
+     "cosine": 0.9504
+    }
+   ],
+   "hwu64:test:test000021": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:848:utt"
+    }
+   ],
+   "hwu64:test:test000022": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1957:utt"
+    }
+   ],
+   "hwu64:test:test000023": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:455:utt"
+    }
+   ],
+   "hwu64:test:test000024": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:614:utt"
+    }
+   ],
+   "hwu64:test:test000025": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2726:utt"
+    }
+   ],
+   "hwu64:test:test000027": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:40:utt"
+    }
+   ],
+   "hwu64:test:test000028": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4033:utt"
+    }
+   ],
+   "hwu64:test:test000029": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2353:utt"
+    }
+   ],
+   "hwu64:test:test000030": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:108:utt"
+    }
+   ],
+   "hwu64:test:test000031": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:391:utt"
+    }
+   ],
+   "hwu64:test:test000033": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2555:utt"
+    }
+   ],
+   "hwu64:test:test000034": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:61:utt"
+    }
+   ],
+   "hwu64:test:test000035": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5584:utt"
+    }
+   ],
+   "hwu64:test:test000036": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1713:utt"
+    }
+   ],
+   "hwu64:test:test000037": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5590:utt"
+    }
+   ],
+   "hwu64:test:test000038": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3185:utt"
+    }
+   ],
+   "hwu64:test:test000039": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4102:utt"
+    }
+   ],
+   "hwu64:test:test000040": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4890:utt"
+    }
+   ],
+   "hwu64:test:test000042": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2690:utt"
+    }
+   ],
+   "hwu64:test:test000044": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:4664:utt",
+     "cosine": 0.9738
+    }
+   ],
+   "hwu64:test:test000045": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3689:utt"
+    }
+   ],
+   "hwu64:test:test000046": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:5318:utt",
+     "cosine": 0.9611
+    }
+   ],
+   "hwu64:test:test000047": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:331:utt"
+    }
+   ],
+   "hwu64:test:test000048": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:271:utt"
+    }
+   ],
+   "hwu64:test:test000049": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:91:utt"
+    }
+   ],
+   "hwu64:test:test000052": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:448:utt"
+    }
+   ],
+   "hwu64:test:test000055": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1002:utt"
+    }
+   ],
+   "hwu64:test:test000056": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:291:utt"
+    }
+   ],
+   "hwu64:test:test000058": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:326:utt"
+    }
+   ],
+   "hwu64:test:test000059": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1072:utt"
+    }
+   ],
+   "hwu64:test:test000060": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2781:utt"
+    }
+   ],
+   "hwu64:test:test000062": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:471:utt"
+    }
+   ],
+   "hwu64:test:test000063": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3322:utt"
+    }
+   ],
+   "hwu64:test:test000064": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1716:utt"
+    }
+   ],
+   "hwu64:test:test000066": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4152:utt"
+    }
+   ],
+   "hwu64:test:test000067": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2117:utt"
+    }
+   ],
+   "hwu64:test:test000069": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5:utt"
+    }
+   ],
+   "hwu64:test:test000070": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:395:utt"
+    }
+   ],
+   "hwu64:test:test000071": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2571:utt"
+    }
+   ],
+   "hwu64:test:test000072": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1174:utt"
+    }
+   ],
+   "hwu64:test:test000074": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:160:utt"
+    }
+   ],
+   "hwu64:test:test000075": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:594:utt"
+    }
+   ],
+   "hwu64:test:test000076": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2961:utt"
+    }
+   ],
+   "hwu64:test:test000077": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1169:utt"
+    }
+   ],
+   "hwu64:test:test000079": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:347:utt"
+    }
+   ],
+   "hwu64:test:test000081": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1173:utt"
+    }
+   ],
+   "hwu64:test:test000083": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2506:utt"
+    }
+   ],
+   "hwu64:test:test000084": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1336:utt"
+    }
+   ],
+   "hwu64:test:test000087": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:5227:utt",
+     "cosine": 0.9283
+    }
+   ],
+   "hwu64:test:test000088": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2625:utt"
+    }
+   ],
+   "hwu64:test:test000089": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4930:utt"
+    }
+   ],
+   "hwu64:test:test000090": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5414:utt"
+    }
+   ],
+   "hwu64:test:test000091": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5765:utt"
+    }
+   ],
+   "hwu64:test:test000092": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5344:utt"
+    }
+   ],
+   "hwu64:test:test000093": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5698:utt"
+    }
+   ],
+   "hwu64:test:test000094": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6001:utt"
+    }
+   ],
+   "hwu64:test:test000096": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5183:utt"
+    }
+   ],
+   "hwu64:test:test000097": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/test/0000.parquet:1424:utt",
+     "cosine": 0.9725
+    }
+   ],
+   "hwu64:test:test000098": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:224:utt"
+    }
+   ],
+   "hwu64:test:test000100": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4874:utt"
+    }
+   ],
+   "hwu64:test:test000101": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5944:utt"
+    }
+   ],
+   "hwu64:test:test000102": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4826:utt"
+    }
+   ],
+   "hwu64:test:test000103": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1037:utt"
+    }
+   ],
+   "hwu64:test:test000104": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5011:utt"
+    }
+   ],
+   "hwu64:test:test000106": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4798:utt"
+    }
+   ],
+   "hwu64:test:test000108": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4709:utt"
+    }
+   ],
+   "hwu64:test:test000109": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:5706:utt",
+     "cosine": 0.9271
+    }
+   ],
+   "hwu64:test:test000110": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5855:utt"
+    }
+   ],
+   "hwu64:test:test000112": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1228:utt"
+    }
+   ],
+   "hwu64:test:test000113": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:801:utt"
+    }
+   ],
+   "hwu64:test:test000114": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:5707:utt",
+     "cosine": 0.9562
+    }
+   ],
+   "hwu64:test:test000116": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6083:utt"
+    }
+   ],
+   "hwu64:test:test000117": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1339:utt"
+    }
+   ],
+   "hwu64:test:test000120": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5208:utt"
+    }
+   ],
+   "hwu64:test:test000121": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4795:utt"
+    }
+   ],
+   "hwu64:test:test000122": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5242:utt"
+    }
+   ],
+   "hwu64:test:test000126": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5270:utt"
+    }
+   ],
+   "hwu64:test:test000128": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4988:utt"
+    }
+   ],
+   "hwu64:test:test000130": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5843:utt"
+    }
+   ],
+   "hwu64:test:test000131": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4993:utt"
+    }
+   ],
+   "hwu64:test:test000132": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4567:utt"
+    }
+   ],
+   "hwu64:test:test000134": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5249:utt"
+    }
+   ],
+   "hwu64:test:test000135": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5578:utt"
+    }
+   ],
+   "hwu64:test:test000136": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4705:utt"
+    }
+   ],
+   "hwu64:test:test000137": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:5116:utt",
+     "cosine": 0.9449
+    }
+   ],
+   "hwu64:test:test000140": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5024:utt"
+    }
+   ],
+   "hwu64:test:test000141": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1013:utt"
+    }
+   ],
+   "hwu64:test:test000145": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:6743:utt",
+     "cosine": 0.9293
+    }
+   ],
+   "hwu64:test:test000146": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6852:utt"
+    }
+   ],
+   "hwu64:test:test000147": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6769:utt"
+    }
+   ],
+   "hwu64:test:test000148": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1758:utt"
+    }
+   ],
+   "hwu64:test:test000149": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6800:utt"
+    }
+   ],
+   "hwu64:test:test000150": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6763:utt"
+    }
+   ],
+   "hwu64:test:test000151": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1769:utt"
+    }
+   ],
+   "hwu64:test:test000152": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1163:utt"
+    }
+   ],
+   "hwu64:test:test000153": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6793:utt"
+    }
+   ],
+   "hwu64:test:test000154": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1732:utt"
+    }
+   ],
+   "hwu64:test:test000155": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6848:utt"
+    }
+   ],
+   "hwu64:test:test000157": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6747:utt"
+    }
+   ],
+   "hwu64:test:test000158": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6885:utt"
+    }
+   ],
+   "hwu64:test:test000161": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/validation/0000.parquet:111:utt",
+     "cosine": 0.9695
+    }
+   ],
+   "hwu64:test:test000162": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:1028:utt",
+     "cosine": 0.9586
+    }
+   ],
+   "hwu64:test:test000163": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2401:utt"
+    }
+   ],
+   "hwu64:test:test000164": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3612:utt"
+    }
+   ],
+   "hwu64:test:test000165": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:597:utt"
+    }
+   ],
+   "hwu64:test:test000166": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2294:utt"
+    }
+   ],
+   "hwu64:test:test000167": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1581:utt"
+    }
+   ],
+   "hwu64:test:test000168": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2859:utt"
+    }
+   ],
+   "hwu64:test:test000169": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3378:utt"
+    }
+   ],
+   "hwu64:test:test000172": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3567:utt"
+    }
+   ],
+   "hwu64:test:test000173": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:437:utt"
+    }
+   ],
+   "hwu64:test:test000174": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1102:utt"
+    }
+   ],
+   "hwu64:test:test000175": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2233:utt"
+    }
+   ],
+   "hwu64:test:test000176": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:271:utt"
+    }
+   ],
+   "hwu64:test:test000177": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:820:utt"
+    }
+   ],
+   "hwu64:test:test000178": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3623:utt"
+    }
+   ],
+   "hwu64:test:test000180": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:307:utt"
+    }
+   ],
+   "hwu64:test:test000182": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2874:utt"
+    }
+   ],
+   "hwu64:test:test000183": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:241:utt"
+    }
+   ],
+   "hwu64:test:test000185": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:992:utt"
+    }
+   ],
+   "hwu64:test:test000186": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1646:utt"
+    }
+   ],
+   "hwu64:test:test000187": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:883:utt"
+    }
+   ],
+   "hwu64:test:test000192": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:2015:utt"
+    }
+   ],
+   "hwu64:test:test000194": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10727:utt"
+    }
+   ],
+   "hwu64:test:test000195": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10721:utt"
+    }
+   ],
+   "hwu64:test:test000196": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10734:utt"
+    }
+   ],
+   "hwu64:test:test000197": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11487:utt"
+    }
+   ],
+   "hwu64:test:test000199": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11248:utt"
+    }
+   ],
+   "hwu64:test:test000201": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11328:utt"
+    }
+   ],
+   "hwu64:test:test000202": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1889:utt"
+    }
+   ],
+   "hwu64:test:test000203": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11268:utt"
+    }
+   ],
+   "hwu64:test:test000204": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11055:utt"
+    }
+   ],
+   "hwu64:test:test000206": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2904:utt"
+    }
+   ],
+   "hwu64:test:test000207": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10825:utt"
+    }
+   ],
+   "hwu64:test:test000208": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11272:utt"
+    }
+   ],
+   "hwu64:test:test000210": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11221:utt"
+    }
+   ],
+   "hwu64:test:test000211": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10815:utt"
+    }
+   ],
+   "hwu64:test:test000213": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11408:utt"
+    }
+   ],
+   "hwu64:test:test000216": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11256:utt"
+    }
+   ],
+   "hwu64:test:test000218": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10863:utt"
+    }
+   ],
+   "hwu64:test:test000219": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10644:utt"
+    }
+   ],
+   "hwu64:test:test000220": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1926:utt"
+    }
+   ],
+   "hwu64:test:test000221": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11357:utt"
+    }
+   ],
+   "hwu64:test:test000223": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10778:utt"
+    }
+   ],
+   "hwu64:test:test000224": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10653:utt"
+    }
+   ],
+   "hwu64:test:test000225": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11284:utt"
+    }
+   ],
+   "hwu64:test:test000228": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10880:utt"
+    }
+   ],
+   "hwu64:test:test000229": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11034:utt"
+    }
+   ],
+   "hwu64:test:test000232": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10720:utt"
+    }
+   ],
+   "hwu64:test:test000233": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10800:utt"
+    }
+   ],
+   "hwu64:test:test000235": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2787:utt"
+    }
+   ],
+   "hwu64:test:test000239": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10578:utt"
+    }
+   ],
+   "hwu64:test:test000240": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11071:utt"
+    }
+   ],
+   "hwu64:test:test000241": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1916:utt"
+    }
+   ],
+   "hwu64:test:test000242": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11481:utt"
+    }
+   ],
+   "hwu64:test:test000244": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10667:utt"
+    }
+   ],
+   "hwu64:test:test000246": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10626:utt"
+    }
+   ],
+   "hwu64:test:test000248": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10787:utt"
+    }
+   ],
+   "hwu64:test:test000249": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2838:utt"
+    }
+   ],
+   "hwu64:test:test000250": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:11200:utt"
+    }
+   ],
+   "hwu64:test:test000251": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10872:utt"
+    }
+   ],
+   "hwu64:test:test000348": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:334:utt"
+    }
+   ],
+   "hwu64:test:test000349": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:265:utt"
+    }
+   ],
+   "hwu64:test:test000352": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2897:utt"
+    }
+   ],
+   "hwu64:test:test000353": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:335:utt"
+    }
+   ],
+   "hwu64:test:test000356": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:547:utt"
+    }
+   ],
+   "hwu64:test:test000357": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3328:utt"
+    }
+   ],
+   "hwu64:test:test000398": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:4485:utt",
+     "cosine": 0.9321
+    }
+   ],
+   "hwu64:test:test000400": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9946:utt"
+    }
+   ],
+   "hwu64:test:test000403": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3650:utt"
+    }
+   ],
+   "hwu64:test:test000405": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1558:utt"
+    }
+   ],
+   "hwu64:test:test000406": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8886:utt"
+    }
+   ],
+   "hwu64:test:test000409": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8754:utt"
+    }
+   ],
+   "hwu64:test:test000411": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9542:utt"
+    }
+   ],
+   "hwu64:test:test000412": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4364:utt"
+    }
+   ],
+   "hwu64:test:test000413": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9408:utt"
+    }
+   ],
+   "hwu64:test:test000415": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4489:utt"
+    }
+   ],
+   "hwu64:test:test000438": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:332:utt"
+    }
+   ],
+   "hwu64:test:test000440": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2833:utt"
+    }
+   ],
+   "hwu64:test:test000441": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2261:utt"
+    }
+   ],
+   "hwu64:test:test000442": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1375:utt"
+    }
+   ],
+   "hwu64:test:test000444": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:787:utt"
+    }
+   ],
+   "hwu64:test:test000446": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1163:utt"
+    }
+   ],
+   "hwu64:test:test000448": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:445:utt"
+    }
+   ],
+   "hwu64:test:test000450": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:781:utt"
+    }
+   ],
+   "hwu64:test:test000451": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:722:utt"
+    }
+   ],
+   "hwu64:test:test000452": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:702:utt"
+    }
+   ],
+   "hwu64:test:test000454": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3379:utt"
+    }
+   ],
+   "hwu64:test:test000455": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:383:utt"
+    }
+   ],
+   "hwu64:test:test000456": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2464:utt"
+    }
+   ],
+   "hwu64:test:test000457": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1073:utt"
+    }
+   ],
+   "hwu64:test:test000458": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:703:utt"
+    }
+   ],
+   "hwu64:test:test000459": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1833:utt"
+    }
+   ],
+   "hwu64:test:test000461": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2375:utt"
+    }
+   ],
+   "hwu64:test:test000464": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1909:utt"
+    }
+   ],
+   "hwu64:test:test000465": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:312:utt"
+    }
+   ],
+   "hwu64:test:test000466": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:228:utt"
+    }
+   ],
+   "hwu64:test:test000468": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1072:utt"
+    }
+   ],
+   "hwu64:test:test000469": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:528:utt",
+     "cosine": 0.9661
+    }
+   ],
+   "hwu64:test:test000471": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:873:utt"
+    }
+   ],
+   "hwu64:test:test000472": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2295:utt"
+    }
+   ],
+   "hwu64:test:test000473": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:261:utt"
+    }
+   ],
+   "hwu64:test:test000474": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1931:utt"
+    }
+   ],
+   "hwu64:test:test000475": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:234:utt"
+    }
+   ],
+   "hwu64:test:test000476": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:2576:utt",
+     "cosine": 0.9354
+    }
+   ],
+   "hwu64:test:test000477": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:3863:utt",
+     "cosine": 0.9247
+    }
+   ],
+   "hwu64:test:test000480": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:316:utt"
+    }
+   ],
+   "hwu64:test:test000481": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1929:utt"
+    }
+   ],
+   "hwu64:test:test000482": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:969:utt",
+     "cosine": 0.9354
+    }
+   ],
+   "hwu64:test:test000483": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1008:utt"
+    }
+   ],
+   "hwu64:test:test000484": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2828:utt"
+    }
+   ],
+   "hwu64:test:test000485": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2340:utt"
+    }
+   ],
+   "hwu64:test:test000486": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1293:utt"
+    }
+   ],
+   "hwu64:test:test000487": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1385:utt"
+    }
+   ],
+   "hwu64:test:test000488": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:513:utt"
+    }
+   ],
+   "hwu64:test:test000490": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2194:utt"
+    }
+   ],
+   "hwu64:test:test000491": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/test/0000.parquet:901:utt",
+     "cosine": 0.9733
+    }
+   ],
+   "hwu64:test:test000492": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:129:utt"
+    }
+   ],
+   "hwu64:test:test000493": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:646:utt"
+    }
+   ],
+   "hwu64:test:test000494": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3157:utt"
+    }
+   ],
+   "hwu64:test:test000497": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3156:utt"
+    }
+   ],
+   "hwu64:test:test000499": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1407:utt"
+    }
+   ],
+   "hwu64:test:test000502": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1351:utt"
+    }
+   ],
+   "hwu64:test:test000503": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1199:utt"
+    }
+   ],
+   "hwu64:test:test000504": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3764:utt"
+    }
+   ],
+   "hwu64:test:test000505": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3147:utt"
+    }
+   ],
+   "hwu64:test:test000506": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:86:utt"
+    }
+   ],
+   "hwu64:test:test000507": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1961:utt"
+    }
+   ],
+   "hwu64:test:test000508": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3722:utt"
+    }
+   ],
+   "hwu64:test:test000509": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:315:utt"
+    }
+   ],
+   "hwu64:test:test000510": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3638:utt"
+    }
+   ],
+   "hwu64:test:test000512": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1175:utt"
+    }
+   ],
+   "hwu64:test:test000513": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2396:utt"
+    }
+   ],
+   "hwu64:test:test000514": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:0:utt"
+    }
+   ],
+   "hwu64:test:test000515": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4085:utt"
+    }
+   ],
+   "hwu64:test:test000516": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:173:utt"
+    }
+   ],
+   "hwu64:test:test000517": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:172:utt"
+    }
+   ],
+   "hwu64:test:test000518": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:72:utt"
+    }
+   ],
+   "hwu64:test:test000519": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:487:utt"
+    }
+   ],
+   "hwu64:test:test000520": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1027:utt"
+    }
+   ],
+   "hwu64:test:test000522": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3685:utt"
+    }
+   ],
+   "hwu64:test:test000523": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1914:utt"
+    }
+   ],
+   "hwu64:test:test000527": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:212:utt"
+    }
+   ],
+   "hwu64:test:test000529": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:332:utt"
+    }
+   ],
+   "hwu64:test:test000532": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2719:utt"
+    }
+   ],
+   "hwu64:test:test000535": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1301:utt"
+    }
+   ],
+   "hwu64:test:test000539": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:156:utt"
+    }
+   ],
+   "hwu64:test:test000540": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1855:utt"
+    }
+   ],
+   "hwu64:test:test000541": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3105:utt"
+    }
+   ],
+   "hwu64:test:test000542": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3667:utt"
+    }
+   ],
+   "hwu64:test:test000543": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1831:utt"
+    }
+   ],
+   "hwu64:test:test000545": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4925:utt"
+    }
+   ],
+   "hwu64:test:test000546": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2796:utt"
+    }
+   ],
+   "hwu64:test:test000547": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:497:utt"
+    }
+   ],
+   "hwu64:test:test000548": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:125:utt"
+    }
+   ],
+   "hwu64:test:test000549": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3418:utt"
+    }
+   ],
+   "hwu64:test:test000550": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:666:utt"
+    }
+   ],
+   "hwu64:test:test000552": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:527:utt"
+    }
+   ],
+   "hwu64:test:test000554": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1328:utt"
+    }
+   ],
+   "hwu64:test:test000555": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7502:utt"
+    }
+   ],
+   "hwu64:test:test000556": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7382:utt"
+    }
+   ],
+   "hwu64:test:test000558": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7149:utt"
+    }
+   ],
+   "hwu64:test:test000559": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7092:utt"
+    }
+   ],
+   "hwu64:test:test000560": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7016:utt"
+    }
+   ],
+   "hwu64:test:test000566": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1269:utt"
+    }
+   ],
+   "hwu64:test:test000567": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1885:utt"
+    }
+   ],
+   "hwu64:test:test000568": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7560:utt"
+    }
+   ],
+   "hwu64:test:test000569": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7135:utt"
+    }
+   ],
+   "hwu64:test:test000572": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7196:utt"
+    }
+   ],
+   "hwu64:test:test000575": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7302:utt"
+    }
+   ],
+   "hwu64:test:test000577": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7066:utt"
+    }
+   ],
+   "hwu64:test:test000579": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7263:utt"
+    }
+   ],
+   "hwu64:test:test000580": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7328:utt"
+    }
+   ],
+   "hwu64:test:test000581": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7361:utt"
+    }
+   ],
+   "hwu64:test:test000582": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7144:utt"
+    }
+   ],
+   "hwu64:test:test000583": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1279:utt"
+    }
+   ],
+   "hwu64:test:test000585": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1874:utt"
+    }
+   ],
+   "hwu64:test:test000587": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7265:utt"
+    }
+   ],
+   "hwu64:test:test000588": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7343:utt"
+    }
+   ],
+   "hwu64:test:test000589": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1912:utt"
+    }
+   ],
+   "hwu64:test:test000590": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7116:utt"
+    }
+   ],
+   "hwu64:test:test000592": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1870:utt"
+    }
+   ],
+   "hwu64:test:test000594": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7060:utt"
+    }
+   ],
+   "hwu64:test:test000595": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1913:utt"
+    }
+   ],
+   "hwu64:test:test000597": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7026:utt"
+    }
+   ],
+   "hwu64:test:test000599": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7173:utt"
+    }
+   ],
+   "hwu64:test:test000601": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7493:utt"
+    }
+   ],
+   "hwu64:test:test000603": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1306:utt"
+    }
+   ],
+   "hwu64:test:test000604": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1898:utt"
+    }
+   ],
+   "hwu64:test:test000605": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1947:utt"
+    }
+   ],
+   "hwu64:test:test000606": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1253:utt"
+    }
+   ],
+   "hwu64:test:test000611": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3355:utt"
+    }
+   ],
+   "hwu64:test:test000612": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2218:utt"
+    }
+   ],
+   "hwu64:test:test000613": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2926:utt"
+    }
+   ],
+   "hwu64:test:test000614": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:322:utt"
+    }
+   ],
+   "hwu64:test:test000615": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1862:utt"
+    }
+   ],
+   "hwu64:test:test000616": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1763:utt"
+    }
+   ],
+   "hwu64:test:test000621": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:809:utt"
+    }
+   ],
+   "hwu64:test:test000622": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:458:utt"
+    }
+   ],
+   "hwu64:test:test000623": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3252:utt"
+    }
+   ],
+   "hwu64:test:test000624": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2004:utt"
+    }
+   ],
+   "hwu64:test:test000626": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:51:utt"
+    }
+   ],
+   "hwu64:test:test000628": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2944:utt"
+    }
+   ],
+   "hwu64:test:test000629": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1323:utt"
+    }
+   ],
+   "hwu64:test:test000630": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:633:utt"
+    }
+   ],
+   "hwu64:test:test000631": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5485:utt"
+    }
+   ],
+   "hwu64:test:test000632": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3743:utt"
+    }
+   ],
+   "hwu64:test:test000635": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:351:utt"
+    }
+   ],
+   "hwu64:test:test000637": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:905:utt"
+    }
+   ],
+   "hwu64:test:test000639": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7046:utt"
+    }
+   ],
+   "hwu64:test:test000642": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:76:utt"
+    }
+   ],
+   "hwu64:test:test000643": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1157:utt"
+    }
+   ],
+   "hwu64:test:test000649": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:831:utt"
+    }
+   ],
+   "hwu64:test:test000650": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1019:utt"
+    }
+   ],
+   "hwu64:test:test000652": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:349:utt"
+    }
+   ],
+   "hwu64:test:test000654": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:369:utt"
+    }
+   ],
+   "hwu64:test:test000655": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2259:utt"
+    }
+   ],
+   "hwu64:test:test000656": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1486:utt"
+    }
+   ],
+   "hwu64:test:test000658": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:307:utt"
+    }
+   ],
+   "hwu64:test:test000659": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:182:utt"
+    }
+   ],
+   "hwu64:test:test000660": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2075:utt"
+    }
+   ],
+   "hwu64:test:test000661": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:138:utt"
+    }
+   ],
+   "hwu64:test:test000662": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3313:utt"
+    }
+   ],
+   "hwu64:test:test000663": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:402:utt"
+    }
+   ],
+   "hwu64:test:test000664": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:702:utt"
+    }
+   ],
+   "hwu64:test:test000665": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3426:utt"
+    }
+   ],
+   "hwu64:test:test000666": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3565:utt"
+    }
+   ],
+   "hwu64:test:test000667": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:808:utt"
+    }
+   ],
+   "hwu64:test:test000668": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:616:utt"
+    }
+   ],
+   "hwu64:test:test000669": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:654:utt"
+    }
+   ],
+   "hwu64:test:test000671": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:191:utt"
+    }
+   ],
+   "hwu64:test:test000672": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:219:utt"
+    }
+   ],
+   "hwu64:test:test000673": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:152:utt"
+    }
+   ],
+   "hwu64:test:test000674": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6579:utt"
+    }
+   ],
+   "hwu64:test:test000676": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1673:utt"
+    }
+   ],
+   "hwu64:test:test000678": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6535:utt"
+    }
+   ],
+   "hwu64:test:test000680": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1677:utt"
+    }
+   ],
+   "hwu64:test:test000683": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6648:utt"
+    }
+   ],
+   "hwu64:test:test000685": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6655:utt"
+    }
+   ],
+   "hwu64:test:test000686": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1158:utt"
+    }
+   ],
+   "hwu64:test:test000687": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1135:utt"
+    }
+   ],
+   "hwu64:test:test000688": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1142:utt"
+    }
+   ],
+   "hwu64:test:test000689": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6547:utt"
+    }
+   ],
+   "hwu64:test:test000690": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6533:utt"
+    }
+   ],
+   "hwu64:test:test000692": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1672:utt"
+    }
+   ],
+   "hwu64:test:test000693": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6954:utt"
+    }
+   ],
+   "hwu64:test:test000694": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7003:utt"
+    }
+   ],
+   "hwu64:test:test000695": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6982:utt"
+    }
+   ],
+   "hwu64:test:test000696": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6943:utt"
+    }
+   ],
+   "hwu64:test:test000699": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6993:utt"
+    }
+   ],
+   "hwu64:test:test000702": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6972:utt"
+    }
+   ],
+   "hwu64:test:test000704": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1813:utt"
+    }
+   ],
+   "hwu64:test:test000705": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6902:utt"
+    }
+   ],
+   "hwu64:test:test000706": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6978:utt"
+    }
+   ],
+   "hwu64:test:test000707": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1809:utt"
+    }
+   ],
+   "hwu64:test:test000708": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6933:utt"
+    }
+   ],
+   "hwu64:test:test000709": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6942:utt"
+    }
+   ],
+   "hwu64:test:test000710": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6986:utt"
+    }
+   ],
+   "hwu64:test:test000712": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:480:utt"
+    }
+   ],
+   "hwu64:test:test000714": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2846:utt"
+    }
+   ],
+   "hwu64:test:test000718": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4130:utt"
+    }
+   ],
+   "hwu64:test:test000720": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:656:utt"
+    }
+   ],
+   "hwu64:test:test000721": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2113:utt"
+    }
+   ],
+   "hwu64:test:test000722": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1993:utt"
+    }
+   ],
+   "hwu64:test:test000723": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3389:utt"
+    }
+   ],
+   "hwu64:test:test000724": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3821:utt"
+    }
+   ],
+   "hwu64:test:test000725": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1899:utt"
+    }
+   ],
+   "hwu64:test:test000726": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4117:utt"
+    }
+   ],
+   "hwu64:test:test000728": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2548:utt"
+    }
+   ],
+   "hwu64:test:test000730": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3361:utt"
+    }
+   ],
+   "hwu64:test:test000732": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1978:utt"
+    }
+   ],
+   "hwu64:test:test000736": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7708:utt"
+    }
+   ],
+   "hwu64:test:test000737": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7749:utt"
+    }
+   ],
+   "hwu64:test:test000741": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7658:utt"
+    }
+   ],
+   "hwu64:test:test000742": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7723:utt"
+    }
+   ],
+   "hwu64:test:test000744": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7622:utt"
+    }
+   ],
+   "hwu64:test:test000745": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1992:utt"
+    }
+   ],
+   "hwu64:test:test000749": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1989:utt"
+    }
+   ],
+   "hwu64:test:test000751": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1094:utt"
+    }
+   ],
+   "hwu64:test:test000753": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6410:utt"
+    }
+   ],
+   "hwu64:test:test000757": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:6500:utt",
+     "cosine": 0.9326
+    }
+   ],
+   "hwu64:test:test000759": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:6448:utt",
+     "cosine": 0.9456
+    }
+   ],
+   "hwu64:test:test000760": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6341:utt"
+    }
+   ],
+   "hwu64:test:test000761": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1108:utt"
+    }
+   ],
+   "hwu64:test:test000762": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6351:utt"
+    }
+   ],
+   "hwu64:test:test000763": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6398:utt"
+    }
+   ],
+   "hwu64:test:test000765": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6414:utt"
+    }
+   ],
+   "hwu64:test:test000766": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6244:utt"
+    }
+   ],
+   "hwu64:test:test000767": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6242:utt"
+    }
+   ],
+   "hwu64:test:test000768": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:6250:utt"
+    }
+   ],
+   "hwu64:test:test000769": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2351:utt"
+    }
+   ],
+   "hwu64:test:test000774": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9124:utt"
+    }
+   ],
+   "hwu64:test:test000776": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2489:utt"
+    }
+   ],
+   "hwu64:test:test000777": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9856:utt"
+    }
+   ],
+   "hwu64:test:test000778": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9912:utt"
+    }
+   ],
+   "hwu64:test:test000780": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2446:utt"
+    }
+   ],
+   "hwu64:test:test000781": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9131:utt"
+    }
+   ],
+   "hwu64:test:test000782": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9700:utt"
+    }
+   ],
+   "hwu64:test:test000783": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9259:utt"
+    }
+   ],
+   "hwu64:test:test000784": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9353:utt"
+    }
+   ],
+   "hwu64:test:test000786": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9692:utt"
+    }
+   ],
+   "hwu64:test:test000787": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9257:utt"
+    }
+   ],
+   "hwu64:test:test000790": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8901:utt"
+    }
+   ],
+   "hwu64:test:test000792": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9478:utt"
+    }
+   ],
+   "hwu64:test:test000793": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1644:utt"
+    }
+   ],
+   "hwu64:test:test000794": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9006:utt"
+    }
+   ],
+   "hwu64:test:test000798": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9496:utt"
+    }
+   ],
+   "hwu64:test:test000802": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1770:utt"
+    }
+   ],
+   "hwu64:test:test000806": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9626:utt"
+    }
+   ],
+   "hwu64:test:test000808": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1583:utt"
+    }
+   ],
+   "hwu64:test:test000809": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9086:utt"
+    }
+   ],
+   "hwu64:test:test000811": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9204:utt"
+    }
+   ],
+   "hwu64:test:test000814": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9709:utt"
+    }
+   ],
+   "hwu64:test:test000815": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8912:utt"
+    }
+   ],
+   "hwu64:test:test000816": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9514:utt"
+    }
+   ],
+   "hwu64:test:test000817": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2583:utt"
+    }
+   ],
+   "hwu64:test:test000819": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10029:utt"
+    }
+   ],
+   "hwu64:test:test000820": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2584:utt"
+    }
+   ],
+   "hwu64:test:test000821": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1575:utt"
+    }
+   ],
+   "hwu64:test:test000822": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2418:utt"
+    }
+   ],
+   "hwu64:test:test000823": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9045:utt"
+    }
+   ],
+   "hwu64:test:test000824": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9360:utt"
+    }
+   ],
+   "hwu64:test:test000825": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8821:utt"
+    }
+   ],
+   "hwu64:test:test000826": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2370:utt"
+    }
+   ],
+   "hwu64:test:test000828": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2520:utt"
+    }
+   ],
+   "hwu64:test:test000829": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2253:utt"
+    }
+   ],
+   "hwu64:test:test000830": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9799:utt"
+    }
+   ],
+   "hwu64:test:test000831": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9560:utt"
+    }
+   ],
+   "hwu64:test:test000833": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8739:utt"
+    }
+   ],
+   "hwu64:test:test000834": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1696:utt"
+    }
+   ],
+   "hwu64:test:test000835": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9273:utt"
+    }
+   ],
+   "hwu64:test:test000836": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8898:utt"
+    }
+   ],
+   "hwu64:test:test000837": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9728:utt"
+    }
+   ],
+   "hwu64:test:test000838": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9026:utt"
+    }
+   ],
+   "hwu64:test:test000842": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:9530:utt",
+     "cosine": 0.9428
+    }
+   ],
+   "hwu64:test:test000843": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9329:utt"
+    }
+   ],
+   "hwu64:test:test000844": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:9531:utt",
+     "cosine": 0.901
+    }
+   ],
+   "hwu64:test:test000845": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9800:utt"
+    }
+   ],
+   "hwu64:test:test000846": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2383:utt"
+    }
+   ],
+   "hwu64:test:test000848": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9211:utt"
+    }
+   ],
+   "hwu64:test:test000849": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10128:utt"
+    }
+   ],
+   "hwu64:test:test000850": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9811:utt"
+    }
+   ],
+   "hwu64:test:test000851": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9933:utt"
+    }
+   ],
+   "hwu64:test:test000852": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9884:utt"
+    }
+   ],
+   "hwu64:test:test000854": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1705:utt"
+    }
+   ],
+   "hwu64:test:test000857": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10002:utt"
+    }
+   ],
+   "hwu64:test:test000859": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5671:utt"
+    }
+   ],
+   "hwu64:test:test000860": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8130:utt"
+    }
+   ],
+   "hwu64:test:test000861": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8117:utt"
+    }
+   ],
+   "hwu64:test:test000863": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2051:utt"
+    }
+   ],
+   "hwu64:test:test000865": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8100:utt"
+    }
+   ],
+   "hwu64:test:test000866": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7975:utt"
+    }
+   ],
+   "hwu64:test:test000871": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:7878:utt",
+     "cosine": 0.9722
+    }
+   ],
+   "hwu64:test:test000872": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2035:utt"
+    }
+   ],
+   "hwu64:test:test000873": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7849:utt"
+    }
+   ],
+   "hwu64:test:test000874": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2104:utt"
+    }
+   ],
+   "hwu64:test:test000876": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7984:utt"
+    }
+   ],
+   "hwu64:test:test000877": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2033:utt"
+    }
+   ],
+   "hwu64:test:test000878": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8087:utt"
+    }
+   ],
+   "hwu64:test:test000879": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1387:utt"
+    }
+   ],
+   "hwu64:test:test000880": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7800:utt"
+    }
+   ],
+   "hwu64:test:test000883": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8623:utt"
+    }
+   ],
+   "hwu64:test:test000884": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2105:utt"
+    }
+   ],
+   "hwu64:test:test000885": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8035:utt"
+    }
+   ],
+   "hwu64:test:test000886": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1418:utt"
+    }
+   ],
+   "hwu64:test:test000887": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8008:utt"
+    }
+   ],
+   "hwu64:test:test000888": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7905:utt"
+    }
+   ],
+   "hwu64:test:test000889": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/validation/0000.parquet:1426:utt",
+     "cosine": 0.9549
+    }
+   ],
+   "hwu64:test:test000890": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8923:utt"
+    }
+   ],
+   "hwu64:test:test000894": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7904:utt"
+    }
+   ],
+   "hwu64:test:test000895": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/validation/0000.parquet:1432:utt",
+     "cosine": 0.9553
+    }
+   ],
+   "hwu64:test:test000896": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7930:utt"
+    }
+   ],
+   "hwu64:test:test000897": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7993:utt"
+    }
+   ],
+   "hwu64:test:test000898": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7804:utt"
+    }
+   ],
+   "hwu64:test:test000899": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1389:utt"
+    }
+   ],
+   "hwu64:test:test000901": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7961:utt"
+    }
+   ],
+   "hwu64:test:test000903": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2076:utt"
+    }
+   ],
+   "hwu64:test:test000904": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:7972:utt"
+    }
+   ],
+   "hwu64:test:test000905": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2075:utt"
+    }
+   ],
+   "hwu64:test:test000907": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:10316:utt",
+     "cosine": 0.959
+    }
+   ],
+   "hwu64:test:test000910": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1868:utt"
+    }
+   ],
+   "hwu64:test:test000911": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10530:utt"
+    }
+   ],
+   "hwu64:test:test000912": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1849:utt"
+    }
+   ],
+   "hwu64:test:test000913": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2692:utt"
+    }
+   ],
+   "hwu64:test:test000915": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2696:utt"
+    }
+   ],
+   "hwu64:test:test000916": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10373:utt"
+    }
+   ],
+   "hwu64:test:test000917": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10496:utt"
+    }
+   ],
+   "hwu64:test:test000918": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10428:utt"
+    }
+   ],
+   "hwu64:test:test000919": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/validation/0000.parquet:1870:utt",
+     "cosine": 0.9142
+    }
+   ],
+   "hwu64:test:test000920": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10552:utt"
+    }
+   ],
+   "hwu64:test:test000926": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2633:utt"
+    }
+   ],
+   "hwu64:test:test000928": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10356:utt"
+    }
+   ],
+   "hwu64:test:test000929": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10206:utt"
+    }
+   ],
+   "hwu64:test:test000930": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2632:utt"
+    }
+   ],
+   "hwu64:test:test000931": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2622:utt"
+    }
+   ],
+   "hwu64:test:test000932": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1810:utt"
+    }
+   ],
+   "hwu64:test:test000933": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10357:utt"
+    }
+   ],
+   "hwu64:test:test000934": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2615:utt"
+    }
+   ],
+   "hwu64:test:test000935": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10237:utt"
+    }
+   ],
+   "hwu64:test:test000936": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10177:utt"
+    }
+   ],
+   "hwu64:test:test000938": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10261:utt"
+    }
+   ],
+   "hwu64:test:test000939": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10444:utt"
+    }
+   ],
+   "hwu64:test:test000940": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10333:utt"
+    }
+   ],
+   "hwu64:test:test000941": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10293:utt"
+    }
+   ],
+   "hwu64:test:test000942": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10166:utt"
+    }
+   ],
+   "hwu64:test:test000943": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:10170:utt"
+    }
+   ],
+   "hwu64:test:test000944": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2636:utt"
+    }
+   ],
+   "hwu64:test:test000946": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1723:utt"
+    }
+   ],
+   "hwu64:test:test000947": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:430:utt"
+    }
+   ],
+   "hwu64:test:test000949": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2605:utt"
+    }
+   ],
+   "hwu64:test:test000950": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1668:utt"
+    }
+   ],
+   "hwu64:test:test000951": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4120:utt"
+    }
+   ],
+   "hwu64:test:test000952": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:700:utt"
+    }
+   ],
+   "hwu64:test:test000955": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:993:utt"
+    }
+   ],
+   "hwu64:test:test000956": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8973:utt"
+    }
+   ],
+   "hwu64:test:test000958": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:435:utt"
+    }
+   ],
+   "hwu64:test:test000959": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1614:utt"
+    }
+   ],
+   "hwu64:test:test000960": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:207:utt"
+    }
+   ],
+   "hwu64:test:test000961": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:2979:utt",
+     "cosine": 0.968
+    }
+   ],
+   "hwu64:test:test000962": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1038:utt"
+    }
+   ],
+   "hwu64:test:test000963": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2743:utt"
+    }
+   ],
+   "hwu64:test:test000964": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:943:utt"
+    }
+   ],
+   "hwu64:test:test000965": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:212:utt"
+    }
+   ],
+   "hwu64:test:test000966": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3769:utt"
+    }
+   ],
+   "hwu64:test:test000967": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1400:utt"
+    }
+   ],
+   "hwu64:test:test000968": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3126:utt"
+    }
+   ],
+   "hwu64:test:test000969": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:505:utt"
+    }
+   ],
+   "hwu64:test:test000971": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:705:utt"
+    }
+   ],
+   "hwu64:test:test000972": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3590:utt"
+    }
+   ],
+   "hwu64:test:test000973": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:29:utt"
+    }
+   ],
+   "hwu64:test:test000976": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:2222:utt"
+    }
+   ],
+   "hwu64:test:test000977": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:31:utt"
+    }
+   ],
+   "hwu64:test:test000978": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:1948:utt"
+    }
+   ],
+   "hwu64:test:test000979": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:2450:utt",
+     "cosine": 0.9718
+    }
+   ],
+   "hwu64:test:test000981": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:30:utt"
+    }
+   ],
+   "hwu64:test:test000982": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8412:utt"
+    }
+   ],
+   "hwu64:test:test000984": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1487:utt"
+    }
+   ],
+   "hwu64:test:test000985": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1539:utt"
+    }
+   ],
+   "hwu64:test:test000987": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8386:utt"
+    }
+   ],
+   "hwu64:test:test000988": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8571:utt"
+    }
+   ],
+   "hwu64:test:test000990": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2139:utt"
+    }
+   ],
+   "hwu64:test:test000991": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8252:utt"
+    }
+   ],
+   "hwu64:test:test000995": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8469:utt"
+    }
+   ],
+   "hwu64:test:test000997": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8421:utt"
+    }
+   ],
+   "hwu64:test:test001000": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8503:utt"
+    }
+   ],
+   "hwu64:test:test001002": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8590:utt"
+    }
+   ],
+   "hwu64:test:test001004": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8389:utt"
+    }
+   ],
+   "hwu64:test:test001008": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8563:utt"
+    }
+   ],
+   "hwu64:test:test001010": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/validation/0000.parquet:1484:utt",
+     "cosine": 0.9601
+    }
+   ],
+   "hwu64:test:test001011": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8437:utt"
+    }
+   ],
+   "hwu64:test:test001012": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8149:utt"
+    }
+   ],
+   "hwu64:test:test001013": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8501:utt"
+    }
+   ],
+   "hwu64:test:test001016": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8656:utt"
+    }
+   ],
+   "hwu64:test:test001018": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8348:utt"
+    }
+   ],
+   "hwu64:test:test001019": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1500:utt"
+    }
+   ],
+   "hwu64:test:test001021": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/test/0000.parquet:2122:utt",
+     "cosine": 0.9436
+    }
+   ],
+   "hwu64:test:test001022": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8462:utt"
+    }
+   ],
+   "hwu64:test:test001023": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2142:utt"
+    }
+   ],
+   "hwu64:test:test001024": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8204:utt"
+    }
+   ],
+   "hwu64:test:test001025": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:8336:utt",
+     "cosine": 0.9657
+    }
+   ],
+   "hwu64:test:test001027": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8369:utt"
+    }
+   ],
+   "hwu64:test:test001028": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2135:utt"
+    }
+   ],
+   "hwu64:test:test001029": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8478:utt"
+    }
+   ],
+   "hwu64:test:test001030": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1517:utt"
+    }
+   ],
+   "hwu64:test:test001032": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8414:utt"
+    }
+   ],
+   "hwu64:test:test001033": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8586:utt"
+    }
+   ],
+   "hwu64:test:test001035": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2199:utt"
+    }
+   ],
+   "hwu64:test:test001036": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1535:utt"
+    }
+   ],
+   "hwu64:test:test001037": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1529:utt"
+    }
+   ],
+   "hwu64:test:test001039": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2188:utt"
+    }
+   ],
+   "hwu64:test:test001041": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8664:utt"
+    }
+   ],
+   "hwu64:test:test001042": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8447:utt"
+    }
+   ],
+   "hwu64:test:test001043": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8173:utt"
+    }
+   ],
+   "hwu64:test:test001044": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8300:utt"
+    }
+   ],
+   "hwu64:test:test001045": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8353:utt"
+    }
+   ],
+   "hwu64:test:test001046": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8608:utt"
+    }
+   ],
+   "hwu64:test:test001047": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8280:utt"
+    }
+   ],
+   "hwu64:test:test001048": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4397:utt"
+    }
+   ],
+   "hwu64:test:test001049": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/validation/0000.parquet:1509:utt"
+    }
+   ],
+   "hwu64:test:test001050": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8181:utt"
+    }
+   ],
+   "hwu64:test:test001051": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8554:utt"
+    }
+   ],
+   "hwu64:test:test001052": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8288:utt"
+    }
+   ],
+   "hwu64:test:test001053": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8276:utt"
+    }
+   ],
+   "hwu64:test:test001054": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2118:utt"
+    }
+   ],
+   "hwu64:test:test001056": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:8380:utt"
+    }
+   ],
+   "hwu64:test:test001058": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4082:utt"
+    }
+   ],
+   "hwu64:test:test001059": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4076:utt"
+    }
+   ],
+   "hwu64:test:test001061": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:800:utt"
+    }
+   ],
+   "hwu64:test:test001062": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3803:utt"
+    }
+   ],
+   "hwu64:test:test001063": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:517:utt"
+    }
+   ],
+   "hwu64:test:test001064": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:3906:utt",
+     "cosine": 0.9722
+    }
+   ],
+   "hwu64:test:test001065": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:5162:utt"
+    }
+   ],
+   "hwu64:test:test001067": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:1033:utt"
+    }
+   ],
+   "hwu64:test:test001068": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:3039:utt"
+    }
+   ],
+   "hwu64:test:test001069": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:483:utt"
+    }
+   ],
+   "hwu64:test:test001071": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:886:utt"
+    }
+   ],
+   "hwu64:test:test001073": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:4118:utt"
+    }
+   ],
+   "hwu64:test:test001074": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9643:utt"
+    }
+   ]
+  },
+  "fpb": {
+   "fpb:test:test000260": [
+    {
+     "reference": "ag_news",
+     "kind": "near",
+     "location": "data/train-00000-of-00001.parquet:1820:text",
+     "cosine": 0.9377
+    }
+   ]
+  },
+  "hatexplain": {},
+  "trec6": {
+   "trec6:test:test000031": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/test/0000.parquet:2424:utt"
+    }
+   ],
+   "trec6:test:test000228": [
+    {
+     "reference": "massive_en_us",
+     "kind": "exact",
+     "location": "en-US/train/0000.parquet:9243:utt"
+    }
+   ],
+   "trec6:test:test000328": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:9393:utt",
+     "cosine": 0.9918
+    }
+   ],
+   "trec6:test:test000399": [
+    {
+     "reference": "massive_en_us",
+     "kind": "near",
+     "location": "en-US/train/0000.parquet:9183:utt",
+     "cosine": 0.923
+    }
+   ]
+  }
+ },
+ "n_flagged": {
+  "clinc150": 96,
+  "hwu64": 614,
+  "fpb": 1,
+  "hatexplain": 0,
+  "trec6": 4
+ },
+ "reference_manifest_sha256": "9ab7df0a1a2377e4b2c5c02f73fb4426c67c4feccaee202039ad551e811f6481"
+}

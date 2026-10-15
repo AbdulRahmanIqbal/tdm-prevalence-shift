@@ -1,0 +1,23 @@
+# Label texts for HateXplain (3-class, majority of 3 annotators).
+# STATUS: APPROVED v1.0 (2026-10-06, user approved) — FROZEN; changes only via docs/deviations.md (spec sec 5).
+dataset: hatexplain
+task_question: "How should this social media post be classified?"
+source_notes: >-
+  Descriptions follow the definitions given to LLMs in Roy et al. (2023), Appendix B.2, p. 11
+  (verbatim, minimal edits for grammar). The exact definitions shown to the original annotators
+  are not published (Mathew et al. 2021 only says "a definition for each category" was given, p. 3).
+  Note: Roy et al. found definitions help some models and hurt others (p. 5, 7); the names-only
+  sensitivity variant (spec sec 5) covers this.
+labels:
+  - id: hatespeech
+    raw_name: hatespeech
+    name: hate speech
+    description: "Speech or text that attacks a person or group on the basis of attributes such as race, religion, ethnic origin, national origin, gender, disability, sexual orientation, or gender identity."
+  - id: offensive
+    raw_name: offensive
+    name: offensive
+    description: "Text that uses abusive slurs or derogatory terms but may not be hate speech."
+  - id: normal
+    raw_name: normal
+    name: normal
+    description: "Text that is neither offensive nor hate speech and adheres to social norms."

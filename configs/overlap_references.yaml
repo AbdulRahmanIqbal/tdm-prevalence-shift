@@ -1,0 +1,81 @@
+# Reference corpora for the test-set overlap check (spec sec 4.5, 15). Same format as datasets.yaml so
+# `s1bench --config configs/overlap_references.yaml --data-dir data/reference download` fetches them
+# (pinned; hashes in data/reference/MANIFEST.json). They are NEVER used for training or evaluation.
+#
+# Why these: the public datasets the TDM vendors document in their training data, plus Nimble's
+# evaluation set (MASSIVE, HWU64 lineage).
+#   Tev1 (togethercomputer/tev1 DATA_SOURCES.md): MultiNLI, BoolQ, Banking77, AG News, SST-5 + synthetic.
+#   Nimble main @ bd792f44 (schema_config.json data_audit.components): public-banking77 2000,
+#     public-multinli 1000, public-boolq 500, public-ag_news 500, public-dbpedia 500, public-trec 500.
+#   Nimble evaluation (not training): MASSIVE 1.1.
+# TREC is NOT a text reference: our TREC-6 test set IS the TREC-10 test file, so text overlap is 100% by
+# definition; Nimble's exposure to TREC is reported at dataset level (which 500 rows is not public).
+#
+# overlap.fields: text columns compared (joined fields are compared separately, each as one text).
+# overlap.near_dup: also run the near-duplicate pass (short-text corpora only; exact pass runs for all).
+
+datasets:
+  - id: massive_en_us
+    kind: hf_snapshot
+    repo_id: AmazonScience/massive
+    revision: ed58ac423a2f4121720918bf5301577edce4ffd3   # refs/convert/parquet
+    allow_patterns: ["en-US/*/*.parquet"]
+    license: CC-BY-4.0
+    homepage: https://github.com/alexa/massive
+    overlap: {format: parquet, glob: "en-US/*/*.parquet", fields: [utt], near_dup: true, exposure: "Nimble evaluation (not training); HWU64/SLURP lineage"}
+
+  - id: banking77
+    kind: url
+    license: CC-BY-4.0
+    homepage: https://github.com/PolyAI-LDN/task-specific-datasets
+    files:
+      - url: https://raw.githubusercontent.com/PolyAI-LDN/task-specific-datasets/57ec275d8078af65b7731c2a98be812d844a6d6b/banking_data/train.csv
+        target: train.csv
+      - url: https://raw.githubusercontent.com/PolyAI-LDN/task-specific-datasets/57ec275d8078af65b7731c2a98be812d844a6d6b/banking_data/test.csv
+        target: test.csv
+    overlap: {format: csv, glob: "*.csv", fields: [text], near_dup: true, exposure: "Tev1 training; Nimble training (2000 rows)"}
+
+  - id: ag_news
+    kind: hf_snapshot
+    repo_id: fancyzhx/ag_news
+    revision: eb185aade064a813bc0b7f42de02595523103ca4
+    allow_patterns: ["data/*.parquet"]
+    license: unknown (academic use)
+    homepage: http://groups.di.unipi.it/~gulli/AG_corpus_of_news_articles.html
+    overlap: {format: parquet, glob: "data/*.parquet", fields: [text], near_dup: true, exposure: "Tev1 training; Nimble training (500 rows)"}
+
+  - id: sst5
+    kind: hf_snapshot
+    repo_id: SetFit/sst5
+    revision: e51bdcd8cd3a30da231967c1a249ba59361279a3
+    allow_patterns: ["*.jsonl"]
+    license: unspecified
+    homepage: https://nlp.stanford.edu/sentiment/
+    overlap: {format: jsonl, glob: "*.jsonl", fields: [text], near_dup: true, exposure: "Tev1 training"}
+
+  - id: boolq
+    kind: hf_snapshot
+    repo_id: google/boolq
+    revision: 35b264d03638db9f4ce671b711558bf7ff0f80d5
+    allow_patterns: ["data/*.parquet"]
+    license: CC-BY-SA-3.0
+    homepage: https://github.com/google-research-datasets/boolean-questions
+    overlap: {format: parquet, glob: "data/*.parquet", fields: [question], near_dup: true, exposure: "Tev1 training; Nimble training (500 rows)"}
+
+  - id: multi_nli
+    kind: hf_snapshot
+    repo_id: nyu-mll/multi_nli
+    revision: da70db2af9d09693783c3320c4249840212ee221
+    allow_patterns: ["data/*.parquet"]
+    license: cc-by-3.0 / cc-by-sa-3.0 / MIT / other
+    homepage: https://cims.nyu.edu/~sbowman/multinli/
+    overlap: {format: parquet, glob: "data/*.parquet", fields: [premise, hypothesis], near_dup: false, exposure: "Tev1 training; Nimble training (1000 rows)"}
+
+  - id: dbpedia_14
+    kind: hf_snapshot
+    repo_id: fancyzhx/dbpedia_14
+    revision: 9abd46cf7fc8b4c64290f26993c540b92aa145ac
+    allow_patterns: ["dbpedia_14/*.parquet"]
+    license: CC-BY-SA-3.0
+    homepage: https://huggingface.co/datasets/fancyzhx/dbpedia_14
+    overlap: {format: parquet, glob: "dbpedia_14/*.parquet", fields: [content], near_dup: false, exposure: "Nimble training (500 rows)"}

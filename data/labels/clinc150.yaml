@@ -1,0 +1,160 @@
+# Label texts for CLINC150 (in-scope intents only; "oos" excluded).
+# STATUS: APPROVED v1.0 (2026-10-06, user approved) — FROZEN; changes only via docs/deviations.md (spec sec 5).
+dataset: clinc150
+task_question: "Which intent does the user's request to a virtual assistant express?"
+source_notes: >-
+  Names are the raw intent names made readable (underscores -> spaces). Descriptions were written by
+  the authors from the intent name and a few TRAINING utterances per intent (never test data); no
+  benchmark model was used to generate them. Larson et al. (2019) give no official intent definitions.
+  ids are the raw intent names; processing maps them to the integer labels of clinc/clinc_oos.
+labels:
+  - {id: "accept_reservations", name: "accept reservations", description: "Ask whether a restaurant takes reservations."}
+  - {id: "account_blocked", name: "account blocked", description: "Ask why a bank account is blocked or has a hold on it."}
+  - {id: "alarm", name: "alarm", description: "Set an alarm or wake-up time."}
+  - {id: "application_status", name: "application status", description: "Ask about the status of a credit card or other application."}
+  - {id: "apr", name: "apr", description: "Ask about the APR (annual percentage rate) on a credit card."}
+  - {id: "are_you_a_bot", name: "are you a bot", description: "Ask whether the assistant is a real person or an AI."}
+  - {id: "balance", name: "balance", description: "Ask for the balance of a bank account."}
+  - {id: "bill_balance", name: "bill balance", description: "Ask how much is owed on a bill such as water or electricity."}
+  - {id: "bill_due", name: "bill due", description: "Ask when a bill is due."}
+  - {id: "book_flight", name: "book flight", description: "Find or book a flight."}
+  - {id: "book_hotel", name: "book hotel", description: "Find or book a hotel room or lodging."}
+  - {id: "calculator", name: "calculator", description: "Ask for the result of an arithmetic calculation."}
+  - {id: "calendar", name: "calendar", description: "Ask what events are on the calendar for a date."}
+  - {id: "calendar_update", name: "calendar update", description: "Add, change or remove an event on the calendar."}
+  - {id: "calories", name: "calories", description: "Ask how many calories a food or drink has."}
+  - {id: "cancel", name: "cancel", description: "Cancel or stop the assistant's current action or request."}
+  - {id: "cancel_reservation", name: "cancel reservation", description: "Cancel a restaurant reservation."}
+  - {id: "car_rental", name: "car rental", description: "Rent or reserve a car for given dates and place."}
+  - {id: "card_declined", name: "card declined", description: "Ask why a card was declined or not accepted."}
+  - {id: "carry_on", name: "carry on", description: "Ask how many carry-on bags an airline allows."}
+  - {id: "change_accent", name: "change accent", description: "Ask the assistant to speak with a different accent."}
+  - {id: "change_ai_name", name: "change ai name", description: "Give the assistant a new name."}
+  - {id: "change_language", name: "change language", description: "Change the language the assistant uses."}
+  - {id: "change_speed", name: "change speed", description: "Ask the assistant to speak faster or slower."}
+  - {id: "change_user_name", name: "change user name", description: "Change the name the assistant uses for the user."}
+  - {id: "change_volume", name: "change volume", description: "Raise, lower or set the assistant's volume."}
+  - {id: "confirm_reservation", name: "confirm reservation", description: "Check or confirm an existing restaurant reservation."}
+  - {id: "cook_time", name: "cook time", description: "Ask how long a dish takes to cook."}
+  - {id: "credit_limit", name: "credit limit", description: "Ask for the credit limit on a card."}
+  - {id: "credit_limit_change", name: "credit limit change", description: "Ask to raise or change a card's credit limit."}
+  - {id: "credit_score", name: "credit score", description: "Ask for or look up the user's credit score."}
+  - {id: "current_location", name: "current location", description: "Ask where the user currently is."}
+  - {id: "damaged_card", name: "damaged card", description: "Report a damaged or broken bank card."}
+  - {id: "date", name: "date", description: "Ask what today's date is."}
+  - {id: "definition", name: "definition", description: "Ask for the meaning or definition of a word."}
+  - {id: "direct_deposit", name: "direct deposit", description: "Ask how to set up direct deposit."}
+  - {id: "directions", name: "directions", description: "Ask for directions to a place or where the nearest one is."}
+  - {id: "distance", name: "distance", description: "Ask how far away or how long the trip to a place is."}
+  - {id: "do_you_have_pets", name: "do you have pets", description: "Ask whether the assistant has pets."}
+  - {id: "exchange_rate", name: "exchange rate", description: "Ask for the exchange rate between currencies."}
+  - {id: "expiration_date", name: "expiration date", description: "Ask when a card expires."}
+  - {id: "find_phone", name: "find phone", description: "Get help finding the user's lost phone."}
+  - {id: "flight_status", name: "flight status", description: "Ask about the status or arrival time of a flight."}
+  - {id: "flip_coin", name: "flip coin", description: "Ask the assistant to flip a coin."}
+  - {id: "food_last", name: "food last", description: "Ask how long a food stays good before it spoils."}
+  - {id: "freeze_account", name: "freeze account", description: "Ask to block or freeze a bank account."}
+  - {id: "fun_fact", name: "fun fact", description: "Ask for an interesting or fun fact."}
+  - {id: "gas", name: "gas", description: "Ask how much fuel is in the car's gas tank."}
+  - {id: "gas_type", name: "gas type", description: "Ask what type of fuel a car needs."}
+  - {id: "goodbye", name: "goodbye", description: "Say goodbye to the assistant."}
+  - {id: "greeting", name: "greeting", description: "Greet the assistant or ask how it is doing."}
+  - {id: "how_busy", name: "how busy", description: "Ask how busy a restaurant is or how long the wait is."}
+  - {id: "how_old_are_you", name: "how old are you", description: "Ask the assistant's age or birthday."}
+  - {id: "improve_credit_score", name: "improve credit score", description: "Ask how to improve a credit score."}
+  - {id: "income", name: "income", description: "Ask about the user's income or salary."}
+  - {id: "ingredient_substitution", name: "ingredient substitution", description: "Ask whether one ingredient can replace another."}
+  - {id: "ingredients_list", name: "ingredients list", description: "Ask what ingredients a dish needs."}
+  - {id: "insurance", name: "insurance", description: "Ask about the user's insurance or health benefits."}
+  - {id: "insurance_change", name: "insurance change", description: "Change or start a new insurance plan."}
+  - {id: "interest_rate", name: "interest rate", description: "Ask for the interest rate on an account or loan."}
+  - {id: "international_fees", name: "international fees", description: "Ask whether a card charges international transaction fees."}
+  - {id: "international_visa", name: "international visa", description: "Ask whether a visa is needed to visit a country."}
+  - {id: "jump_start", name: "jump start", description: "Ask how to jump-start a car or deal with a dead battery."}
+  - {id: "last_maintenance", name: "last maintenance", description: "Ask when the car last had maintenance."}
+  - {id: "lost_luggage", name: "lost luggage", description: "Report or locate lost luggage from a flight."}
+  - {id: "make_call", name: "make call", description: "Place a phone call to someone."}
+  - {id: "maybe", name: "maybe", description: "Answer with uncertainty, such as 'maybe' or 'I don't know'."}
+  - {id: "meal_suggestion", name: "meal suggestion", description: "Ask for a meal or dish suggestion."}
+  - {id: "meaning_of_life", name: "meaning of life", description: "Ask about the meaning of life."}
+  - {id: "measurement_conversion", name: "measurement conversion", description: "Convert a quantity from one unit to another."}
+  - {id: "meeting_schedule", name: "meeting schedule", description: "Ask when a meeting is scheduled."}
+  - {id: "min_payment", name: "min payment", description: "Ask for the minimum payment due on a bill or loan."}
+  - {id: "mpg", name: "mpg", description: "Ask about the car's fuel economy (miles per gallon)."}
+  - {id: "new_card", name: "new card", description: "Apply for a new credit card."}
+  - {id: "next_holiday", name: "next holiday", description: "Ask when the next holiday is."}
+  - {id: "next_song", name: "next song", description: "Skip to the next song."}
+  - {id: "no", name: "no", description: "Answer no, disagree, or say something is not true."}
+  - {id: "nutrition_info", name: "nutrition info", description: "Ask for nutritional information about a food."}
+  - {id: "oil_change_how", name: "oil change how", description: "Ask how to change a car's oil."}
+  - {id: "oil_change_when", name: "oil change when", description: "Ask when or how often the car's oil should be changed."}
+  - {id: "order", name: "order", description: "Ask the assistant to order or buy an item."}
+  - {id: "order_checks", name: "order checks", description: "Order new checks or checkbooks."}
+  - {id: "order_status", name: "order status", description: "Track a package or check an order's status."}
+  - {id: "pay_bill", name: "pay bill", description: "Pay a bill."}
+  - {id: "payday", name: "payday", description: "Ask when the user gets paid next."}
+  - {id: "pin_change", name: "pin change", description: "Change or reset a bank card PIN."}
+  - {id: "play_music", name: "play music", description: "Play music by an artist or of a kind."}
+  - {id: "plug_type", name: "plug type", description: "Ask what electrical plug type or adapter a country uses."}
+  - {id: "pto_balance", name: "pto balance", description: "Ask how many vacation or paid time off days remain."}
+  - {id: "pto_request", name: "pto request", description: "Request paid time off for some dates."}
+  - {id: "pto_request_status", name: "pto request status", description: "Ask whether a paid time off request was approved."}
+  - {id: "pto_used", name: "pto used", description: "Ask how many paid time off days have been used."}
+  - {id: "recipe", name: "recipe", description: "Ask for a recipe or how to cook a dish."}
+  - {id: "redeem_rewards", name: "redeem rewards", description: "Ask how to redeem or use credit card reward points."}
+  - {id: "reminder", name: "reminder", description: "Ask to hear the user's current reminders."}
+  - {id: "reminder_update", name: "reminder update", description: "Create or change a reminder."}
+  - {id: "repeat", name: "repeat", description: "Ask the assistant to repeat what it said."}
+  - {id: "replacement_card_duration", name: "replacement card duration", description: "Ask how long it takes to get a replacement card."}
+  - {id: "report_fraud", name: "report fraud", description: "Report a fraudulent charge on an account."}
+  - {id: "report_lost_card", name: "report lost card", description: "Report a lost bank card."}
+  - {id: "reset_settings", name: "reset settings", description: "Reset the assistant's settings to the original defaults."}
+  - {id: "restaurant_reservation", name: "restaurant reservation", description: "Make a restaurant reservation."}
+  - {id: "restaurant_reviews", name: "restaurant reviews", description: "Ask how a restaurant or its food is reviewed."}
+  - {id: "restaurant_suggestion", name: "restaurant suggestion", description: "Ask for a restaurant recommendation."}
+  - {id: "rewards_balance", name: "rewards balance", description: "Ask how many rewards points are on a card."}
+  - {id: "roll_dice", name: "roll dice", description: "Ask the assistant to roll a die."}
+  - {id: "rollover_401k", name: "rollover 401k", description: "Ask how to roll over or transfer a 401k."}
+  - {id: "routing", name: "routing", description: "Ask for a bank account's routing number."}
+  - {id: "schedule_maintenance", name: "schedule maintenance", description: "Schedule car maintenance or service."}
+  - {id: "schedule_meeting", name: "schedule meeting", description: "Schedule a meeting or check meeting room availability."}
+  - {id: "share_location", name: "share location", description: "Share the user's location with other people."}
+  - {id: "shopping_list", name: "shopping list", description: "Ask what is on the shopping list."}
+  - {id: "shopping_list_update", name: "shopping list update", description: "Add or remove items on the shopping list."}
+  - {id: "smart_home", name: "smart home", description: "Control or check a smart home device such as heating, lights or an oven."}
+  - {id: "spelling", name: "spelling", description: "Ask how to spell a word."}
+  - {id: "spending_history", name: "spending history", description: "Ask how much was spent on something recently."}
+  - {id: "sync_device", name: "sync device", description: "Connect or pair the assistant with another device such as a phone."}
+  - {id: "taxes", name: "taxes", description: "Ask about taxes owed or tax rates."}
+  - {id: "tell_joke", name: "tell joke", description: "Ask the assistant to tell a joke."}
+  - {id: "text", name: "text", description: "Send a text message to someone."}
+  - {id: "thank_you", name: "thank you", description: "Thank the assistant."}
+  - {id: "time", name: "time", description: "Ask what time it is somewhere."}
+  - {id: "timer", name: "timer", description: "Set a timer."}
+  - {id: "timezone", name: "timezone", description: "Ask what time zone a place is in."}
+  - {id: "tire_change", name: "tire change", description: "Ask when the car's tires need replacing."}
+  - {id: "tire_pressure", name: "tire pressure", description: "Ask about the air pressure in the car's tires."}
+  - {id: "todo_list", name: "todo list", description: "Ask what is on the to-do list."}
+  - {id: "todo_list_update", name: "todo list update", description: "Add or remove tasks on the to-do list."}
+  - {id: "traffic", name: "traffic", description: "Ask about traffic on the way to a place."}
+  - {id: "transactions", name: "transactions", description: "Ask for recent transactions on an account or card."}
+  - {id: "transfer", name: "transfer", description: "Transfer money between accounts."}
+  - {id: "translate", name: "translate", description: "Translate a phrase into another language."}
+  - {id: "travel_alert", name: "travel alert", description: "Ask about travel alerts or warnings for a country."}
+  - {id: "travel_notification", name: "travel notification", description: "Tell the bank about upcoming travel dates and destination."}
+  - {id: "travel_suggestion", name: "travel suggestion", description: "Ask for things to do or see at a travel destination."}
+  - {id: "uber", name: "uber", description: "Book an Uber ride."}
+  - {id: "update_playlist", name: "update playlist", description: "Add a song to a playlist."}
+  - {id: "user_name", name: "user name", description: "Ask what name the assistant uses for the user."}
+  - {id: "vaccines", name: "vaccines", description: "Ask which vaccines are needed before traveling somewhere."}
+  - {id: "w2", name: "w2", description: "Ask where to find a W-2 tax form."}
+  - {id: "weather", name: "weather", description: "Ask about the weather or forecast."}
+  - {id: "what_are_your_hobbies", name: "what are your hobbies", description: "Ask about the assistant's hobbies or interests."}
+  - {id: "what_can_i_ask_you", name: "what can i ask you", description: "Ask what the assistant can help with."}
+  - {id: "what_is_your_name", name: "what is your name", description: "Ask the assistant's name."}
+  - {id: "what_song", name: "what song", description: "Ask what song is playing."}
+  - {id: "where_are_you_from", name: "where are you from", description: "Ask where the assistant is from."}
+  - {id: "whisper_mode", name: "whisper mode", description: "Turn the assistant's whisper mode on or off."}
+  - {id: "who_do_you_work_for", name: "who do you work for", description: "Ask who the assistant works for."}
+  - {id: "who_made_you", name: "who made you", description: "Ask who created the assistant."}
+  - {id: "yes", name: "yes", description: "Answer yes, agree, or say something is true."}

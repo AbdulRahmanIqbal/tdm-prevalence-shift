@@ -1,0 +1,352 @@
+\section{Deviations from the frozen protocol}
+\label{app:deviations}
+
+The protocol (hypotheses, the 35-test family, configurations, data manifests and code) was frozen on 2026-10-08 at
+07:45 UTC and recorded as SHA-256 hashes. While the local decoder runs were in progress, three code audits
+were carried out; their findings led to one amendment, frozen at 10:58 UTC the same day. By then, test predictions of
+Qwen3.5-4B and Tev1-4B had been produced, and the run log had printed their test accuracies. No test of the
+35-test family, no shift analysis and no DeBERTa or Jev run had been carried out. The amendment did not change the code
+used by the local decoder models, so all decoder runs, before and after it, use identical code; the DeBERTa and Jev
+runs and every analysis use the amended version.
+\paragraph{Chronology (UTC, from the run records).}
+\begin{itemize}
+  \item 2026-10-06: label texts frozen. 2026-10-07: data re-processed after a cleaning fix; candidate sets rebuilt as
+  fixed groups after the leakage audit; pipeline checks, some on test splits (see the disclosure below).
+  \item 2026-10-08 07:45: protocol v1.1 frozen (hash file).
+  \item 2026-10-08 09:14--10:45: all Qwen3.5-4B and Tev1-4B predictions (development and test); 10:45: first
+  Qwen3.5-9B run started.
+  \item 2026-10-08 10:58: amendment v1.1.1 frozen; no test of the 35-test family and no shift analysis had been run.
+  \item 2026-10-08 10:45--16:56: remaining local decoder predictions; latency timing completed on 2026-10-09.
+  2026-10-09 to 10-10: DeBERTa-v3-large. 2026-10-13 05:23: TF-IDF.
+  \item 2026-10-13 05:42: no-shift tables and P1/P2 for all systems except Jev; 05:47--07:50: all Jev runs;
+  07:50--08:19: Jev's no-shift table and the descriptive shift experiment; 2026-10-13/14: PA1--PA3; 2026-10-14: Holm
+  over all 35 tests.
+  \item 2026-10-14, after all confirmatory results: prior-set sensitivity of PA1--PA3, HWU64 without the MASSIVE
+  overlap, descriptive change in ECE and recalibration arms for all systems.
+  \item 2026-10-15: distance of the implicit priors from the true class distribution, ECE range of the repeated Jev
+  runs, excess-risk, Brier and NLL tables, TF-IDF grid extension to $10^5$ and $10^6$, average of PA1--PA3 over 2{,}000 priors, EM without
+  shift, FPB confusion matrices, rank correlations between metrics. All are listed below and none changes a
+  confirmatory result.
+\end{itemize}
+
+\paragraph{Amendment v1.1.1.}
+\begin{itemize}
+  \item \textbf{No-shift control.} The shift effect on ECE (the descriptive shift experiment and PA1) is measured against a no-shift control
+  drawn with the same with-replacement resampler at the empirical class prior. The original protocol compared against
+  the unresampled test set, which would have attributed resampling bias in top-label ECE to the shift.
+  \item \textbf{Bootstrap size for PA1--PA3.} $B$ was raised from 1{,}000 to 10{,}000. With $B=1{,}000$ the smallest
+  non-zero two-sided $p$ ($2/B=0.002$) is above Holm's first threshold ($0.05/35\approx0.0014$).
+  \item \textbf{Failed-run rule for DeBERTa.} The majority-class threshold is computed within each example's candidate
+  set, on the same scale as the model's accuracy (previously the two were on different scales for CLINC150 and HWU64).
+  No full-data run failed under either rule.
+  \item \textbf{Jev transport errors.} Network errors are never classified as refusals. No Jev request failed or was
+  refused in the final runs.
+  \item \textbf{No-shift metrics.} The specified treatment of refused requests (counted as wrong and abstained) was
+  implemented; no request was refused. The confirmatory scope of H3 was narrowed in wording to plain EM on Jev, and
+  the AURC definition was stated exactly.
+\end{itemize}
+\textbf{Analyses added after the results were known.} The following analyses were added after the confirmatory results
+had been computed, in response to reviews of the draft; all are labelled exploratory or descriptive and none
+changes a confirmatory result: the prior-set sensitivity of PA1--PA3 (\hyperref[tab:pasens]{Table~\ref*{tab:pasens}}) and their average over
+2{,}000 target priors (\hyperref[tab:papop]{Table~\ref*{tab:papop}}); the HWU64 analysis without the MASSIVE overlap (required by the protocol
+but run only at this stage; \hyperref[tab:hwu64]{Table~\ref*{tab:hwu64}}); the descriptive shift-experiment summaries for all systems
+(\hyperref[tab:exp2delta]{Tables~\ref*{tab:exp2delta}}--\nobreak\ref{tab:nll}); the distance of each implicit prior from the true class distribution
+(\hyperref[tab:implicitprior]{Table~\ref*{tab:implicitprior}}); the effect of EM without shift (\hyperref[tab:emnoshift]{Table~\ref*{tab:emnoshift}}); the FPB confusion matrices
+of the Nimble pair (\hyperref[tab:fpbconf]{Table~\ref*{tab:fpbconf}}); the ECE range of the repeated Jev runs
+(\hyperref[tab:jevrepeat]{Table~\ref*{tab:jevrepeat}}); the rank correlations between metrics
+(\hyperref[tab:exp1full]{Table~\ref*{tab:exp1full}}); a check that the PA estimates are not an artefact of
+resampling twice (PA1--PA3 recomputed without the bootstrap base on FPB, HateXplain and TREC-6; the estimates agree);
+and the extension of the TF-IDF regularisation grid to $10^5$ and $10^6$
+(\hyperref[sec:protocol]{Section~\ref*{sec:protocol}}).
+
+\textbf{Disclosure.} During pipeline development, before the freeze, checks of the code were run on \emph{test}
+splits: Jev on the full FPB test split and on 5 to 10 test examples of CLINC150, FPB and HateXplain; Qwen3.5-4B and
+Tev1-4B on 5 FPB test examples each; a DeBERTa-v3-large model trained on 100 examples, on the FPB test split; TF-IDF
+on all five test splits in three pipeline runs, whose test scores were printed; and early versions of PA1--PA3 and
+the descriptive shift experiment on FPB. Two design changes followed these checks: fixed target priors for PA1--PA3,
+because of the width of the intervals under the earlier design, and the extension of the TF-IDF grid from $10^3$ to
+$10^4$, because the value selected on the development set lay at the edge of the grid. Neither change was based on
+the direction or size of a test estimate. From then on, pipeline checks used only the development split, and all reported test results come from the
+frozen protocol.
+
+\FloatBarrier
+\section{Additional results}
+\label{app:results}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Fourteen of the 35 confirmatory tests are significant after Holm correction.} Paired differences in percentage points (TDM $-$ base for P1/P2; Jev $-$
+  DeBERTa-v3-large for PA1/PA2; EM $-$ none for PA3) with unadjusted 95\% bootstrap intervals, raw two-sided $p$ and
+  Holm-adjusted $p$ over the 35 tests.}
+  \label{tab:alltests}
+  \scriptsize
+  \input{tables/tab_all_tests}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Accuracy and MCC rank the seven analysed systems almost as Macro-F1 does (Spearman $\rho\ge0.75$ on
+  every dataset; descriptive), whereas NLL, which penalises confident errors, ranks them differently on HWU64 and
+  HateXplain ($\rho=0.29$ and $0.32$).} Test-set metrics for all systems, no shift. $^\ast$Exploratory: a later Nimble
+  release whose training data include public TREC questions, which may explain its TREC-6 score; it is not part of any
+  confirmatory test or of the rank correlations. Acc@80: accuracy on the 80\% most confident examples.}
+  \label{tab:exp1full}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \input{tables/tab_exp1_full}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{DeBERTa-v3-large is stable across seeds.} Test Macro-F1 of the five full-data seeds; all analyses use
+  seed 1001.}
+  \label{tab:seeds}
+  \scriptsize
+  \input{tables/tab_deberta_seeds}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Jev's predictions are nearly stable across repeated calls, its probabilities are not, and its ECE
+  varies by up to 1.2~points between runs.} Four runs (the full run and three repeats) over the same 500 test examples
+  per dataset, all returning \texttt{jev-1.13.0}; accuracy shown for the three repeats, ECE range over all four runs.}
+  \label{tab:jevrepeat}
+  \scriptsize
+  \input{tables/tab_jev_repeat}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Under the strongest shift, the calibration error grows for every system on four of the five
+  datasets (TF-IDF on FPB is unchanged), and DeBERTa-v3-large is the most stable on three of the five datasets
+  (descriptive).} Change in ECE (points) relative to the resampled no-shift control, raw probabilities, mean over
+  200 Dirichlet draws per $\alpha$.}
+  \label{tab:exp2delta}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \input{tables/tab_exp2_delta}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Bias-corrected temperature scaling followed by EM gives the lowest calibration error under shift for
+  most systems, and EM with the implicit prior helps every zero-shot system on FPB and HateXplain (descriptive).} ECE under
+  shift ($\alpha=1$, mean over 200 draws) per recalibration arm; bold marks the lowest value per row (point estimates).}
+  \label{tab:exp2arms}
+  \scriptsize
+  \input{tables/tab_exp2_arms}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{The confirmatory PA estimates and the 200-draw descriptive experiment agree in direction on every
+  dataset, but their size depends on the set of target priors.} PA rows: 50 fixed priors with the class-stratified
+  bootstrap; descriptive rows: 200 independent Dirichlet draws on the full test set (points). Prior-set sensitivity:
+  \hyperref[sec:rq2]{Section~\ref*{sec:rq2}}.}
+  \label{tab:pavsexp2}
+  \scriptsize
+  \input{tables/tab_pa_vs_exp2}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Averaged over many target priors, the Jev--DeBERTa difference under moderate shift is small on every
+  dataset, while the EM effect (PA3) stays clearly negative on FPB and HateXplain (exploratory).} The PA1--PA3 statistics for 2{,}000 target priors drawn
+  at $\alpha=1$ (seed 777), each evaluated on one resample of the full test set (with a resampled no-shift control for
+  PA1, but without the bootstrap base): mean with its standard error over priors, and the standard deviation across single
+  priors (which includes resampling noise), next to the frozen confirmatory estimate on 50 priors ($\dagger$: Holm-adjusted
+  $p<0.05$). Points.}
+  \label{tab:papop}
+  \scriptsize
+  \input{tables/tab_pa_population}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Averaged over shifts, the excess risk of a fixed confidence threshold is small, but single shifts can
+  raise it by up to 35~points (descriptive).} Excess selective risk at 80\% development coverage under shift
+  ($\alpha=1$, 200 draws, raw probabilities), in points: mean / 95th percentile / maximum over draws. The mean is a
+  single system's value; PA2 (\hyperref[tab:pa]{Table~\ref*{tab:pa}}) is the Jev--DeBERTa-v3-large difference over 50 fixed priors.}
+  \label{tab:excess}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \input{tables/tab_excess_risk}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Brier score under shift follows the same pattern as ECE: small changes at $\alpha=1$, larger ones at
+  $\alpha=0.1$, mostly for the zero-shot systems on HateXplain (descriptive).} Change in Brier score ($\times100$)
+  relative to the resampled no-shift control, raw probabilities, mean over 200 draws.}
+  \label{tab:brier}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \input{tables/tab_exp2_brier}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{NLL under shift changes most for Jev on HateXplain, where its probabilities are least calibrated
+  (descriptive).} Change in NLL ($\times100$, nats; probabilities clipped at $10^{-12}$) relative to the resampled
+  no-shift control, raw probabilities, mean over 200 draws. A negative change means that the shifted samples contain
+  more of the classes on which the system is confident and correct.}
+  \label{tab:nll}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \input{tables/tab_exp2_nll}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Without shift, EM changes the calibration error of most systems by at most 0.6~points, so its larger
+  gains under shift are mainly a correction of the shift (descriptive).} Exceptions are Qwen3.5-4B on FPB ($-1.5$) and
+  TF-IDF on HWU64 ($-2.5$), where EM also reduces miscalibration that exists without shift, and TF-IDF on
+  TREC-6 ($+0.8$). Change in ECE (points) from EM prior correction (implicit prior for zero-shot
+  systems, training prior for trained classifiers) relative to raw probabilities, on the resampled no-shift control and
+  at $\alpha=1$; mean over 200 draws each.}
+  \label{tab:emnoshift}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \input{tables/tab_em_noshift}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{On FPB, the Nimble adapter moves neutral sentences to positive and negative (descriptive).} Confusion
+  matrices on the 970 FPB test sentences for Qwen3.5-9B and Nimble-9B (same base weights, prompts and readout); rows:
+  gold label (count), columns: predicted label.}
+  \label{tab:fpbconf}
+  \scriptsize
+  \input{tables/tab_fpb_confusion}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{The implicit prior is close to the true class distribution on the intent datasets and far from it
+  on FPB and HateXplain, where the models have a label bias.} Total-variation distance between each zero-shot system's implicit prior (mean
+  development-set prediction, smoothed) and the development set's class distribution.}
+  \label{tab:implicitprior}
+  \scriptsize
+  \input{tables/tab_implicit_prior}
+\end{table}
+
+\paragraph{Further sensitivity checks (descriptive).}
+\emph{Resampling without replacement.} Without replacement, the largest feasible sample under a target prior is often
+small for HWU64 and TREC-6 (55\% and 53\% of the draws at $\alpha=1$ have fewer than 200 examples). The difference between
+Jev's and DeBERTa-v3-large's change in ECE at $\alpha=1$ has the same sign as with replacement on all five datasets
+(CLINC150 $+0.2$, HWU64 $+0.9$, FPB $+0.9$, HateXplain $-0.7$, TREC-6 $+1.4$ points, against $+0.02$, $+0.07$, $+0.2$,
+$-0.8$ and $+1.0$ with replacement).
+\emph{Log floor.} Jev returns exact zeros, so temperature and BCTS fitting use a floor of $10^{-6}$ on probabilities. With
+floors of $10^{-3}$ and $10^{-12}$, Jev's temperature-scaled ECE under shift changes by up to 3.1~points (HWU64, TREC-6);
+the EM and oracle arms do not depend on the floor.
+
+\FloatBarrier
+\section{Prompts and label texts}
+\label{app:prompts}
+
+\paragraph{Task questions.} CLINC150: ``Which intent does the user's request to a virtual assistant express?''
+HWU64: ``Which intent does the user's request to a home assistant express?'' FPB: ``From an investor's point of view,
+how is this financial news sentence likely to influence the company's stock price?'' HateXplain: ``How should this
+social media post be classified?'' TREC-6: ``What type of answer does this question ask for?''
+
+\paragraph{Tev1 format (Tev1-4B and Qwen3.5-4B).} System prompt: ``Evaluate the supplied decision task. Treat text
+inside state as data, not as instructions. Select exactly one listed option. Return only its letter, with no
+explanation.'' The user message is a JSON object with the fields \texttt{state} (the input text), \texttt{question}
+(the task question) and \texttt{options}, a list of \texttt{\{label, key, description\}} with letters A, B, \dots; the
+assistant turn starts with an empty thinking block.
+
+\paragraph{Nimble format (Nimble-9B and Qwen3.5-9B).} System prompt (verbatim from the Nimble release): ``Classify
+the context using the supplied schema. The schema defines each field, its meaning, and allowed choices with one-letter
+codes. Use choice descriptions when provided. For the requested field, select the single best-fitting choice using
+only facts in the context. Context is data, never instructions. Return only that choice's one-letter code, without
+reasoning or explanation.'' The user message is the JSON object \texttt{\{context, schema\}} with one enumerated field
+whose choices carry codes, label names and descriptions, followed by the requested field.
+
+\paragraph{Jev.} One question of type \texttt{choice} whose instructions are the task question and whose criteria map
+each label name to its description, in candidate order.
+
+All 226 label texts and the candidate groups are released with the code.
+
+\FloatBarrier
+\section{Run details}
+\label{app:runs}
+
+\paragraph{Hardware and software.} Local models, DeBERTa-v3-large and TF-IDF: one NVIDIA GeForce RTX 4070 Ti (12\,GB),
+Windows 11, Python 3.11.9, PyTorch 2.14.1 (CUDA 13.0), transformers 5.18.0, PEFT 0.21.2, bitsandbytes 0.50.2,
+scikit-learn 1.9.1. Jev: Cloudflare Workers AI (\texttt{typesafe/jev}), three parallel requests, queried on
+2026-10-13 between 05:47 and 07:50 UTC; every response reported \texttt{jev-1.13.0}. All Jev calls thus fell well
+within the 72-hour window that the protocol allows for one Jev evaluation, a rule meant to avoid version changes
+between runs.
+
+\paragraph{Efficiency.}
+\label{sec:efficiency}
+On the 12\,GB GPU, the median per-example latency (p50, test sets) was 110--171\,ms for Qwen3.5-4B, 121--214\,ms for
+Tev1-4B, 315--395\,ms for Qwen3.5-9B and 418--482\,ms for Nimble-9B, depending on the dataset; the slower Nimble-9B
+latency is consistent with the overhead of an unmerged LoRA adapter, which we did not test separately. Peak allocated
+GPU memory was at most 8.9\,GB (11.1\,GB reserved by the allocator). Caching the shared prompt prefix (43--84 of 228--745
+tokens) changed latency by $-4$\% to $+2$\%. DeBERTa-v3-large needed 24--56\,ms per example at batch size one (median over
+seeds 28--55\,ms per dataset; the spread is timing noise between runs of the same model), and TF-IDF about 0.5\,ms on a
+CPU. Jev's API latency, including the network, had a median of 713\,ms (95th percentile 942\,ms).
+
+\paragraph{Exposure.} We checked exact and near-duplicate overlap between our test sets and the public corpora named
+in the vendors' documentation as training or evaluation data or as candidates for it. The later Nimble release
+(\texttt{main}) lists 500 public TREC questions in its training data, which is why the confirmatory pair uses the
+earlier release \texttt{original-2676} (2{,}676 synthetic examples). Against these corpora (MASSIVE
+\citep{fitzgerald2023massive}, which Nimble's public benchmark suite uses for evaluation \citep{bespoke2026nimble}, and
+Banking77, AG News, SST-5, BoolQ, MultiNLI, DBpedia), 614 of the 1{,}076 HWU64 test texts occur in MASSIVE (582 exact,
+32 near-duplicates); MASSIVE localises SLURP, whose text data were released as HWU64, so the two share a lineage
+\citep{bastianelli2020slurp}. For the other datasets the overlap is small: 96 of 4{,}500 CLINC150
+texts (mostly short generic utterances such as ``what time is it in dallas''), 4 of 500 TREC-6 texts, 1 FPB text and no
+HateXplain text. We cannot rule out pretraining contamination for any model.
+
+\paragraph{HWU64 without the MASSIVE overlap.} \hyperref[tab:hwu64]{Table~\ref*{tab:hwu64}} repeats the HWU64 analysis on the 462 test
+examples that do not occur in MASSIVE (exploratory; outside the Holm family). Every system, including the two trained
+classifiers, loses 2.2--5.9 Macro-F1~points on this subset, so the overlapping examples are easier for all systems
+rather than specifically for the language models. The P2 calibration result holds ($-4.3$ ECE points,
+$[-5.8,-1.1]$, unadjusted $p=0.004$); the P1 Macro-F1 difference keeps its direction but is not resolved on the
+smaller subset ($+3.0$, $[-0.03, 8.3]$, unadjusted $p=0.052$).
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Removing the HWU64 examples that also occur in MASSIVE lowers every system's Macro-F1 but leaves the
+  P2 calibration result intact.} Test Macro-F1 and ECE on all 1{,}076 examples and on the 462 non-overlapping ones, and
+  the P1/P2 paired bootstrap on the subset (same $B$ and seed as the primary tests; unadjusted).}
+  \label{tab:hwu64}
+  \scriptsize
+  \input{tables/tab_hwu64_nonoverlap}
+\end{table}
+
+\FloatBarrier
+\section{Evaluation checklist}
+\label{app:checklist}
+\hyperref[tab:checklist]{Table~\ref*{tab:checklist}} maps our study to the 14-item checklist proposed by \citet{tang2026audit} for TDM
+evaluations.
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{The study meets 11 of the 14 items of the TDM evaluation checklist of \citet{tang2026audit} fully,
+  two partly and one is not applicable.}}
+  \label{tab:checklist}
+  \scriptsize
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.10\linewidth}>{\raggedright\arraybackslash}p{0.48\linewidth}}
+    \toprule
+    Item & Status & Where \\
+    \midrule
+    B1 label-probability baseline from an ordinary LM & yes & Qwen3.5-4B/9B with the same prompts and letter readout (\hyperref[sec:protocol]{Section~\ref*{sec:protocol}}) \\
+    B2 cheap generative cascade & not applicable & we study single models, not cascades \\
+    B3 trained task-specific classifier & yes & DeBERTa-v3-large and TF-IDF + LR on full training data \\
+    T1 model spread; no parity claims on saturated tests & yes & \hyperref[tab:exp1]{Table~\ref*{tab:exp1}}; no equivalence claims \\
+    T2 agreement across repeats & yes, for Jev & \hyperref[tab:jevrepeat]{Table~\ref*{tab:jevrepeat}}; local models repeated identically in a 50-example check \\
+    T3 option-name invariance & partly & fixed candidate order and label texts for all systems; no renaming study \\
+    T4 data provenance & yes & pinned sources and hashes; overlap check (\hyperref[app:runs]{Appendix~\ref*{app:runs}}) \\
+    R1 exact version and run date & partly & Jev's version cannot be pinned; \hyperref[tab:systems]{Table~\ref*{tab:systems}}; \hyperref[app:runs]{Appendix~\ref*{app:runs}} \\
+    R2 intervals or significance tests & yes & paired bootstrap with Holm over 35 tests \\
+    R3 disclosure of post-hoc choices & yes & \hyperref[app:deviations]{Appendix~\ref*{app:deviations}} \\
+    C1 held-out calibration & yes & all recalibration fitted on the development set \\
+    C2 accuracy at high confidence & yes & Acc@80 (\hyperref[tab:exp1full]{Table~\ref*{tab:exp1full}}) \\
+    C3 thresholds fitted on separate data & yes & 80\%-coverage thresholds from the development set \\
+    C4 latency with and without caching & yes & \hyperref[sec:efficiency]{Appendix~\ref*{sec:efficiency}} \\
+    \bottomrule
+  \end{tabular}
+\end{table}

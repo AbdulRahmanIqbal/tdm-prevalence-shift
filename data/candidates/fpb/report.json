@@ -1,0 +1,53 @@
+{
+  "dataset": "fpb",
+  "built_at": "2026-10-07T06:39:11+00:00",
+  "n_labels": 3,
+  "seed": 20261006,
+  "mode": "all_labels_shuffled",
+  "gold_position": "counterbalanced per split and per candidate set size (each position equally often, ±1)",
+  "k": 3,
+  "splits": {
+    "train": {
+      "n": 3090,
+      "by_set_size": {
+        "3": {
+          "n": 3090,
+          "gold_position_counts": {
+            "0": 1030,
+            "1": 1030,
+            "2": 1030
+          },
+          "max_abs_deviation_from_uniform": 0.0
+        }
+      }
+    },
+    "dev": {
+      "n": 775,
+      "by_set_size": {
+        "3": {
+          "n": 775,
+          "gold_position_counts": {
+            "0": 259,
+            "1": 258,
+            "2": 258
+          },
+          "max_abs_deviation_from_uniform": 0.67
+        }
+      }
+    },
+    "test": {
+      "n": 970,
+      "by_set_size": {
+        "3": {
+          "n": 970,
+          "gold_position_counts": {
+            "0": 324,
+            "1": 323,
+            "2": 323
+          },
+          "max_abs_deviation_from_uniform": 0.67
+        }
+      }
+    }
+  }
+}

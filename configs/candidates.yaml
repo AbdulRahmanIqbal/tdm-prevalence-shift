@@ -1,0 +1,17 @@
+# Candidate-set construction (spec sec 6). Built once on the dev machine and shipped as a frozen
+# artifact (data/candidates + MANIFEST.json); the run machine only verifies hashes.
+#
+# v1.0.4 (2026-10-07, before any paper result): FIXED LABEL GROUPS replace "gold + 10 nearest + 9 random".
+# Audit: with gold-centred hard negatives the option list alone identified gold (text-free attack: CLINC150
+# 97.6%, HWU64 90.2%). Now labels are partitioned once into balanced groups by embedding similarity; every
+# example is scored against its gold label's group, so all members of a group get the same option list.
+
+candidate_seed: 20261006
+max_candidates: 20        # labels > max_candidates -> fixed label groups; otherwise all labels (shuffled)
+target_group_size: 20     # number of groups = round(n_labels / 20): CLINC150 8 groups (18-19), HWU64 3 (21-22)
+group_restarts: 20        # seeded k-means++ restarts; best total within-group similarity wins
+embedding_model:
+  id: sentence-transformers/all-mpnet-base-v2
+  revision: e8c3b32edf5434bc2275fc9bab85f82640a19130
+splits: [train, dev, test]
+datasets: [clinc150, hwu64, fpb, hatexplain, trec6]

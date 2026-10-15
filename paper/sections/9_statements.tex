@@ -1,0 +1,14 @@
+\section*{Broader impact statement}
+Typed decision models are built to make automated decisions inside software, for example routing, moderation and
+triage. Our results show that their calibration and the error rate of confidence thresholds can change when the
+deployment class distribution differs from the evaluation data, and that decision training can make a model worse on a
+task. Deploying such models in consequential settings (moderation, finance, health) without validation on target data
+can therefore cause harm; we recommend task-specific evaluation against a base model, recalibration on labelled data,
+and monitoring of threshold error rates. HateXplain contains offensive text; we used it only for evaluation.
+
+\section*{Reproducibility statement}
+All datasets are public. Raw files, processed splits, label texts and candidate sets are pinned by SHA-256 hashes; the
+frozen protocol, configurations and code are recorded in hash files, and every result was verified against them. Model
+revisions are listed in \hyperref[tab:systems]{Table~\ref*{tab:systems}}; seeds are fixed throughout. We release the code, the protocol and
+deviation log, and every per-example probability vector \todo{repository link}. Jev is a hosted model whose version
+cannot be pinned and whose outputs are not deterministic (\hyperref[app:results]{Appendix~\ref*{app:results}}).

@@ -1,0 +1,45 @@
+\section{Limitations}
+\label{sec:limitations}
+
+\paragraph{Scope of systems and data.}
+We study three TDMs, two open backbones and two trained classifiers; frontier generative APIs are out of scope. All
+five datasets are English, public and human-labelled, and the TREC-6 and FPB test sets are small (500 and 970
+examples), which widens their intervals. Public benchmarks may appear in the pretraining or decision-training data of
+the models, which we can check only partly (\hyperref[app:runs]{Appendix~\ref*{app:runs}}); contamination would favour the zero-shot systems.
+
+\paragraph{Task format.}
+All results concern candidate-set decisions. On CLINC150 and HWU64 each example offers the 18--22 labels of a fixed label
+group, not all 150 or 64 intents; the groups were chosen to prevent leakage of the gold label through the option list.
+Full-label classification is harder for zero-shot systems, and other groupings could change the absolute numbers; we did
+not test alternative groupings.
+
+\paragraph{Shift model.}
+We simulate prevalence shift by resampling test sets, so the label-shift assumption holds by construction. Real
+deployments also change $p(x\mid y)$ (covariate or concept shift), under which prior correction can fail; our results
+are therefore an optimistic case for prior correction. The confirmatory tests use one shift level ($\alpha=1$); the
+stronger level is reported descriptively. A naturally or temporally shifted dataset, and alternative candidate
+groupings, would test how far our conclusions transfer; both require new inference runs and are left to future work.
+
+\paragraph{Design of the shift tests.}
+The confirmatory PA1--PA3 estimand is conditional on one fixed set of 50 target priors, and its intervals reflect only
+the finiteness of the test set. In hindsight this was a weakness of our design. Single priors move the Jev--DeBERTa
+difference by several points on FPB and HateXplain (standard deviation 5.4 and 7.4~points across priors), so the frozen
+set of 50 does not pin down the mean over the shift distribution: on FPB the confirmatory PA1 estimate is 1.7~points,
+the average over 2{,}000 priors 0.4 (\hyperref[tab:papop]{Table~\ref*{tab:papop}}). The significant FPB results for PA1 and PA2 may therefore
+reflect the particular prior set as much as a property of Jev. PA3 is less affected: across prior sets its estimate keeps
+its sign and stays between 1.7 and 2.7~points on FPB. Future studies with a fixed protocol should target the mean over the shift
+distribution, with the priors resampled inside the bootstrap or with many more priors, rather than a single prior set.
+
+\paragraph{Models.}
+Jev's version cannot be pinned (every call returned \texttt{jev-1.13.0}), and Jev is not deterministic: its probability
+vectors differ between repeated calls on up to 81\% of examples, although its predictions rarely do. We run the two 9B
+models in 8-bit precision to fit a 12\,GB GPU, whereas Nimble is distributed for bf16 inference; both members of the pair
+share the precision, so the comparison is matched, but the size of the adapter effect in bf16 is untested and the
+probabilities of 8-bit models can depend on the computation path. The vendors' training
+data are not public, so we can show where decision training helps or hurts (for Nimble-9B on FPB, on the neutral class)
+but not why.
+
+\paragraph{Statistics.}
+Bootstrap intervals hold quantities fitted on the development set fixed, and so understate total uncertainty; they are
+not adjusted for multiplicity, whereas the reported significance is. Absence of a significant difference is not
+evidence of equivalence beyond the width of the reported intervals.
