@@ -19,6 +19,9 @@ s1bench verify-results --run final_contentfree --run final_router --run final_pr
   --run final_realistic --run final_qlora_realistic --freeze docs/FREEZE_v1.3.json
 ```
 
+Use Python 3.11 (see Setup in `README.md`): with Python 3.12 or later, Jev's AURC and accuracy at 80% coverage differ
+in the sixth decimal and `reproduce_paper.py` stops.
+
 ## 1. Code and data
 
 ```bash

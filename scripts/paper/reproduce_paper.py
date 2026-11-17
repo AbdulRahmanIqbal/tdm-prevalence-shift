@@ -77,6 +77,10 @@ def main() -> int:
     ap.add_argument("--unzip", action="store_true", help="unpack results/*.zip into results/ first")
     ap.add_argument("--skip-slow", action="store_true", help="leave out the one-hour EM simulation")
     args = ap.parse_args()
+    if sys.version_info[:2] != (3, 11):
+        print(f"Python {sys.version.split()[0]}: use Python 3.11. From 3.12 on, sum() of floats is compensated, which "
+              "moves Jev's AURC in the sixth decimal and stops fig_calibration.py (see README.md, Setup).")
+        return 1
 
     if args.unzip:
         unzip_results()

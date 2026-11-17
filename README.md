@@ -62,7 +62,11 @@ hash is part of the freeze file, so it is released unchanged.
 
 ## Setup
 
-Python 3.11.
+Python 3.11 (exactly; not 3.12 or later). Python 3.12 changed the built-in `sum()` of floats to compensated
+summation. Jev's probabilities lie on a 0.01 grid, so the last-bit change after renormalisation breaks ties in
+confidence and moves Jev's AURC and accuracy at 80% coverage in the sixth decimal. The paper's tables and figures are
+unchanged, but `scripts/paper/fig_calibration.py` stops on its exact check against Exp 1, and the released analysis
+files are reproduced byte for byte only on 3.11.
 
 ```
 python -m venv .venv
