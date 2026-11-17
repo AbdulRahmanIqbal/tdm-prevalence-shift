@@ -131,7 +131,9 @@ def config_snapshot(project_root: Path, hasher: FileHasher | None = None) -> dic
 # Frozen protocol (spec sec 16, v1.1): the spec, analysis configs and pinned requirements are hashed in addition to
 # the prediction-relevant config_snapshot. No git/OSF: this file is the record that the protocol was fixed.
 FREEZE_EXTRA = ("docs/benchmark_spec_v1.md", "configs/experiments/*.yaml", "configs/overlap_references.yaml",
-                "requirements-run.txt", "pyproject.toml", "src/s1bench/**/*.py")
+                "requirements-run.txt", "pyproject.toml", "src/s1bench/**/*.py",
+                # v1.3: revision-protocol inputs (G3 router candidate sets, G4 content-free probes)
+                "data/candidates_router/**/*.json*", "data/contentfree/**/*.json*")
 
 
 def freeze_record(project_root: Path) -> dict[str, object]:

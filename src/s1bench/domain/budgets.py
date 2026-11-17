@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import math
 from collections import defaultdict
 from collections.abc import Sequence
 
@@ -57,3 +58,57 @@ def stratified_subset(examples: Sequence[Example], budget: int | None, seed: int
             diff += 1
         i += 1
     return [e for c in classes for e in by_class[c][: quota[c]]]
+
+
+def realistic_steps(n_train: int, batch: int, epochs: int, min_steps: int, max_steps: int) -> int:
+    """Revision protocol (v1.3) step rule: `epochs` passes over the training part, but at least `min_steps` and at
+    most `max_steps` optimizer steps (no switch in the number of epochs between budgets)."""
+    return min(max_steps, max(min_steps, epochs * math.ceil(n_train / batch)))
+
+
+def _dev_key(seed: int, eid: str) -> bytes:
+    return hashlib.sha256(f"{seed}:budget-dev:{eid}".encode("utf-8")).digest()
+
+
+def split_budget(subset: Sequence[Example], dev_share: float, seed: int) -> tuple[list[Example], list[Example]]:
+    """Revision protocol (v1.3): split a budget subset into training and development examples, so that model selection
+    uses only the budget's own labels.
+
+    - The development part has round(dev_share * len(subset)) examples, at least 1 (if the subset has 2 or more).
+    - It is drawn first from classes with at least two examples, at most n_c - 1 per class (so those classes keep a
+      training example), with quotas proportional to the class counts (largest remainder). Only if these classes cannot
+      supply enough examples do classes with a single example contribute theirs (they then have no training example;
+      expected for CLINC150 and HWU64 at the smallest budgets).
+    - Within a class, examples are taken in sha256(seed:budget-dev:id) order; deterministic for a given seed.
+    Returns (train, dev), each in the order of `subset`.
+    """
+    n_dev = max(1, round(dev_share * len(subset))) if len(subset) >= 2 else 0
+    by_class: dict[str, list[Example]] = defaultdict(list)
+    for e in subset:
+        by_class[e.label].append(e)
+    for rows in by_class.values():
+        rows.sort(key=lambda e: _dev_key(seed, e.id))
+    classes = sorted(by_class, key=lambda c: _dev_key(seed, c))
+    multi = [c for c in classes if len(by_class[c]) >= 2]
+    capacity = {c: len(by_class[c]) - 1 for c in multi}
+    take = {c: 0 for c in classes}
+    want = min(n_dev, sum(capacity.values()))
+    if want:
+        total = sum(len(by_class[c]) for c in multi)
+        exact = {c: want * len(by_class[c]) / total for c in multi}
+        for c in multi:
+            take[c] = min(capacity[c], int(exact[c]))
+        order = sorted(multi, key=lambda c: (-(exact[c] - int(exact[c])), _dev_key(seed, c)))
+        i = 0
+        while sum(take.values()) < want:
+            c = order[i % len(order)]
+            if take[c] < capacity[c]:
+                take[c] += 1
+            i += 1
+    for c in classes:   # fallback: single-example classes, in sha256 order
+        if sum(take.values()) >= n_dev:
+            break
+        if len(by_class[c]) == 1:
+            take[c] = 1
+    dev_ids = {e.id for c in classes for e in by_class[c][: take[c]]}
+    return [e for e in subset if e.id not in dev_ids], [e for e in subset if e.id in dev_ids]

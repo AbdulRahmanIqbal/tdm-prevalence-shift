@@ -17,7 +17,7 @@ from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch, Rectangl
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "paper" / "figures"
 
-BLUE, ORANGE = "#2a78d6", "#eb6834"
+BLUE, ORANGE, AQUA = "#2a78d6", "#eb6834", "#1baf7a"
 SLATE, GREY = "#3d4a5c", "#6b6a66"
 INK, INK2 = "#0b0b0b", "#52514e"
 plt.rcParams.update({"font.size": 6, "pdf.fonttype": 42, "mathtext.fontset": "dejavusans", "text.color": INK})
@@ -101,14 +101,19 @@ def main() -> None:
         chip(ax, x + 0.81, yy, 0.60, base, GREY)
         ax.annotate("", xy=(x + 0.80, yy - 0.08), xytext=(x + 0.70, yy - 0.08),
                     arrowprops=dict(arrowstyle="<->", color=INK2, lw=0.7, shrinkA=0, shrinkB=0))
-    y -= 0.92
-    sub(ax, x, y, "Trained classifiers (full data)")
+    y -= 0.86
+    sub(ax, x, y, "Trained on task labels")
     chip(ax, x + 0.09, y - 0.16, 0.78, "DeBERTa-v3-large", GREY)
     chip(ax, x + 0.92, y - 0.16, 0.49, "TF-IDF+LR", GREY)
-    y -= 0.50
-    ax.add_patch(FancyBboxPatch((x + 0.09, y - 0.36), PW - 0.18, 0.36, boxstyle="round,pad=0,rounding_size=0.045",
+    ax.text(x + 0.09, y - 0.395, "full data; 100 to 5,000 labels, 5 seeds", ha="left", va="center",
+            fontsize=F_SMALL, color=INK2, style="italic")
+    chip(ax, x + 0.09, y - 0.50, PW - 0.18, "Qwen3.5-4B + QLoRA", GREY)
+    ax.text(x + 0.09, y - 0.765, "100, 500, 2,500 labels, 3 seeds", ha="left", va="center",
+            fontsize=F_SMALL, color=INK2, style="italic")
+    y -= 0.88
+    ax.add_patch(FancyBboxPatch((x + 0.09, y - 0.30), PW - 0.18, 0.30, boxstyle="round,pad=0,rounding_size=0.045",
                                 fc="white", ec=tint(BLUE, 0.6), lw=0.6, ls=(0, (2, 1.5))))
-    ax.text(x + PW / 2, y - 0.18, "output: $p(\\cdot\\mid x)$ over $C(x)$\non dev and test", ha="center",
+    ax.text(x + PW / 2, y - 0.15, "output: $p(\\cdot\\mid x)$ over $C(x)$\non dev and test", ha="center",
             va="center", fontsize=F_CHIP, color=INK)
 
     # 3 Shift & recalibration
@@ -150,9 +155,13 @@ def main() -> None:
         chip(ax, x + 0.09, yy, 0.34, rq, col, h=0.2, bold=True)
         ax.text(x + 0.50, yy - 0.015, test, ha="left", va="top", fontsize=F_TXT, weight="bold", color=INK)
         ax.text(x + 0.50, yy - 0.12, what, ha="left", va="top", fontsize=F_SMALL, color=INK2)
-    y -= 1.02
+    y -= 0.98
     bullet(ax, x, y, "35 tests, paired bootstrap\n($B$=10,000), Holm-adjusted", SLATE)
-    bullet(ax, x, y - 0.33, "all else descriptive", SLATE)
+    y -= 0.42
+    sub(ax, x, y, "Estimated, not tested")
+    chip(ax, x + 0.09, y - 0.17, 0.34, "RQ4", AQUA, h=0.2, bold=True)
+    ax.text(x + 0.50, y - 0.185, "crossover budget", ha="left", va="top", fontsize=F_TXT, weight="bold", color=INK)
+    ax.text(x + 0.50, y - 0.295, "trained vs Jev, by labels", ha="left", va="top", fontsize=F_SMALL, color=INK2)
 
     # arrows between stages
     ymid = (TOP + BOT) / 2 + 0.25
@@ -166,10 +175,10 @@ def main() -> None:
     ax.add_patch(FancyBboxPatch((0, 0.05), W, 0.34, boxstyle="round,pad=0,rounding_size=0.06",
                                 fc="#f4f3ef", ec="#dcdad4", lw=0.6))
     ax.text(0.12, 0.22, "Fitted on the development set:", ha="left", va="center", fontsize=F_TXT, weight="bold")
-    ax.text(1.62, 0.22, "thresholds $\\tau$; temperature and BCTS (with labels); implicit prior $\\hat\\pi_s$ (no labels)",
+    ax.text(1.62, 0.22, "thresholds $\\tau$; temperature, BCTS (labels); implicit prior $\\hat\\pi_s$ (no labels); checkpoints",
             ha="left", va="center", fontsize=F_TXT, color=INK2)
-    ax.text(5.42, 0.22, "Test set:", ha="left", va="center", fontsize=F_TXT, weight="bold")
-    ax.text(5.88, 0.22, "metrics, tests", ha="left", va="center", fontsize=F_TXT, color=INK2)
+    ax.text(5.14, 0.22, "Test set:", ha="left", va="center", fontsize=F_TXT, weight="bold")
+    ax.text(5.60, 0.22, "metrics, tests, curves", ha="left", va="center", fontsize=F_TXT, color=INK2)
 
     OUT.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT / "fig_pipeline.pdf")

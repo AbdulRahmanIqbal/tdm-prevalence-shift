@@ -153,3 +153,26 @@ def test_freeze_differences_detects_changed_file(tmp_path):
     assert freeze_differences(frozen, tmp_path) == []
     (tmp_path / "configs" / "models.yaml").write_text("a: 2\n")
     assert freeze_differences(frozen, tmp_path) == ["configs/models.yaml: hash differs"]
+
+
+def test_router_candidates_dir_expects_listed_examples_only(tmp_path):
+    """v1.3 (G3): candidates read from the environment's candidates_dir (sha256 checked), listed examples only."""
+    root = tmp_path / "proj"
+    (root / "alt" / "toy").mkdir(parents=True)
+    f = root / "alt" / "toy" / "test.jsonl"
+    f.write_text("listed\n", encoding="utf-8")
+    listed = {EXAMPLES[0].id: CandidateSet(EXAMPLES[0].id, ("b", "a"), -1)}
+    env = {"limit": None, "config_snapshot": SNAP, "candidates_dir": "alt", "candidates_file_sha256": H.sha256(f)}
+    pred = Prediction(EXAMPLES[0].id, "m", "toy", "test", ("b", "a"), (0.6, 0.4), "b", EXAMPLES[0].label)
+
+    def uc():
+        return VerifyResults(H, lambda d, s: EXAMPLES, lambda d, s: CANDS, SNAP, (),
+                             examples_from=lambda r, d, s: EXAMPLES, candidates_from=lambda r, d, s: listed,
+                             project_root=root)
+
+    assert uc().execute(_run(tmp_path, preds=[pred], env=env)).ok
+    bad = {**env, "candidates_file_sha256": "0" * 64}
+    rep = uc().execute(_run(tmp_path, preds=[pred], env=bad, run_id="run2"))
+    assert any("sha256 differs" in e for e in rep.errors)
+    rep = _uc().execute(_run(tmp_path, preds=[pred], env=env, run_id="run3"))    # no reader for the folder
+    assert not rep.ok

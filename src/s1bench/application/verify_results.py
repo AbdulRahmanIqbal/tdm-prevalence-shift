@@ -14,6 +14,9 @@ Errors (exit 1) mean the run cannot be used for the paper as is; warnings are re
    train_* listing the dataset); config_snapshot must be non-empty and its configs/data manifests equal
    this machine's (error); prediction-code hashes ("code:") that differ are warnings to review.
    Smoke runs (dev_smoke) outside a dev_ run id are errors.
+   Revision protocol v1.3: a predict environment with `candidates_dir` (G3 router sets) or `processed_dir` (G4
+   content-free probes, split 'contentfree') is checked against those files instead (their sha256 must match the
+   environment); with `candidates_dir` exactly the listed examples are expected.
 5. Failure rules (spec sec 13): failed > 1% on a dataset -> error (rerun); blocked rate reported;
    Jev: exactly one model version across the run (and across runs: CLI).
 """
@@ -66,7 +69,11 @@ class VerifyResults:
     def __init__(self, hasher: FileHasher, read_examples: Callable[[str, str], list[Example]],
                  read_candidates: Callable[[str, str], Mapping[str, CandidateSet]],
                  local_snapshot: Mapping[str, str], secret_values: Iterable[str] = (),
-                 frozen_snapshot: Mapping[str, str] | None = None) -> None:
+                 frozen_snapshot: Mapping[str, str] | None = None,
+                 examples_from: Callable[[Path, str, str], list[Example]] | None = None,
+                 candidates_from: Callable[[Path, str, str], Mapping[str, CandidateSet]] | None = None,
+                 project_root: Path = Path(".")) -> None:
+        self._examples_from, self._candidates_from, self._root = examples_from, candidates_from, project_root
         self._hasher = hasher
         self._examples = read_examples
         self._candidates = read_candidates
@@ -169,7 +176,7 @@ class VerifyResults:
     def _predictions(self, run_dir: Path, f: Path, envs: dict[str, dict], rep: VerifyReport) -> None:
         model = f.parent.name
         rel = f.relative_to(run_dir).as_posix()
-        if "_" not in f.stem or f.stem.rsplit("_", 1)[1] not in ("train", "dev", "test"):
+        if "_" not in f.stem or f.stem.rsplit("_", 1)[1] not in ("train", "dev", "test", "contentfree"):
             rep.errors.append(f"{rel}: unexpected file name (expected <dataset>_<split>.jsonl)")
             return
         dataset, split = f.stem.rsplit("_", 1)
@@ -181,8 +188,26 @@ class VerifyResults:
             (rep.warnings if (run_dir / "environment.json").exists() else rep.errors).append(
                 f"{rel}: no environment file for this model/dataset/split")
         rows = [json.loads(line) for line in f.read_text(encoding="utf-8").splitlines() if line.strip()]
-        examples = {e.id: e for e in self._examples(dataset, split)}
-        cands = self._candidates(dataset, split)
+        alt = {k: (env or {}).get(k) for k in ("processed_dir", "candidates_dir")}
+        if split == "contentfree" and not (alt["processed_dir"] and alt["candidates_dir"]):
+            rep.errors.append(f"{rel}: contentfree split without processed_dir/candidates_dir in its environment")
+            return
+        for key, kind in (("processed_dir", "processed"), ("candidates_dir", "candidates")):
+            if alt[key]:
+                if (self._examples_from if kind == "processed" else self._candidates_from) is None:
+                    rep.errors.append(f"{rel}: {key} in the environment but no reader for it")
+                    return
+                path = self._root / alt[key] / dataset / f"{split}.jsonl"
+                want = env.get(f"{kind}_file_sha256")
+                if not path.exists() or self._hasher.sha256(path) != want:
+                    rep.errors.append(f"{rel}: {path.as_posix()} missing or sha256 differs from the environment")
+                    return
+        examples = {e.id: e for e in (self._examples_from(self._root / alt["processed_dir"], dataset, split)
+                                      if alt["processed_dir"] else self._examples(dataset, split))}
+        cands = (self._candidates_from(self._root / alt["candidates_dir"], dataset, split)
+                 if alt["candidates_dir"] else self._candidates(dataset, split))
+        if alt["candidates_dir"]:      # only the listed examples are scored (RunPredictions only_listed)
+            examples = {i: e for i, e in examples.items() if i in cands}
         ids = [r["example_id"] for r in rows]
         if len(set(ids)) != len(ids):
             rep.errors.append(f"{rel}: duplicate example ids")

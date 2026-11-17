@@ -1,0 +1,7 @@
+# REVISION PROTOCOL (v1.3; exploratory, added after the results): label-budget re-run of DeBERTa-v3-large and
+# TF-IDF + LR with model selection inside the budget (review: the frozen Exp 3 selects on the full development set,
+# and its epoch switch at 500 labels under-trains DeBERTa at intermediate budgets on CLINC150 and HWU64).
+# Same budget subsets, seeds, LR / C grids, reserve seeds and failed-run rule as Exp 3; differences:
+dev_share: 0.2          # development part split off the budget (budgets.split_budget)
+max_steps: 2000         # DeBERTa: 20 epochs clipped to [min_steps = 500, max_steps] (budgets.realistic_steps)
+patience: 5             # DeBERTa: stop after 5 evaluations (every 100 steps) without a better dev macro-F1

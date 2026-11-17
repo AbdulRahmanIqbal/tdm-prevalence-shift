@@ -18,6 +18,8 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{xcolor}
+\usepackage{colortbl}       % \rowcolor: shaded rows in three tables
+\definecolor{rowhl}{HTML}{E6EEF8}
 
 \definecolor{tdmblue}{HTML}{2A78D6}
 \definecolor{shiftorange}{HTML}{EB6834}
@@ -29,12 +31,12 @@
 % Clickable DOIs in the bibliography (tmlr.bst only \providecommand's \doi, so this definition wins).
 \newcommand{\doi}[1]{doi: \href{https://doi.org/#1}{\nolinkurl{#1}}}
 
-\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
 
-\title{Typed Decision Models under Prevalence Shift:\\Decision Training, Calibration, and Implicit Priors}
+\title{Typed Decision Models under Prevalence Shift and Label Budgets: Decision Training, Calibration, and Implicit Priors}
 
 \author{\name Abdul Rahman Iqbal \email abdul.rahmanmezzi@gmail.com \\
-      \addr Independent Researcher
+      \addr Faculty of Computer Science and Information Technology\\
+      The Superior University, Lahore, Pakistan
       \AND
       \name Muhammad Fawad Nasim \email fawad.nasim@superior.edu.pk \\
       \addr Faculty of Computer Science and Information Technology\\
@@ -52,23 +54,23 @@
 \maketitle
 
 \begin{abstract}
-Typed decision models (TDMs) return a probability over caller-defined options, and Jev is described by its vendor as
-calibrated. But in deployment class frequencies change, so calibration measured on a fixed test set need not hold where
-thresholds are applied. Existing evaluations leave two gaps: the gains of vendor decision training have not been
-separated from those of the backbone under an identical readout, and TDMs have been tested only at the test set's class
-distribution. We ask whether decision training improves a model over its own backbone, and whether a TDM's calibration
-and thresholds withstand prevalence (label) shift as well as a fine-tuned classifier's. We compare three TDMs (Jev,
-Tev1-4B, Nimble-9B), their base models and two trained classifiers on identical decisions from five public datasets
-under simulated shift, with 35 paired tests fixed before any test was computed. First, decision training is not
-uniformly beneficial: Nimble-9B, which differs from Qwen3.5-9B only by a LoRA adapter, is better calibrated on intent
-tasks but 12.0 Macro-F1 points worse on financial sentiment. Second, under moderate shift Jev's expected calibration
-error (ECE) and threshold risk grow significantly more than a fine-tuned DeBERTa's only on financial sentiment, by 1.7
-and 2.5 percentage points; averaged over 2{,}000 shift scenarios (exploratory), the gap is at most one point on every
-dataset. Third, EM prior correction with the model's mean development prediction as its prior needs no labels and lowers
-Jev's ECE under shift by 2.7 and 1.8 points on the two datasets where it is highest, although labelled recalibration
-lowers it far more. The three TDMs we tested are neither uniformly better than their backbones nor uniquely fragile
-under shift; for calibration, their main weakness is the miscalibration they already have without shift. We release all
-inputs, code and outputs.
+Typed decision models (TDMs) return probabilities over caller-defined options, and Jev's vendor describes it as
+calibrated. We ask whether vendor decision training improves a model over its backbone, whether a TDM's calibration
+and thresholds withstand prevalence (label) shift like a fine-tuned classifier's, and how many labels a trained model
+needs to overtake a TDM. We compare three TDMs (Jev, Tev1-4B, Nimble-9B), their base models and trained classifiers on
+identical candidate-set decisions from five public datasets (on intent datasets, within the gold label's intent group)
+under simulated shift, with 35 paired tests frozen before the confirmatory analysis (earlier test-data checks
+disclosed), and estimate label-budget curves. First, decision training is not always beneficial: Nimble-9B, which
+differs from Qwen3.5-9B only by a LoRA adapter, is better calibrated on intent tasks but 12 Macro-F1 points worse on
+financial sentiment, a loss that persists across prompt formats; Tev1-4B's largest gain over its backbone is a
+prompt-format effect. Second, on 50 fixed moderate shifts, Jev's top-label calibration error and threshold risk grow
+significantly more than a fine-tuned DeBERTa's only on financial sentiment, sensitive to the prior set; averaged over
+2{,}000 shifts the gap is at most one point. Third, label-free EM correction with the model's implicit prior lowers
+Jev's shifted calibration error where it is highest, but labelled recalibration lowers it far more. Fourth, DeBERTa
+needs 100--250 labels to overtake Jev on hate speech and does not clearly overtake it on CLINC150 at any budget; a
+QLoRA adapter on Qwen3.5-4B overtakes Jev with at most 2{,}500 labels on every dataset, on CLINC150 only marginally
+and not under in-budget selection. The TDMs tested are neither uniformly better than their backbones nor uniquely
+fragile under shift; their lead over trained models depends on the task.
 \end{abstract}
 
 \input{sections/1_introduction}
@@ -85,6 +87,19 @@ inputs, code and outputs.
 \bibliographystyle{tmlr}
 
 \appendix
+% Appendix float placement: float pages start at the top instead of being centred, and pages may hold more floats.
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{14pt plus 4pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.85}
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{8}
 \input{sections/appendix}
 
 \end{document}

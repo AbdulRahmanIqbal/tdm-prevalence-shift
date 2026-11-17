@@ -2,15 +2,22 @@
 \label{sec:conclusion}
 
 We compared typed decision models with their own backbones and with trained classifiers on identical items and
-candidate sets, under controlled prevalence shift and with 35 tests fixed before any test was computed. Vendor decision
+candidate sets, under controlled prevalence shift and with 35 tests frozen before the confirmatory analysis (earlier
+pipeline checks on test data are disclosed). Vendor decision
 training changed the same backbone in a task-dependent direction: with only an adapter between them, Nimble-9B was better
 calibrated than Qwen3.5-9B on intent tasks and 12 Macro-F1~points worse on financial sentiment (RQ1). Under moderate
-prevalence shift, Jev's calibration error and threshold risk grew significantly more than those of a fine-tuned DeBERTa
-only on financial sentiment (by 1.7 and 2.5~points); this difference depended on the shift scenarios, and averaged over
-many scenarios it was at most one point on every dataset (RQ2). A label-free EM correction with the model's implicit
+prevalence shift, on the pre-specified set of 50 target priors, Jev's top-label calibration error and threshold risk
+grew significantly more than those of a fine-tuned DeBERTa only on financial sentiment (by 1.7 and 2.5~points), the
+dataset whose test split was exposed in pipeline checks; this difference depended on the shift scenarios, and averaged
+over 2{,}000 scenarios it was at most one point on every dataset (RQ2). A label-free EM correction with the model's implicit
 prior lowered Jev's calibration error under shift by 2.7 and 1.8~points on the two datasets where it was highest,
 consistently in sign across scenarios, but recalibration on labelled development data reduced it much further (RQ3).
+The number of labels a fine-tuned DeBERTa-v3-large needed to overtake Jev ranged from 100--250 on hate speech to more
+than the full training set on CLINC150, and a QLoRA adapter on Qwen3.5-4B overtook Jev with at most 2{,}500 labels on
+every dataset and with at most 100 on two, on CLINC150 only marginally and not under in-budget selection (RQ4); a
+rerun with selection inside the budget gave the same DeBERTa-v3-large crossovers. On the two intent datasets all of these
+results concern decisions within the group of 18--22 intents that contains the gold label, not the choice of that group.
 The three typed decision models we tested are neither uniformly better than their backbones nor uniquely fragile under
-prevalence shift; for calibration, their main weakness is the miscalibration they already have without shift. Whether
-one is enough for a task is best decided by testing it against its base model and recalibrating it on labelled data
-from the deployment setting.
+prevalence shift; for top-label calibration, their main weakness is the miscalibration they already have without shift. Whether
+one is enough for a task is best decided by testing it against its base model and against a model tuned on a few hundred
+task labels, and by recalibrating it on labelled data from the deployment setting.

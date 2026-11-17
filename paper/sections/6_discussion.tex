@@ -7,18 +7,36 @@ all five datasets, and
 under moderate prevalence shift its calibration error and threshold risk were not distinguishable from those of
 DeBERTa-v3-large after correction on four of the five. When the full training set is available, the fine-tuned
 DeBERTa-v3-large still has the higher Macro-F1 point estimate everywhere, by 0.26~points on CLINC150 up to 18.9~points on
-HateXplain. Whether a typed decision model is enough therefore depends on the task and on whether labels exist; how many
-labels a trained model needs to overtake a TDM is a separate question that this study does not answer.
+HateXplain. Whether a typed decision model is enough therefore depends on the task, on whether labels exist and on how
+many. With our fixed training schedule, a fine-tuned DeBERTa-v3-large overtakes Jev with a few hundred labels on the
+three-class tasks, needs 2{,}500--5{,}000 on HWU64 and is not clearly ahead on CLINC150 even with the full training set
+(\hyperref[sec:rq4]{Section~\ref*{sec:rq4}}). For decisions within an intent group, then, a TDM is hard to beat with an
+encoder fine-tuned on the task, but a QLoRA adapter on an open backbone overtakes Jev with at most 2{,}500 labels on
+every dataset we tested, on CLINC150 only marginally and not under in-budget selection. These are five tasks, one backbone and three seeds for QLoRA; they show that a few thousand
+labels can be enough, not how many a new task needs.
+
+\paragraph{Why does the crossover rise with the number of classes?}
+Two factors that our design cannot separate both point the same way. First, a fixed budget gives fewer examples per
+class when there are more classes: 2{,}500 labels are on average 17 examples per class on CLINC150 but 833 on the
+three-class tasks. Second, Jev leaves less room on the intent tasks, where its Macro-F1 is 0.978 and 0.908, than on
+HateXplain (0.514), where it is weakest and the crossover comes earliest. The number of classes is also confounded with
+domain and text length across our five datasets. The QLoRA result fits both factors: it starts from a model that
+already reads the options zero-shot, so it does not have to learn each class from its few examples, and it overtakes
+Jev earliest on the two datasets where Jev is least accurate. We offer this as a description of our five datasets, not
+as a tested claim.
 
 \paragraph{Why can decision training hurt?}
-On FPB the two decision-trained models differ from their backbones in opposite directions: Tev1-4B's Macro-F1 is 10.0~points above Qwen3.5-4B's and Nimble-9B's is 12.0~points below Qwen3.5-9B's. The Nimble release we test was trained on
+On FPB the two decision-trained models differ from their backbones in opposite directions: Tev1-4B's Macro-F1 is 10.0~points above Qwen3.5-4B's and Nimble-9B's is 12.0~points below Qwen3.5-9B's. The Tev1-4B gain, however, comes mostly from the base model's weak
+score in the Tev1 format and disappears in generic formats (exploratory), so only the Nimble-9B result isolates an
+effect of decision training. The Nimble release we test was trained on
 2{,}676 synthetic examples, and FPB is labelled from an investor's point of view; one possible explanation is that the
 synthetic data encode a different notion of positive and neutral financial news. The confusion matrices fit this
 reading: the adapter mainly moves neutral sentences to the positive class (\hyperref[tab:fpbconf]{Table~\ref*{tab:fpbconf}}). We cannot test the
-explanation itself without the vendors' training data. Both members of the pair run in the same 8-bit precision, so the comparison is matched, but we
-have not measured the size of the adapter effect in bf16. What the paired design does establish is that, for the same
-backbone, prompt and readout, decision training is not uniformly beneficial; a decision-trained variant should be
-evaluated against its base model on the target task rather than assumed to be better.
+explanation itself without the vendors' training data. Both members of the pair run in the same 8-bit precision, so the comparison is matched, and
+in bf16 the difference is nearly the same ($-11.7$~points; exploratory). What the paired design does establish is that,
+for the same backbone, prompt and readout, decision training is not uniformly beneficial; a decision-trained variant
+should be evaluated against its base model on the target task rather than assumed to be better, and the comparison
+should also check that the base model is not handicapped by the TDM's prompt format.
 
 \paragraph{Why does moderate shift matter so little?}
 At $\alpha=1$ the target priors are centred on the training prior, so on average the shift is moderate, and for most
@@ -40,21 +58,34 @@ the model's own posteriors are consistent, which for a biased model is its own m
 Without shift, the mean prediction on the test set is close to $\hat\pi_s$ and EM leaves the posteriors almost
 unchanged (\hyperref[tab:emnoshift]{Table~\ref*{tab:emnoshift}}); under shift, the change in the mean prediction is attributed to the shift, which
 is what EM corrects. With the true prior in place of $\hat\pi_s$, EM would instead also try to remove the label bias,
-which it cannot do reliably because the bias is not a change in class frequencies. EM then has the most to correct
+which it cannot do reliably because the bias is not a change in class frequencies. Our data bear this out: with the
+true class prior in place of the implicit one, EM raises the shifted ECE of every zero-shot system on FPB and
+HateXplain above the uncorrected value (Jev on FPB: 0.172 against 0.107 without and 0.089 with the implicit prior;
+exploratory, \hyperref[tab:emtrueprior]{Table~\ref*{tab:emtrueprior}}). EM then has the most to correct
 where the shift moves the most probability mass between classes on which the model is calibrated differently. This is
 the case for the three-class FPB and HateXplain, where Dirichlet draws at $\alpha=1$ often put most of the mass on one
 class, and less so for the intent datasets, whose many classes and small ECE leave little to correct. We offer this as
 an explanation consistent with our results, not as a tested claim.
 
 \paragraph{What should a practitioner do?}
-Three steps follow from our results. First, recalibrate on labelled data: bias-corrected temperature scaling followed by
+Four steps follow from our results. First, recalibrate on labelled data: bias-corrected temperature scaling followed by
 EM, fitted on the labelled development sets, gave the lowest calibration error under shift for nearly every
 system--dataset pair where calibration was poor. Second, without labels, EM with the model's implicit prior is a cheap
 correction that lowered the shifted calibration error of every zero-shot system on FPB and HateXplain (descriptive;
 tested only for Jev);
 on the other datasets the intervals exclude harms larger than about half a point for Jev. Third, re-validate confidence
 thresholds on target traffic: averaged over shifts, a single system's excess risk at 80\% coverage was at most 2.3~points at $\alpha=1$ (Nimble-9B on FPB), but individual shifts raised it by up to 35~points (Qwen3.5-4B on FPB) and by
-up to 22~points for Jev on HateXplain (\hyperref[tab:excess]{Table~\ref*{tab:excess}}).
+up to 22~points for Jev on HateXplain (\hyperref[tab:excess]{Table~\ref*{tab:excess}}). Fourth, if labels can be
+collected, test a task-tuned model against the TDM before choosing: in our five tasks, with 500 labels, a QLoRA adapter on
+Qwen3.5-4B was above Jev on FPB and HateXplain, at most 0.8~points below it on the other three datasets (1.1 under
+in-budget selection), and above both its frozen base and Tev1-4B on all five (on CLINC150 not resolved against Tev1-4B
+under in-budget selection; \hyperref[fig:qlorabase]{Figure~\ref*{fig:qlorabase}}). How many labels a new task
+needs is not something these five tasks can tell. On many-intent tasks, both comparisons assume that the right group
+of intents is known. With a learned TF-IDF router, which misses the gold label's group on 6.2\% (CLINC150) and 7.0\%
+(HWU64) of test examples, every system loses 5 to 6 accuracy points; on the missed examples, where the gold label is
+not offered, the generative systems remain 70--84\% confident against 42--51\% for DeBERTa-v3-large (exploratory;
+\hyperref[fig:router]{Figure~\ref*{fig:router}} in \hyperref[app:revision]{Appendix~\ref*{app:revision}}). A deployment
+should therefore calibrate the routing step as well.
 
 \paragraph{Relation to prior reports.}
 Our FPB accuracy for Jev is consistent with \citet{deusser2026jev}, and so is our calibration pattern: like them, we

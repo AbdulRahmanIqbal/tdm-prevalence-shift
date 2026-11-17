@@ -10,5 +10,8 @@ and monitoring of threshold error rates. HateXplain contains offensive text; we 
 All datasets are public. Raw files, processed splits, label texts and candidate sets are pinned by SHA-256 hashes; the
 frozen protocol, configurations and code are recorded in hash files, and every result was verified against them. Model
 revisions are listed in \hyperref[tab:systems]{Table~\ref*{tab:systems}}; seeds are fixed throughout. We release the code, the protocol and
-deviation log, and every per-example probability vector \todo{repository link}. Jev is a hosted model whose version
+deviation log, and every per-example probability vector at
+\url{https://github.com/AbdulRahmanIqbal/tdm-prevalence-shift}. The label-budget study has its own hash file, written
+before its test predictions; its training records and predictions are released in the same repository, and the QLoRA
+adapters, which are not released, are identified by their SHA-256 hashes. Jev is a hosted model whose version
 cannot be pinned and whose outputs are not deterministic (\hyperref[app:results]{Appendix~\ref*{app:results}}).

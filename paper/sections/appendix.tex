@@ -5,7 +5,8 @@ The protocol (hypotheses, the 35-test family, configurations, data manifests and
 07:45 UTC and recorded as SHA-256 hashes. While the local decoder runs were in progress, three code audits
 were carried out; their findings led to one amendment, frozen at 10:58 UTC the same day. By then, test predictions of
 Qwen3.5-4B and Tev1-4B had been produced, and the run log had printed their test accuracies. No test of the
-35-test family, no shift analysis and no DeBERTa or Jev run had been carried out. The amendment did not change the code
+35-test family, no shift analysis and no DeBERTa or Jev run had been carried out on the final runs (the pipeline checks
+before the freeze are disclosed below). The amendment did not change the code
 used by the local decoder models, so all decoder runs, before and after it, use identical code; the DeBERTa and Jev
 runs and every analysis use the amended version.
 \paragraph{Chronology (UTC, from the run records).}
@@ -15,7 +16,8 @@ runs and every analysis use the amended version.
   \item 2026-10-08 07:45: protocol v1.1 frozen (hash file).
   \item 2026-10-08 09:14--10:45: all Qwen3.5-4B and Tev1-4B predictions (development and test); 10:45: first
   Qwen3.5-9B run started.
-  \item 2026-10-08 10:58: amendment v1.1.1 frozen; no test of the 35-test family and no shift analysis had been run.
+  \item 2026-10-08 10:58: amendment v1.1.1 frozen; no test of the 35-test family and no shift analysis had been run
+  on the final runs.
   \item 2026-10-08 10:45--16:56: remaining local decoder predictions; latency timing completed on 2026-10-09.
   2026-10-09 to 10-10: DeBERTa-v3-large. 2026-10-13 05:23: TF-IDF.
   \item 2026-10-13 05:42: no-shift tables and P1/P2 for all systems except Jev; 05:47--07:50: all Jev runs;
@@ -27,6 +29,16 @@ runs and every analysis use the amended version.
   runs, excess-risk, Brier and NLL tables, TF-IDF grid extension to $10^5$ and $10^6$, average of PA1--PA3 over 2{,}000 priors, EM without
   shift, FPB confusion matrices, rank correlations between metrics. All are listed below and none changes a
   confirmatory result.
+  \item 2026-11-06: EM with the true class prior instead of the implicit prior
+  (\hyperref[tab:emtrueprior]{Table~\ref*{tab:emtrueprior}}), on the stored predictions with no new model call; rerun
+  with an identical result on 2026-11-17.
+  \item 2026-11-10 09:38: revision protocol v1.3 frozen (hash file) after reviews of the paper draft and after all
+  earlier results were known; it adds five exploratory analyses with their own run identifiers and replaces no frozen
+  result. 2026-11-10: content-free probes and routing for the local systems and the retrained classifiers; generic
+  prompt formats on FPB. 2026-11-11: bf16 rerun of the Nimble-9B pair on FPB. 2026-11-11 to 11-12: in-budget rerun of
+  DeBERTa-v3-large and TF-IDF + LR. 2026-11-12 to 11-16: in-budget rerun of QLoRA. 2026-11-17 from 07:59: the Jev
+  calls of the content-free probes (1{,}752) and the misrouted examples (354), all returning \texttt{jev-1.13.0}, the
+  version of the main runs; then all v1.3 analyses.
 \end{itemize}
 
 \paragraph{Amendment v1.1.1.}
@@ -56,8 +68,13 @@ of the Nimble pair (\hyperref[tab:fpbconf]{Table~\ref*{tab:fpbconf}}); the ECE r
 (\hyperref[tab:jevrepeat]{Table~\ref*{tab:jevrepeat}}); the rank correlations between metrics
 (\hyperref[tab:exp1full]{Table~\ref*{tab:exp1full}}); a check that the PA estimates are not an artefact of
 resampling twice (PA1--PA3 recomputed without the bootstrap base on FPB, HateXplain and TREC-6; the estimates agree);
-and the extension of the TF-IDF regularisation grid to $10^5$ and $10^6$
-(\hyperref[sec:protocol]{Section~\ref*{sec:protocol}}).
+the extension of the TF-IDF regularisation grid to $10^5$ and $10^6$
+(\hyperref[sec:protocol]{Section~\ref*{sec:protocol}}); a simulation of EM on candidate sets and with distorted
+posteriors (\hyperref[tab:emsim]{Tables~\ref*{tab:emsim}} and~\ref{tab:emmiscal}); the shift experiment repeated
+for all five DeBERTa-v3-large seeds (\hyperref[tab:debseedshift]{Table~\ref*{tab:debseedshift}}); EM with the true
+class prior instead of the implicit prior (\hyperref[tab:emtrueprior]{Table~\ref*{tab:emtrueprior}}); and the five
+analyses of revision protocol v1.3 listed in the chronology (in-budget selection, routing, content-free calibration,
+generic prompt formats and bf16).
 
 \textbf{Disclosure.} During pipeline development, before the freeze, checks of the code were run on \emph{test}
 splits: Jev on the full FPB test split and on 5 to 10 test examples of CLINC150, FPB and HateXplain; Qwen3.5-4B and
@@ -69,6 +86,24 @@ $10^4$, because the value selected on the development set lay at the edge of the
 the direction or size of a test estimate. From then on, pipeline checks used only the development split, and all reported test results come from the
 frozen protocol.
 
+\paragraph{Label-budget study (second freeze).}
+The budgets, seeds, DeBERTa-v3-large and TF-IDF settings, failed-run rule and crossover definition were part of the
+protocol frozen on 2026-10-08. The QLoRA settings that the protocol left open were fixed on 2026-10-16, before any
+label-budget result: the DeBERTa schedule rule, LoRA dropout 0.05 and the target matrices of the Nimble-9B adapter,
+training on a 4-bit base with every reported prediction from the bf16 base, and the failed-run rule applied to that
+deployed model. A pre-specified development-only pilot (CLINC150 and FPB, budget 100, one seed) decided whether
+checkpoints should be evaluated more often than every 100 steps; the best development Macro-F1 before step 100 was not
+higher than the best on the 100-step grid (differences 0.0000 and $-0.0006$; threshold 0.01), so the spacing stayed
+at 100. A pre-freeze code review led to
+fixes that change no setting (adapters stored per dataset and never overwritten, unrounded failed-run comparison, guards
+against repeated or incomplete runs, a curve analysis that refuses incomplete curves). The second freeze, with all
+code and configurations hashed, was recorded on 2026-10-21 at 13:42 UTC. QLoRA runs followed from 2026-10-22 to
+2026-11-02, and the DeBERTa-v3-large and TF-IDF budget runs on 2026-11-02 and 2026-11-03; the curves were computed
+once all runs had been verified against the second freeze. No run failed, and no setting was changed after a test
+prediction. The disclosure above also applies here: before the first freeze, a DeBERTa-v3-large model trained on 100
+examples had been evaluated on the FPB test split during a pipeline check. The adapters were moved out of the results
+folder after each dataset and checked against their recorded hashes.
+
 \FloatBarrier
 \section{Additional results}
 \label{app:results}
@@ -77,7 +112,7 @@ frozen protocol.
   \centering
   \caption{\textbf{Fourteen of the 35 confirmatory tests are significant after Holm correction.} Paired differences in percentage points (TDM $-$ base for P1/P2; Jev $-$
   DeBERTa-v3-large for PA1/PA2; EM $-$ none for PA3) with unadjusted 95\% bootstrap intervals, raw two-sided $p$ and
-  Holm-adjusted $p$ over the 35 tests.}
+  Holm-adjusted $p$ over the 35 tests. Shaded: Holm-adjusted $p<0.05$.}
   \label{tab:alltests}
   \scriptsize
   \input{tables/tab_all_tests}
@@ -85,10 +120,11 @@ frozen protocol.
 
 \begin{table}[htbp]
   \centering
-  \caption{\textbf{Accuracy and MCC rank the seven analysed systems almost as Macro-F1 does (Spearman $\rho\ge0.75$ on
-  every dataset; descriptive), whereas NLL, which penalises confident errors, ranks them differently on HWU64 and
-  HateXplain ($\rho=0.29$ and $0.32$).} Test-set metrics for all systems, no shift. $^\ast$Exploratory: a later Nimble
-  release whose training data include public TREC questions, which may explain its TREC-6 score; it is not part of any
+  \caption{\textbf{Accuracy and MCC rank the seven systems of the main analysis almost as Macro-F1 does (Spearman
+  $\rho\ge0.75$ on every dataset; descriptive), whereas NLL, which penalises confident errors, ranks them differently on
+  HWU64 and HateXplain ($\rho=0.29$ and $0.32$).} Test-set metrics, no shift, for the seven systems of the main analysis
+  and, in an eighth row, an exploratory system. $^\ast$Exploratory: a later Nimble release whose training data include
+  public TREC questions, which may explain its TREC-6 score; it is not one of the seven systems and is not part of any
   confirmatory test or of the rank correlations. Acc@80: accuracy on the 80\% most confident examples.}
   \label{tab:exp1full}
   \scriptsize
@@ -103,6 +139,20 @@ frozen protocol.
   \label{tab:seeds}
   \scriptsize
   \input{tables/tab_deberta_seeds}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{The direction of the Jev--DeBERTa shift comparison does not depend on the DeBERTa seed on FPB, TREC-6
+  and HateXplain, but its size does (exploratory).} Shift-induced change in ECE (mean at $\alpha=1$ minus the mean of
+  the resampled no-shift control) and mean excess risk of the 80\%-coverage threshold at $\alpha=1$, in points, over the
+  200 shifted test sets of the descriptive shift experiment, raw probabilities. DeBERTa-v3-large: seed 1001, the model
+  of the confirmatory tests, and the range over the five full-data seeds; same code, configuration and random numbers
+  for every seed. The confirmatory PA1 and PA2 use 50 fixed priors and seed 1001 only.}
+  \label{tab:debseedshift}
+  \scriptsize
+  \setlength{\tabcolsep}{4pt}
+  \input{tables/tab_deberta_seed_shift}
 \end{table}
 
 \begin{table}[htbp]
@@ -188,8 +238,8 @@ frozen protocol.
   \centering
   \caption{\textbf{NLL under shift changes most for Jev on HateXplain, where its probabilities are least calibrated
   (descriptive).} Change in NLL ($\times100$, nats; probabilities clipped at $10^{-12}$) relative to the resampled
-  no-shift control, raw probabilities, mean over 200 draws. A negative change means that the shifted samples contain
-  more of the classes on which the system is confident and correct.}
+  no-shift control, raw probabilities, mean over 200 draws. A negative change means that the shifted class mixture has
+  a lower average NLL than the resampled no-shift mixture; it does not by itself indicate better calibration.}
   \label{tab:nll}
   \scriptsize
   \setlength{\tabcolsep}{3pt}
@@ -212,6 +262,20 @@ frozen protocol.
 
 \begin{table}[htbp]
   \centering
+  \caption{\textbf{For the zero-shot systems, EM needs the implicit prior, not the true one (exploratory).} ECE under
+  shift ($\alpha=1$, mean over the 200 draws of the descriptive shift experiment) without correction, with EM started
+  from the implicit prior (the paper's arm) and with EM started from the dataset's true class prior (the training-split
+  class distribution, which is also the centre of the shift distribution). With the true prior, EM raises the ECE of
+  every zero-shot system on FPB and HateXplain above the uncorrected value. Shaded: the paper's arm, EM with the
+  implicit prior. The regenerated no-correction and implicit-prior rows reproduce the stored values.}
+  \label{tab:emtrueprior}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \input{tables/tab_em_true_prior}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
   \caption{\textbf{On FPB, the Nimble adapter moves neutral sentences to positive and negative (descriptive).} Confusion
   matrices on the 970 FPB test sentences for Qwen3.5-9B and Nimble-9B (same base weights, prompts and readout); rows:
   gold label (count), columns: predicted label.}
@@ -228,6 +292,70 @@ frozen protocol.
   \label{tab:implicitprior}
   \scriptsize
   \input{tables/tab_implicit_prior}
+\end{table}
+
+\paragraph{EM on candidate sets: a simulation (exploratory).}
+\hyperref[sec:setting]{Section~\ref*{sec:setting}} argues that EM on candidate-restricted posteriors is valid when the
+candidate set is fixed by the label. To check the estimator apart from any model error, we simulate data whose
+posteriors are exactly calibrated and run the EM code of our pipeline unchanged. Each of $L$ classes has a Gaussian
+class-conditional distribution in 16 dimensions ($x\mid y\sim\mathcal N(\mu_y, I)$, $\mu_y\sim\mathcal N(0, 0.9^2 I)$,
+which gives a Bayes accuracy of about 0.9 within a group of 18--22 classes), the source prior is drawn from a Dirichlet distribution
+(concentration 5 per class), and the model returns the Bayes posterior restricted to the candidate set. Each of 200
+draws per setting takes a target prior from our shift distribution at $\alpha=1$, samples $n$ test examples from it and
+estimates the target prior by EM. With the gold label's group as the candidate set, as in our design, the EM estimate
+is almost as close to the target prior as the class shares of the sample itself, a floor that requires the labels: a
+total-variation distance of 0.068 against 0.062 for 150 classes in 8 groups, and 0.091 against 0.083 for 64
+classes in 3 groups, down from about 0.35 without correction (\hyperref[tab:emsim]{Table~\ref*{tab:emsim}}). When an
+imperfect group selector misses the gold label's group for a share $\varepsilon$ of the examples, the estimate degrades
+steadily, to 0.109 and 0.130 at $\varepsilon=0.2$. For a missed example the selector returns a random other group, and
+the model's posterior is restricted to that group, so the gold label gets probability zero, as it would for a
+candidate-restricted model in deployment. The misses occur at random, independently of the input, so $p(z\mid y)$ is
+still invariant under the shift; the degradation comes from the missing support, not from a violation of the label-shift
+assumption. The simulation supports the validity condition of
+\hyperref[sec:setting]{Section~\ref*{sec:setting}}; it does not show that real model posteriors are calibrated enough
+for EM, which is what PA3 tests.
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{With the gold label's group as candidate set, EM recovers the target prior almost as well as the
+  sample's own class shares; an imperfect group selector degrades it (exploratory simulation).} Total-variation distance
+  to the target prior, mean over 200 draws at $\alpha=1$, of: the source prior (no correction); the class shares of the
+  sample (labels known, the sampling floor); and the EM estimate with the candidate set from the gold label's group or
+  from a selector that misses that group for a share $\varepsilon$ of the examples (realised share of misses in
+  brackets), whose gold label then gets probability zero. Exactly calibrated synthetic posteriors; $n$ as in the test sets of CLINC150, HWU64 and FPB.}
+  \label{tab:emsim}
+  \scriptsize
+  \setlength{\tabcolsep}{4pt}
+  \input{tables/tab_em_simulation}
+\end{table}
+
+The simulation above uses exactly calibrated posteriors. A second simulation asks how EM behaves when they are not,
+since agreement of the mean prediction with the implicit prior does not make the posteriors correct
+(\hyperref[sec:setting]{Section~\ref*{sec:setting}}). With the gold label's group as candidate set, we distort the
+Bayes posteriors in three ways before EM: overconfident (each probability squared and renormalised), underconfident
+(square root) and label-biased (each class's probability multiplied by a fixed random factor, log-normal with
+$\sigma=0.5$). EM then uses either the implicit prior, computed from an unshifted sample of the same size as in our
+pipeline, or the true source prior (200 draws per setting, $\alpha=1$). The EM estimate degrades with the distortion,
+most for underconfident posteriors (total-variation distance 0.093 against 0.069 when calibrated, for 150 classes),
+but stays far below the 0.355 without correction (\hyperref[tab:emmiscal]{Table~\ref*{tab:emmiscal}}). With distorted
+posteriors the implicit prior serves EM at least as well as the true source prior, and better for underconfident (0.093
+against 0.118) and label-biased posteriors (0.077 against 0.083), as the argument of
+\hyperref[sec:discussion]{Section~\ref*{sec:discussion}} suggests. The label bias barely changes the top-label ECE
+(0.012 against 0.010) although it affects EM, an instance of the limits of top-label calibration noted in
+\hyperref[sec:limitations]{Section~\ref*{sec:limitations}}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{EM's estimate of the target prior degrades as the posteriors are distorted, but stays far better
+  than no correction, and the implicit prior serves EM at least as well as the true source prior (exploratory
+  simulation).} Gold-group candidate sets; posteriors distorted before EM. ECE: top-label ECE of the distorted
+  posteriors on the unshifted sample. Other columns: total-variation distance to the target prior, mean over 200
+  draws at $\alpha=1$, of the source prior (no correction) and of the EM estimate with the implicit prior or the true
+  source prior.}
+  \label{tab:emmiscal}
+  \scriptsize
+  \setlength{\tabcolsep}{4pt}
+  \input{tables/tab_em_miscalibration}
 \end{table}
 
 \paragraph{Further sensitivity checks (descriptive).}
@@ -265,6 +393,26 @@ whose choices carry codes, label names and descriptions, followed by the request
 \paragraph{Jev.} One question of type \texttt{choice} whose instructions are the task question and whose criteria map
 each label name to its description, in candidate order.
 
+\paragraph{Generic formats (exploratory prompt-sensitivity check, FPB only).} No system prompt; the assistant turn
+starts with an empty thinking block, as in the TDM formats. \emph{Plain, letters}: the user message is the task
+question, then ``Text:'' and the input, then ``Options:'' with one line ``A. name: description'' per option, and
+finally ``Answer with the letter of the correct option only.''; readout as in the TDM formats (softmax over the
+option letters at the first answer position). \emph{Plain, option likelihood}: the same message with the options as
+``- name: description'' and ``Answer with the name of the correct option only.''; the probability of each option is
+the softmax ($T=1$) over the summed log-probabilities of its name's tokens as the answer. All four local models were
+scored in both formats with the weights, revisions and precision of the main runs
+(\hyperref[tab:promptprec]{Table~\ref*{tab:promptprec}}); the Tev1 and Nimble formats themselves are unchanged.
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Prompt format and precision on FPB (exploratory).} Macro-F1 of the TDM and its base model and the
+  paired differences in percentage points with 95\% paired bootstrap intervals ($B=10{,}000$, seed 20261006,
+  unadjusted). The TDM-format rows (shaded) equal the frozen P1 and P2.}
+  \label{tab:promptprec}
+  \footnotesize
+  \input{tables/tab_prompt_precision}
+\end{table}
+
 All 226 label texts and the candidate groups are released with the code.
 
 \FloatBarrier
@@ -274,9 +422,11 @@ All 226 label texts and the candidate groups are released with the code.
 \paragraph{Hardware and software.} Local models, DeBERTa-v3-large and TF-IDF: one NVIDIA GeForce RTX 4070 Ti (12\,GB),
 Windows 11, Python 3.11.9, PyTorch 2.14.1 (CUDA 13.0), transformers 5.18.0, PEFT 0.21.2, bitsandbytes 0.50.2,
 scikit-learn 1.9.1. Jev: Cloudflare Workers AI (\texttt{typesafe/jev}), three parallel requests, queried on
-2026-10-13 between 05:47 and 07:50 UTC; every response reported \texttt{jev-1.13.0}. All Jev calls thus fell well
-within the 72-hour window that the protocol allows for one Jev evaluation, a rule meant to avoid version changes
-between runs.
+2026-10-13 between 05:47 and 07:50 UTC; every response reported \texttt{jev-1.13.0}. All Jev calls of the main runs
+thus fell well within the 72-hour window that the protocol allows for one Jev evaluation, a rule meant to avoid
+version changes between runs. The 2{,}106 exploratory calls of the revision analyses (1{,}752 content-free probes and
+354 misrouted examples) were made on 2026-11-17, outside this window; all returned \texttt{jev-1.13.0}, but the
+72-hour rule does not cover them.
 
 \paragraph{Efficiency.}
 \label{sec:efficiency}
@@ -317,6 +467,151 @@ smaller subset ($+3.0$, $[-0.03, 8.3]$, unadjusted $p=0.052$).
 \end{table}
 
 \FloatBarrier
+\section{Label-budget results}
+\label{app:budgets}
+\hyperref[tab:budgetf1]{Tables~\ref*{tab:budgetf1}} and~\ref{tab:budgetece} give every point of the curves in
+\hyperref[fig:budget]{Figure~\ref*{fig:budget}}, for Macro-F1 and ECE; \hyperref[fig:budgetece]{Figure~\ref*{fig:budgetece}}
+draws the ECE curves, and \hyperref[tab:qlorabase]{Table~\ref*{tab:qlorabase}} gives the values of
+\hyperref[fig:qlorabase]{Figure~\ref*{fig:qlorabase}}. \hyperref[tab:shots]{Table~\ref*{tab:shots}}
+translates the budgets into examples per class for the two intent datasets, and
+\hyperref[tab:debconf]{Table~\ref*{tab:debconf}} shows the underconfidence of DeBERTa-v3-large at intermediate budgets on
+these datasets. At 100 labels, the 50 CLINC150 classes without a training example get probability zero from TF-IDF but
+not from DeBERTa-v3-large, so ECE is not comparable between the two classifiers at that budget.
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Macro-F1 difference to Jev at every label budget.} System $-$ Jev, percentage points, with 95\%
+  bootstrap intervals over seeds and test examples (5 seeds; 3 for QLoRA; 1 for TF-IDF at full data, whose interval
+  covers test examples only). $n$: training examples. --: not run.}
+  \label{tab:budgetf1}
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \input{tables/tab_budget_f1}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{ECE difference to Jev at every label budget (lower favours the system).} As
+  \hyperref[tab:budgetf1]{Table~\ref*{tab:budgetf1}}, for top-label ECE (15 bins).}
+  \label{tab:budgetece}
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \input{tables/tab_budget_ece}
+\end{table}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_budget_ece.pdf}
+  \caption{\textbf{Relative to Jev, the calibration of DeBERTa-v3-large improves with labels on FPB, TREC-6 and
+  HateXplain, but is worst at intermediate budgets on HWU64 and CLINC150.} ECE difference (system $-$ Jev, percentage
+  points; lower favours the system) against the number of training labels, as in
+  \hyperref[fig:budget]{Figure~\ref*{fig:budget}}. Values in \hyperref[tab:budgetece]{Table~\ref*{tab:budgetece}}; mean
+  confidence and accuracy of DeBERTa-v3-large in \hyperref[tab:debconf]{Table~\ref*{tab:debconf}}.}
+  \label{fig:budgetece}
+\end{figure}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{With 500 task labels, a QLoRA adapter lifts Qwen3.5-4B above both its frozen version and Tev1-4B on
+  every dataset (descriptive; fixed schedule).} Macro-F1 difference (Qwen3.5-4B + QLoRA $-$ comparison system), percentage points, with
+  95\% bootstrap intervals over seeds (3) and test examples. (a) frozen Qwen3.5-4B; (c) Tev1-4B. Same prompt, assistant
+  prefix and readout for all three.}
+  \label{tab:qlorabase}
+  \scriptsize
+  \setlength{\tabcolsep}{4pt}
+  \input{tables/tab_qlora_vs_base}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{At 100 labels, a third of the CLINC150 classes have no training example.} Classes with at least one
+  training example and the range of examples per class over the five subset seeds; the QLoRA subsets are those of the
+  first three seeds.}
+  \label{tab:shots}
+  \scriptsize
+  \input{tables/tab_shots_per_class}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{DeBERTa-v3-large is strongly underconfident at intermediate budgets on the intent datasets
+  (descriptive).} Mean top-label probability (confidence) and accuracy on the test set, both within the candidate sets,
+  averaged over the five seeds.}
+  \label{tab:debconf}
+  \scriptsize
+  \input{tables/tab_deberta_confidence}
+\end{table}
+
+\paragraph{Realistic budget protocol (exploratory).} The rerun of
+\hyperref[fig:budgetreal]{Figure~\ref*{fig:budgetreal}} keeps the frozen budgets (without full data), subsets, seeds
+(5; 3 for QLoRA) and model settings, and changes the selection and the training schedule. At each budget, 20\% of the budget subset,
+stratified by class, is held out; hyperparameters (the TF-IDF $C$ and the DeBERTa learning rate), the checkpoint, early
+stopping and the failed-run rule use only this part, and the model trains on the other 80\%. DeBERTa-v3-large and the
+QLoRA model train for 20 epochs clipped to $[500, 2{,}000]$ optimizer steps, are evaluated every 100 steps and stop
+after five evaluations without a better selection Macro-F1. The development and test splits are not used for any
+choice. At 100 labels on CLINC150 the training part has 80 examples for 150 classes, and all five DeBERTa-v3-large seeds
+fail the failed-run rule and are scored as the majority class.
+
+\FloatBarrier
+\section{Exploratory revision analyses}
+\label{app:revision}
+
+\paragraph{Routing on the intent datasets.} The main results give every system the label group that contains the gold
+label. Here a router chooses the group instead: TF-IDF (word 1--2-grams) and logistic regression trained on the
+training split to predict the gold label's group, with $C$ chosen on the development split. Where it picks the correct
+group, the stored predictions apply unchanged; where it misses (279 of 4{,}500 CLINC150 and 75 of 1{,}076 HWU64 test
+examples), every system is scored on the router's group, which does not contain the gold label. DeBERTa-v3-large and
+TF-IDF + LR are retrained to store probabilities over all classes and restricted to the routed group as in the main
+runs; restricted to the stored groups, they reproduce the stored predictions exactly. Accuracy falls by 5.1 to 6.1
+points for every system, so the ranking is unchanged, but on the missed examples the generative systems remain 70--84\%
+confident, against 42--51\% for DeBERTa-v3-large (\hyperref[fig:router]{Figure~\ref*{fig:router}};
+\hyperref[tab:routercalib]{Table~\ref*{tab:routercalib}}).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_router.pdf}
+  \caption{\textbf{A learned router costs every system 5 to 6 accuracy points, and the generative systems stay
+  confident when the gold label is not offered (exploratory).} (a, b) Accuracy with the gold label's group (open
+  markers) and with the router's group (filled). (c) Mean top-label confidence on the misrouted test examples, on
+  which every system is wrong.}
+  \label{fig:router}
+\end{figure}
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Calibration with the router's group (exploratory).} Top-label ECE and Brier score in percentage
+  points with the gold label's group and with the router's group, and mean top-label confidence on the misrouted
+  examples. Brier adds 1 for each misrouted example (the gold label is not offered); NLL is infinite there and not
+  reported. The ECE of TF-IDF + LR on HWU64 falls with routing because the model is underconfident on the gold
+  group and its low-confidence errors on the misrouted examples offset that gap; its calibration does not improve.}
+  \label{tab:routercalib}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \input{tables/tab_router_calib}
+\end{table}
+
+\paragraph{Content-free calibration.} Each zero-shot system is scored on the inputs ``N/A'', the empty string and
+``[MASK]'' under the frozen candidate orders of each dataset (1{,}752 probes per system). The label-level correction
+divides each probability by the label's mean content-free probability and renormalises; the order-matched correction
+uses the weights of exactly the example's option order (FPB, HateXplain and TREC-6, whose candidate orders repeat).
+Jev's content-free outputs put almost all probability on one option, so its weights differ by up to six orders of
+magnitude; because Jev also returns exact zeros, the correction is ill-posed for Jev, and its rows show what the method
+does to such a model rather than a fair test of it. The shift arms use the 200 draws at $\alpha=1$ of the descriptive
+shift experiment; the regenerated no-correction and EM arms reproduce its stored values (\hyperref[tab:contentfree]{Table~\ref*{tab:contentfree}}).
+
+\begin{table}[htbp]
+  \centering
+  \caption{\textbf{Content-free calibration lowers Macro-F1 on FPB and HateXplain and does not improve on EM with the
+  implicit prior under shift (exploratory).} Macro-F1 on the full test split and ECE under shift ($\alpha=1$, mean over
+  200 draws). --: not applicable (no-shift columns for EM arms; order-matched weights only where candidate orders
+  repeat).}
+  \label{tab:contentfree}
+  \scriptsize
+  \setlength{\tabcolsep}{2.5pt}
+  \resizebox{\linewidth}{!}{\input{tables/tab_content_free}}
+\end{table}
+
+\FloatBarrier
 \section{Evaluation checklist}
 \label{app:checklist}
 \hyperref[tab:checklist]{Table~\ref*{tab:checklist}} maps our study to the 14-item checklist proposed by \citet{tang2026audit} for TDM
@@ -335,10 +630,11 @@ evaluations.
     \midrule
     B1 label-probability baseline from an ordinary LM & yes & Qwen3.5-4B/9B with the same prompts and letter readout (\hyperref[sec:protocol]{Section~\ref*{sec:protocol}}) \\
     B2 cheap generative cascade & not applicable & we study single models, not cascades \\
-    B3 trained task-specific classifier & yes & DeBERTa-v3-large and TF-IDF + LR on full training data \\
+    B3 trained task-specific classifier & yes & DeBERTa-v3-large and TF-IDF + LR on full training data and at 5--6 smaller label budgets; task QLoRA on Qwen3.5-4B (\hyperref[sec:rq4]{Section~\ref*{sec:rq4}}) \\
     T1 model spread; no parity claims on saturated tests & yes & \hyperref[tab:exp1]{Table~\ref*{tab:exp1}}; no equivalence claims \\
     T2 agreement across repeats & yes, for Jev & \hyperref[tab:jevrepeat]{Table~\ref*{tab:jevrepeat}}; local models repeated identically in a 50-example check \\
-    T3 option-name invariance & partly & fixed candidate order and label texts for all systems; no renaming study \\
+    T3 option-name invariance & partly & fixed candidate order and label texts for all systems; no renaming study;
+    two generic prompt formats on FPB (\hyperref[tab:promptprec]{Table~\ref*{tab:promptprec}}) \\
     T4 data provenance & yes & pinned sources and hashes; overlap check (\hyperref[app:runs]{Appendix~\ref*{app:runs}}) \\
     R1 exact version and run date & partly & Jev's version cannot be pinned; \hyperref[tab:systems]{Table~\ref*{tab:systems}}; \hyperref[app:runs]{Appendix~\ref*{app:runs}} \\
     R2 intervals or significance tests & yes & paired bootstrap with Holm over 35 tests \\

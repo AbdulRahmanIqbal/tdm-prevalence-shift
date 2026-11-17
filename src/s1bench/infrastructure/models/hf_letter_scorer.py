@@ -23,6 +23,12 @@ Prefix caching (spec 9, audit C4; v1.1): `time_prefix_cache` measures latency wi
 prefix (the longest common token prefix of the rendered prompts: system prompt + chat template + the opening of
 the user JSON; the example text comes before the options in both native formats). Latency only: every reported
 prediction comes from `predict` (no cache).
+
+Prompt sensitivity (revision protocol v1.3, G5; exploratory, added after the results): two generic formats that belong
+to neither TDM, from configs/experiments/prompt_sensitivity.yaml (the frozen formats above are unchanged):
+- 'plain': plain-text multiple choice (task question, text, lettered options with descriptions); letter readout as above.
+- 'plain_names': plain-text question with the option names; option-likelihood readout: softmax (T = 1) over the summed
+  fp32 log-probabilities of each option name's tokens as the answer continuation (one forward pass per option).
 """
 
 from __future__ import annotations
@@ -55,7 +61,8 @@ class HfLetterScoringModel:
     def __init__(self, name: str, repo: str, revision: str, prompt_format: dict[str, str],
                  format_name: str, dtype: str = "bfloat16", device: str = "cpu",
                  adapter_repo: str | None = None, adapter_revision: str | None = None,
-                 quantization: str | None = None, load_model: bool = True) -> None:
+                 quantization: str | None = None, load_model: bool = True,
+                 offload_gpu_gib: float | None = None) -> None:
         import torch
         from transformers import AutoTokenizer
 
@@ -66,6 +73,9 @@ class HfLetterScoringModel:
         self._dtype_name = dtype
         self._adapter = (adapter_repo, adapter_revision)
         self._quant = quantization
+        self._offload = offload_gpu_gib
+        if offload_gpu_gib is not None and (quantization or not device.startswith("cuda")):
+            raise ValueError(f"{name}: CPU offload is for unquantized models on --device cuda")
         if quantization and load_model and not device.startswith("cuda"):
             raise ValueError(f"{name}: {quantization} quantization needs --device cuda (bitsandbytes places the "
                              "model on cuda:0)")
@@ -82,10 +92,15 @@ class HfLetterScoringModel:
 
                 model = PeftModel.from_pretrained(model, adapter_repo, revision=adapter_revision)
                 self._adapter_check = self.verify_adapter(model, adapter_repo, adapter_revision)
-            if quantization is None:
-                model = model.to(device)
-            self._model = model.eval()
-            self._memory = self._slim_for_text(self._model)
+            if offload_gpu_gib is not None:   # G6: slim on the CPU, then spread the layers over GPU and CPU
+                self._model = model.eval()
+                self._memory = self._slim_for_text(self._model)
+                self._memory["offload"] = self._dispatch_offload(self._model, offload_gpu_gib, torch_dtype)
+            else:
+                if quantization is None:
+                    model = model.to(device)
+                self._model = model.eval()
+                self._memory = self._slim_for_text(self._model)
         self._letter_ids = []
         for letter in LETTERS[:24]:
             ids = self._tok.encode(letter, add_special_tokens=False)
@@ -114,6 +129,32 @@ class HfLetterScoringModel:
         raise RuntimeError("could not load model:\n" + "\n".join(errors))
 
     @staticmethod
+    def _dispatch_offload(model, gpu_gib: float, torch_dtype) -> dict[str, object]:
+        """Revision protocol v1.3 (G6): bf16 weights larger than the GPU. accelerate places whole decoder layers on
+        cuda:0 up to gpu_gib and keeps the rest in CPU memory; an offloaded layer's weights (LoRA included) are
+        copied to cuda:0 for its forward pass, so every computation runs on the GPU in bf16 as without offload.
+        lm_head and the final norm are kept on the GPU (the letter readout reads lm_head rows directly)."""
+        from accelerate import dispatch_model, infer_auto_device_map
+
+        base = model.get_base_model() if hasattr(model, "get_base_model") else model
+        no_split = list(getattr(base, "_no_split_modules", None) or [])
+        dm = infer_auto_device_map(model, max_memory={0: f"{gpu_gib}GiB", "cpu": "512GiB"},
+                                   no_split_module_classes=no_split, dtype=torch_dtype)
+        heads = [k for k in dm if k.endswith("lm_head")]
+        if len(heads) != 1:
+            raise RuntimeError(f"offload: lm_head is not a separate device-map entry ({len(heads)} found)")
+        for k in list(dm):
+            if k.endswith("lm_head") or k.endswith("language_model.norm") or k.endswith("model.norm"):
+                dm[k] = 0
+        dispatch_model(model, device_map=dm, main_device=0)
+        on_cpu = sorted(k for k, v in dm.items() if v in ("cpu", "disk"))
+        if any(v == "disk" for v in dm.values()):
+            raise RuntimeError("offload: device map spills to disk; not enough CPU memory")
+        return {"offload_gpu_gib": gpu_gib, "no_split_module_classes": no_split,
+                "device_map_entries": len(dm), "entries_on_cpu": len(on_cpu), "cpu_entries": on_cpu,
+                "execution_device": "cuda:0"}
+
+    @staticmethod
     def verify_adapter(model, adapter_repo: str, adapter_revision: str | None) -> dict[str, object]:
         """Fail hard unless the adapter really changed the model: every tensor in the adapter file must match
         a LoRA parameter of the model, and every lora_B must be non-zero (PEFT only warns on missing keys)."""
@@ -139,10 +180,13 @@ class HfLetterScoringModel:
         info: dict[str, object] = {
             "name": self.name, "repo": self._repo, "revision": self._revision, "dtype": self._dtype_name,
             "device": self._device, "prompt_format": self._format_name, "enable_thinking": False,
-            "readout": "softmax (T=1) over candidate-letter logits at first answer position",
+            "readout": ("softmax (T=1) over summed option-name token log-probabilities"
+                        if self._format_name == "plain_names" else
+                        "softmax (T=1) over candidate-letter logits at first answer position"),
             "model_class": type(self._model).__name__,
             "adapter": list(self._adapter) if self._adapter[0] else None, "quantization": self._quant,
             "adapter_check": self._adapter_check, "memory": self._memory,
+            "cpu_offload": self._offload is not None,
             "letter_logits": "fp32: final hidden state @ lm_head rows of the candidate letters",
         }
         if self._device.startswith("cuda"):
@@ -172,10 +216,19 @@ class HfLetterScoringModel:
                 for i, cid in enumerate(candidates.candidates)]}
             content = (_nimble_safe_json({"context": example.text, "schema": [field]})
                        + "\n\nRequested field: " + _nimble_safe_json("label"))
+        elif self._format_name == "plain":
+            opts = "\n".join(f"{LETTERS[i]}. {by_id[cid].name}: {by_id[cid].description}"
+                             for i, cid in enumerate(candidates.candidates))
+            content = (f"{labels.task_question}\n\nText: {example.text}\n\nOptions:\n{opts}\n\n"
+                       "Answer with the letter of the correct option only.")
+        elif self._format_name == "plain_names":
+            opts = "\n".join(f"- {by_id[cid].name}: {by_id[cid].description}" for cid in candidates.candidates)
+            content = (f"{labels.task_question}\n\nText: {example.text}\n\nOptions:\n{opts}\n\n"
+                       "Answer with the name of the correct option only.")
         else:
             raise ValueError(f"unknown prompt format {self._format_name!r}")
-        messages = [{"role": "system", "content": self._format["system"]},
-                    {"role": "user", "content": content}]
+        messages = ([{"role": "system", "content": self._format["system"]}] if self._format.get("system") else [])
+        messages.append({"role": "user", "content": content})
         prompt = self._tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True,
                                                enable_thinking=False)
         if not prompt.endswith(self._format["expected_prefix"]):
@@ -312,12 +365,60 @@ class HfLetterScoringModel:
             if combined[: len(ids)] != ids or combined[len(ids):] != [self._letter_ids[i]]:
                 raise ValueError(f"letter {letter} is not a single boundary token")
 
+    def _name_scores(self, prompt: str, names: list[str]):
+        """Summed fp32 log-probability of each option name's tokens right after the prompt (G5 readout)."""
+        import torch
+
+        base = self._model.get_base_model() if hasattr(self._model, "get_base_model") else self._model
+        head = base.get_output_embeddings()
+        dev = self._first_device()
+        p_ids = self._tok.encode(prompt, add_special_tokens=False)
+        scores, n_tokens = [], 0
+        for name in names:
+            n_ids = self._tok.encode(name, add_special_tokens=False)
+            if self._tok.encode(prompt + name, add_special_tokens=False) != p_ids + n_ids:
+                raise ValueError(f"option name {name!r} does not tokenize separately after the prompt")
+            ids = torch.tensor([p_ids + n_ids], device=dev)
+            mask = torch.ones_like(ids)
+            if self._cpu_embed is not None:
+                out = base.model(inputs_embeds=self._cpu_embed(ids.to("cpu")).to(dev), attention_mask=mask,
+                                 use_cache=False)
+            else:
+                out = base.model(input_ids=ids, attention_mask=mask, use_cache=False)
+            h = out.last_hidden_state[0, len(p_ids) - 1: len(p_ids) + len(n_ids) - 1].float()
+            logits = h @ head.weight.float().T
+            if getattr(head, "bias", None) is not None:
+                logits = logits + head.bias.float()
+            logp = torch.log_softmax(logits, dim=-1)
+            scores.append(float(logp[torch.arange(len(n_ids)), torch.tensor(n_ids, device=logp.device)].sum()))
+            n_tokens += len(p_ids) + len(n_ids)
+        return torch.tensor(scores), n_tokens
+
+    def _predict_names(self, example: Example, candidates: CandidateSet, labels: LabelSet, base: dict) -> Prediction:
+        import torch
+
+        by_id = {lab.id: lab for lab in labels.labels}
+        prompt = self.render(example, candidates, labels)
+        start = time.perf_counter()
+        with torch.inference_mode():
+            scores, n_tokens = self._name_scores(prompt, [by_id[c].name for c in candidates.candidates])
+            if self._device.startswith("cuda"):
+                torch.cuda.synchronize()
+        latency_ms = (time.perf_counter() - start) * 1000
+        probs = torch.softmax(scores, dim=-1).tolist()
+        return Prediction(**base, probabilities=tuple(probs), predicted=argmax_label(candidates.candidates, probs),
+                          status=STATUS_OK, latency_ms=round(latency_ms, 2), input_tokens=n_tokens,
+                          model_version=self._revision,
+                          raw={"name_logprob_sums_fp32": [round(float(x), 5) for x in scores.tolist()]})
+
     def predict(self, example: Example, candidates: CandidateSet, labels: LabelSet) -> Prediction:
         import torch
 
         base = dict(example_id=example.id, model=self.name, dataset=example.dataset, split=example.split,
                     candidates=candidates.candidates, gold=example.label)
         try:
+            if self._format_name == "plain_names":
+                return self._predict_names(example, candidates, labels, base)
             prompt = self.render(example, candidates, labels)
             self.check_answer_boundary(prompt, len(candidates.candidates))
             ids = self._tok(prompt, return_tensors="pt", add_special_tokens=False).to(self._first_device())

@@ -1,0 +1,13 @@
+\begin{tabular}{lrcrcrcr}
+\toprule
+ & & \multicolumn{2}{c}{DeBERTa-v3-large} & \multicolumn{2}{c}{TF-IDF + LR} & \multicolumn{2}{c}{Qwen3.5-4B + QLoRA} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8}
+Dataset & Classes & Crossover & Interp. & Crossover & Interp. & Crossover & Interp. \\
+\midrule
+HateXplain & 3 & (100, 250] & $\le$100 & (500, 1{,}000] & 399 & $\le$100 & $\le$100 \\
+FPB & 3 & (250, 500] & 228 & not reached & -- & $\le$100 & $\le$100 \\
+TREC-6 & 6 & (1{,}000, 2{,}500] & 765 & not reached & -- & (500, 2{,}500] & 150 \\
+HWU64 & 64 & (2{,}500, 5{,}000] & 4{,}180 & not reached & -- & (500, 2{,}500] & 368 \\
+CLINC150 & 150 & not reached & 12{,}400 & not reached & -- & (500, 2{,}500] & 1{,}820 \\
+\bottomrule
+\end{tabular}

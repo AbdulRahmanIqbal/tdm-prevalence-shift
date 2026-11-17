@@ -82,7 +82,7 @@ def main() -> None:
             frozen.append(("\\textbf{" + pts(f["estimate"]) + "}$^\\dagger$") if f["p_holm"] < 0.05 else pts(f["estimate"]))
         lines.append(f"{t} & frozen 50 priors & " + " & ".join(frozen) + " \\\\")
         lines.append(" & 2{,}000 priors: mean (SE) & " + " & ".join(
-            f"{pts(out[d][t]['mean'])} ({100 * out[d][t]['se']:.1f})" for d in DATASETS) + " \\\\")
+            f"{pts(out[d][t]['mean'])} ({100 * out[d][t]['se']:.2f})" for d in DATASETS) + " \\\\")
         lines.append(" & SD across priors & " + " & ".join(f"{100 * out[d][t]['sd']:.1f}" for d in DATASETS) + " \\\\")
     lines += ["\\bottomrule", "\\end{tabular}"]
     (ROOT / "paper/tables/tab_pa_population.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")

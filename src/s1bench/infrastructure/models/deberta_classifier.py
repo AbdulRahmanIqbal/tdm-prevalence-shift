@@ -35,12 +35,17 @@ class DebertaClassifier:
                  revision: str = "64a8c8eab3e352a784c658aef62be1662607476f", lr: float = 1e-5,
                  batch_size: int = 16, max_length: int = 128, min_steps: int = 500,
                  epochs_small: int = 20, epochs_large: int = 5, small_budget: int = 500,
-                 eval_every: int = 100, device: str = "cpu", fp16: bool = True) -> None:
+                 eval_every: int = 100, device: str = "cpu", fp16: bool = True,
+                 max_steps: int | None = None, patience: int | None = None) -> None:
         self.seed = seed
         self.repo, self.revision = repo, revision
         self.lr, self.batch_size, self.max_length = lr, batch_size, max_length
         self.min_steps, self.eval_every = min_steps, eval_every
         self.epochs_small, self.epochs_large, self.small_budget = epochs_small, epochs_large, small_budget
+        # Revision protocol (v1.3), off by default: max_steps set -> epochs_small passes, clipped to
+        # [min_steps, max_steps] (budgets.realistic_steps); patience set -> stop after `patience` evaluations
+        # without a better dev macro-F1. With both None the frozen rule of spec 10.3 applies unchanged.
+        self.max_steps, self.patience = max_steps, patience
         self.device = device
         self.fp16 = fp16 and device.startswith("cuda")
         self.warmup_ratio, self.weight_decay, self.grad_clip = 0.1, 0.01, 1.0
@@ -89,12 +94,15 @@ class DebertaClassifier:
 
     # ------------------------------------------------------------------ API
     def hparams(self) -> dict[str, object]:
-        return {"repo": self.repo, "revision": self.revision, "lr": self.lr, "batch_size": self.batch_size,
-                "max_length": self.max_length, "min_steps": self.min_steps, "epochs_small": self.epochs_small,
-                "epochs_large": self.epochs_large, "small_budget": self.small_budget, "eval_every": self.eval_every,
-                "warmup_ratio": self.warmup_ratio, "weight_decay": self.weight_decay, "grad_clip": self.grad_clip,
-                "fp16": self.fp16, "device": self.device, "optimizer": "torch.optim.AdamW (bias-corrected)",
-                "schedule": "linear warmup then linear decay to 0", "seed": self.seed}
+        out = {"repo": self.repo, "revision": self.revision, "lr": self.lr, "batch_size": self.batch_size,
+               "max_length": self.max_length, "min_steps": self.min_steps, "epochs_small": self.epochs_small,
+               "epochs_large": self.epochs_large, "small_budget": self.small_budget, "eval_every": self.eval_every,
+               "warmup_ratio": self.warmup_ratio, "weight_decay": self.weight_decay, "grad_clip": self.grad_clip,
+               "fp16": self.fp16, "device": self.device, "optimizer": "torch.optim.AdamW (bias-corrected)",
+               "schedule": "linear warmup then linear decay to 0", "seed": self.seed}
+        if self.max_steps is not None or self.patience is not None:
+            out.update({"step_rule": "realistic (v1.3)", "max_steps": self.max_steps, "patience": self.patience})
+        return out
 
     def release(self) -> None:
         """Free accelerator memory (a failed or non-selected model must not stay on the GPU)."""
@@ -136,9 +144,15 @@ class DebertaClassifier:
             self.repo, revision=self.revision, num_labels=len(self._label_ids),
             dtype=torch.float32).to(self.device)
 
-        epochs = self.epochs_small if len(texts) <= self.small_budget else self.epochs_large
         steps_per_epoch = math.ceil(len(texts) / self.batch_size)
-        total_steps = max(self.min_steps, epochs * steps_per_epoch)
+        if self.max_steps is None:
+            epochs = self.epochs_small if len(texts) <= self.small_budget else self.epochs_large
+            total_steps = max(self.min_steps, epochs * steps_per_epoch)
+        else:
+            from s1bench.domain.budgets import realistic_steps
+
+            epochs = self.epochs_small
+            total_steps = realistic_steps(len(texts), self.batch_size, epochs, self.min_steps, self.max_steps)
         no_decay = ("bias", "LayerNorm.weight", "layernorm", "layer_norm")
         groups = [
             {"params": [p for n, p in self._model.named_parameters() if not any(k in n for k in no_decay)],
@@ -154,7 +168,9 @@ class DebertaClassifier:
         best = (-1.0, None, 0.0)  # (dev macro-F1, state_dict, dev accuracy)
         step = 0
         history = []
-        while step < total_steps:
+        since_best = 0           # evaluations without improvement (revision protocol early stopping)
+        stopped_at = None
+        while step < total_steps and stopped_at is None:
             self._model.train()
             for enc in self._batches(texts, y, shuffle=True, rng=rng):
                 with torch.autocast(device_type="cuda", enabled=self.fp16):
@@ -174,7 +190,13 @@ class DebertaClassifier:
                     history.append({"step": step, "dev_macro_f1": round(f1, 4), "dev_accuracy": round(acc, 4)})
                     if f1 > best[0]:
                         best = (f1, {k: v.detach().cpu().clone() for k, v in self._model.state_dict().items()}, acc)
+                        since_best = 0
+                    else:
+                        since_best += 1
                     self._model.train()
+                    if self.patience is not None and since_best >= self.patience:
+                        stopped_at = step
+                        break
                 if step >= total_steps:
                     break
         if best[1] is not None:
@@ -192,6 +214,8 @@ class DebertaClassifier:
                     "best_dev_accuracy": round(best[2], 4), "majority_dev_accuracy": round(majority, 4),
                     "majority_kind": majority_kind,
                     "failed": self.failed, "history": history}
+        if self.patience is not None:
+            self.log["stopped_early_at_step"] = stopped_at
         return self
 
     def time_single(self, texts: list[str]) -> list[float]:

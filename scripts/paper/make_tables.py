@@ -224,7 +224,8 @@ def table_pairs() -> str:
             out.append("\\midrule")
         for d in DATASETS:
             r = h[(t, d)]
-            out.append(f"{t} & {DS_LABEL[d]} & {signed2(100 * r['estimate'])} & "
+            shade = "\\rowcolor{rowhl} " if r["p_holm"] < ALPHA_SIG else ""   # Holm-significant rows shaded
+            out.append(f"{shade}{t} & {DS_LABEL[d]} & {signed2(100 * r['estimate'])} & "
                        f"[{signed2(100 * r['ci_low'])}, {signed2(100 * r['ci_high'])}] & {fp(r['p_value'])} & "
                        f"{fh(r['p_holm'])} \\\\")
     out += ["\\bottomrule", "\\end{tabular}"]

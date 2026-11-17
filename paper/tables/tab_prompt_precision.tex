@@ -1,0 +1,14 @@
+\begin{tabular}{llrrrr}
+\toprule
+Pair & Format & TDM F1 & Base F1 & $\Delta$Macro-F1 [95\% CI] & $\Delta$ECE [95\% CI] \\
+\midrule
+\rowcolor{rowhl} Tev1-4B $-$ Qwen3.5-4B & TDM format (frozen) & 73.5 & 63.5 & +10.0 [+7.4, +12.7] & -13.2 [-15.7, -10.4] \\
+ & plain, letters & 71.4 & 73.1 & -1.7 [-3.7, +0.3] & -5.4 [-7.4, -3.3] \\
+ & plain, option likelihood & 70.6 & 72.2 & -1.6 [-3.4, +0.3] & -2.4 [-4.0, -0.6] \\
+\midrule
+\rowcolor{rowhl} Nimble-9B $-$ Qwen3.5-9B & TDM format (frozen) & 62.9 & 74.9 & -12.0 [-14.6, -9.3] & +9.6 [+6.8, +12.1] \\
+ & plain, letters & 62.6 & 68.9 & -6.3 [-8.3, -4.3] & +7.6 [+5.4, +9.7] \\
+ & plain, option likelihood & 68.3 & 76.5 & -8.2 [-10.8, -5.6] & +5.5 [+2.4, +7.7] \\
+ & Nimble format, bf16 & 62.3 & 74.0 & -11.7 [-14.3, -9.1] & +8.6 [+6.0, +11.1] \\
+\bottomrule
+\end{tabular}

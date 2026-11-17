@@ -11,7 +11,13 @@ the models, which we can check only partly (\hyperref[app:runs]{Appendix~\ref*{a
 All results concern candidate-set decisions. On CLINC150 and HWU64 each example offers the 18--22 labels of a fixed label
 group, not all 150 or 64 intents; the groups were chosen to prevent leakage of the gold label through the option list.
 Full-label classification is harder for zero-shot systems, and other groupings could change the absolute numbers; we did
-not test alternative groupings.
+not test alternative groupings. Because the group is that of the gold label, every system, including the trained
+classifiers and the QLoRA models, decides only within the correct group: our CLINC150 and HWU64 results, among them the
+label budgets of RQ4, describe this second stage and not the choice of the group, which a deployment must make
+separately and whose errors would add to those reported here. EM on candidate sets also relies on this design
+(\hyperref[sec:setting]{Section~\ref*{sec:setting}}): it assumes that the gold label is always among the candidates. A
+group selector that is a fixed function of the input would keep the label-shift invariance the derivation needs, but
+whenever it excludes the gold label, the restricted posterior and the EM update give that label probability zero.
 
 \paragraph{Shift model.}
 We simulate prevalence shift by resampling test sets, so the label-shift assumption holds by construction. Real
@@ -31,15 +37,57 @@ its sign and stays between 1.7 and 2.7~points on FPB. Future studies with a fixe
 distribution, with the priors resampled inside the bootstrap or with many more priors, rather than a single prior set.
 
 \paragraph{Models.}
-Jev's version cannot be pinned (every call returned \texttt{jev-1.13.0}), and Jev is not deterministic: its probability
+We test one commercial TDM in one version, which limits how far the Jev results generalise. Jev's version cannot
+be pinned (every call returned \texttt{jev-1.13.0}), and Jev is not deterministic: its probability
 vectors differ between repeated calls on up to 81\% of examples, although its predictions rarely do. We run the two 9B
 models in 8-bit precision to fit a 12\,GB GPU, whereas Nimble is distributed for bf16 inference; both members of the pair
-share the precision, so the comparison is matched, but the size of the adapter effect in bf16 is untested and the
-probabilities of 8-bit models can depend on the computation path. The vendors' training
+share the precision, so the comparison is matched; a bf16 rerun of the FPB pair with CPU offload gives nearly the
+same difference (exploratory), but the probabilities of 8-bit models can depend on the computation path. The
+generic-format check covers FPB only; the smaller Tev1-4B gains on CLINC150 and HWU64 (2.5 and 2.8 Macro-F1~points)
+were not re-scored outside the Tev1 format and may also depend on it. The vendors' training
 data are not public, so we can show where decision training helps or hurts (for Nimble-9B on FPB, on the neutral class)
-but not why.
+but not why. Reproducing P1 depends on continued access to the Tev1-4B weights, whose licence was still being
+finalised, and the QLoRA adapters are not released, so the QLoRA results can be reproduced only by retraining from the
+released code, configuration and seeds.
+
+\paragraph{Label budgets.}
+The training schedule was fixed before the runs and is not tuned per budget. Because it switches from 20 to 5 epochs
+above 500 labels, DeBERTa-v3-large gets 500 optimizer steps at 1{,}000 labels but 640 at 500, and on HWU64 and CLINC150
+its Macro-F1 at 1{,}000 labels is below that at 500 (\hyperref[tab:budgetf1]{Table~\ref*{tab:budgetf1}}), with seeds
+that vary widely, and its models at 1{,}000 and 2{,}500 labels are underconfident
+(\hyperref[tab:debconf]{Table~\ref*{tab:debconf}}). On these two datasets the schedule probably under-trains the model at
+intermediate budgets, so their crossover budgets may be overstated; we did not change the schedule after seeing the
+results. A post-hoc rerun with selection inside the budget (exploratory, \hyperref[sec:rq4]{Section~\ref*{sec:rq4}})
+removes these dips and gives the same DeBERTa-v3-large crossover intervals; because it changes the selection and the
+schedule together, it does not separate their effects. Every budget selects its hyperparameters
+and checkpoint on the full development set, which is optimistic for the trained models at small budgets
+\citep{perez2021true}; in the same rerun the conclusions hold, except that the QLoRA model draws level with Jev on
+CLINC150 instead of overtaking it. The QLoRA condition uses one backbone, three budgets and three
+seeds, and its crossover intervals are correspondingly coarse. Its adapters were trained and selected on a 4-bit NF4 base
+but are evaluated on the bf16 base. On the development set, the deployed model's Macro-F1 differs from that of the kept
+4-bit checkpoint by $-1.3$ to $+2.5$~points (mean $+0.3$) over the 45 runs; this compares precision and batched against
+unbatched scoring together, on the set used for checkpoint selection, so it does not isolate the effect of the precision
+difference on the test results. Under in-budget selection, where the selection part has as few as 20 examples, the
+difference ranges from $-12.7$ to $+13.5$~points at 100 labels and from $-4.6$ to $+0.9$ at 500 and 2{,}500, so a
+checkpoint chosen in 4-bit on so few examples can rank differently in bf16; on CLINC150 at 2{,}500 labels, where the
+in-budget model draws level with Jev, it is $-0.6$ to $+0.1$, so that result does not come from this gap. The number of classes is confounded with the task, so the
+rise of the crossover with the number of classes is descriptive.
+
+\paragraph{Calibration metric.}
+Our calibration conclusions concern top-label calibration: ECE with 15 equal-width bins on the confidence of the
+predicted label. We did not evaluate class-wise calibration, calibration of the individual candidate probabilities or
+alternative binning schemes; Brier score and NLL, which use the whole probability vector, are reported
+(\hyperref[app:results]{Appendix~\ref*{app:results}}) but not tested.
 
 \paragraph{Statistics.}
 Bootstrap intervals hold quantities fitted on the development set fixed, and so understate total uncertainty; they are
-not adjusted for multiplicity, whereas the reported significance is. Absence of a significant difference is not
-evidence of equivalence beyond the width of the reported intervals.
+not adjusted for multiplicity, whereas the reported significance is. They also omit two further sources of variation.
+Jev's outputs differ between repeated calls, and its ECE varied by up to 1.2~points between runs on 500-example subsets
+(\hyperref[tab:jevrepeat]{Table~\ref*{tab:jevrepeat}}), so differences of about one point or less involving Jev are weak
+evidence even when their interval excludes zero. And the confirmatory comparisons with DeBERTa-v3-large use one training
+seed (1001), so their intervals exclude seed variation. Repeating the descriptive shift experiment for all five
+full-data seeds (exploratory; \hyperref[tab:debseedshift]{Table~\ref*{tab:debseedshift}}), the Jev--DeBERTa difference
+at $\alpha=1$ keeps its direction for every seed on FPB, TREC-6 and HateXplain, where it is largest, but its size
+depends on the seed, most for DeBERTa's change in ECE on HateXplain ($-0.3$ to $+1.7$~points) and its excess risk on FPB
+(0.0 to 0.3~points); the confirmatory tests were not repeated for the other seeds. Absence of a significant difference is not evidence of equivalence beyond the width of the
+reported intervals.

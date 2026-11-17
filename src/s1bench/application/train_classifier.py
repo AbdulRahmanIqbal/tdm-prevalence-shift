@@ -59,7 +59,14 @@ def time_model(model, dev: Sequence[Example]) -> dict[str, object] | None:
 class TrainAndPredict:
     def __init__(self, factory: Callable[[object, int], object], c_grid: Sequence[object],
                  examples: ProcessedReader, candidates: CandidateReader, labels: LabelRepository,
-                 store: PredictionStore, reserve_seeds: Sequence[int] = (1006, 1007, 1008)) -> None:
+                 store: PredictionStore, reserve_seeds: Sequence[int] = (1006, 1007, 1008),
+                 dev_share: float | None = None, save_full_probs: bool = False) -> None:
+        # Revision protocol (v1.3), both off by default: dev_share -> at a label budget, hyperparameters, checkpoints
+        # and the failed-run rule use a development part split off the budget itself (budgets.split_budget) instead of
+        # the full development set; save_full_probs -> also write the probabilities over ALL classes for the test
+        # split (full_probs/<model>/<dataset>_test.json), so that other candidate sets can be scored later.
+        self._dev_share = dev_share
+        self._save_full_probs = save_full_probs
         # spec 10.3: a failed run restarts with the NEXT reserve seed; at most len(reserve_seeds) restarts per
         # (dataset, budget) in total, shared by all seeds and grid values; each reserve seed is used once.
         self._reserve_used: dict[tuple[str, object], int] = {}
@@ -85,11 +92,17 @@ class TrainAndPredict:
         test = self._examples.read_split(dataset, "test") if predict_test else []
         dev_c = self._candidates.read_split(dataset, "dev")
         test_c = self._candidates.read_split(dataset, "test") if predict_test else {}
+        sel_dev, sel_dev_c = dev, dev_c        # examples used for selection, early stopping and the failed-run rule
+        if self._dev_share is not None and budget is not None:
+            from s1bench.domain.budgets import split_budget
+
+            train, sel_dev = split_budget(train, self._dev_share, seed)
+            sel_dev_c = self._candidates.read_split(dataset, "train")
 
         def fit(hparam, s):
             return self._factory(hparam, s).fit([e.text for e in train], [e.label for e in train],
-                                                [e.text for e in dev], [e.label for e in dev], ids,
-                                                dev_candidates=[list(dev_c[e.id].candidates) for e in dev])
+                                                [e.text for e in sel_dev], [e.label for e in sel_dev], ids,
+                                                dev_candidates=[list(sel_dev_c[e.id].candidates) for e in sel_dev])
 
         def release(m) -> None:
             if hasattr(m, "release"):
@@ -109,7 +122,8 @@ class TrainAndPredict:
                                                                           "majority_dev_accuracy", "majority_kind")}})
                 release(model)
                 model = fit(c, reserve)
-            dev_pred = to_predictions(model_name, dev, model.predict_proba([e.text for e in dev], ids), dev_c, labels)
+            dev_pred = to_predictions(model_name, sel_dev, model.predict_proba([e.text for e in sel_dev], ids),
+                                      sel_dev_c, labels)
             score = macro_f1([Scored(p.candidates, p.probabilities, p.gold) for p in dev_pred])
             # v1.1.1: a model that is not failed always beats a failed one (then dev macro-F1 decides)
             if best is None or (not getattr(model, "failed", False), score) > (not getattr(best[2], "failed", False), best[0]):
@@ -119,6 +133,8 @@ class TrainAndPredict:
             else:
                 release(model)
         dev_score, c, model, dev_pred = best
+        if sel_dev is not dev:   # written dev predictions are always on the full development split
+            dev_pred = to_predictions(model_name, dev, model.predict_proba([e.text for e in dev], ids), dev_c, labels)
         still_failed = bool(getattr(model, "failed", False))
         if still_failed:
             # spec 10.3: a seed that still fails enters the curve with MAJORITY-CLASS performance: a constant
@@ -130,8 +146,12 @@ class TrainAndPredict:
                          if predict_test else [])
             dev_score = macro_f1([Scored(p.candidates, p.probabilities, p.gold) for p in dev_pred])
         else:
-            test_pred = to_predictions(model_name, test, model.predict_proba([e.text for e in test], ids), test_c,
-                                       labels) if predict_test else []
+            test_probs = model.predict_proba([e.text for e in test], ids) if predict_test else None
+            test_pred = to_predictions(model_name, test, test_probs, test_c, labels) if predict_test else []
+            if predict_test and self._save_full_probs:
+                self._store.write_json(f"full_probs/{model_name}/{dataset}_test.json", {
+                    "label_ids": list(ids), "example_ids": [e.id for e in test],
+                    "probabilities": [[round(float(x), 7) for x in row] for row in test_probs]})
         latency = time_model(model, dev)
         release(model)
         self._store.write(model_name, dataset, "dev", dev_pred)
@@ -141,6 +161,8 @@ class TrainAndPredict:
             test_score = macro_f1([Scored(p.candidates, p.probabilities, p.gold) for p in test_pred])
         return {"model": model_name, "dataset": dataset, "budget": budget or "full", "seed": seed,
                 "n_train": len(train), "classes_in_train": len({e.label for e in train}),
+                **({"selection_dev": "split off the budget (v1.3)", "n_dev_selection": len(sel_dev)}
+                   if sel_dev is not dev else {}),
                 "selected_c": c, "dev_macro_f1": round(dev_score, 4), "test_macro_f1": None if test_score is None else round(test_score, 4),
                 "restarts": restarts, "still_failed": still_failed, "latency": latency,
                 "scored_as": "majority_class" if still_failed else "model",

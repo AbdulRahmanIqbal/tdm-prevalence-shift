@@ -3,8 +3,9 @@
 
 \begin{table}[t]
   \centering
-  \caption{\textbf{No prior study combines vendor TDMs, matched backbones, trained classifiers and controlled prevalence
-  shift with label-free prior correction.} \checkmark: covered; $\circ$: partly covered (Pair: different readouts for the
+  \caption{\textbf{Our contribution is the combination of these design elements; each has been studied before.}
+  Coverage of vendor TDMs, matched backbones, trained classifiers, controlled prevalence shift and label-free prior
+  correction in related studies. \checkmark: covered; $\circ$: partly covered (Pair: different readouts for the
   two models, or the authors' own fine-tunes rather than a vendor TDM; Tests: intervals or tests without multiplicity
   control); --: not covered.
   Columns: TDM = commercial or vendor TDMs evaluated; Pair = TDM compared with its own backbone under the same readout;
@@ -22,7 +23,8 @@
     \citet{css2026decision} & \checkmark & -- & -- & -- & -- & -- \\
     \citet{estienne2023unsupervised} & -- & -- & -- & -- & \checkmark & -- \\
     \citet{lipton2018detecting,alexandari2020maximum,garg2020unified} & -- & -- & \checkmark & \checkmark & -- & $\circ$ \\
-    Our study & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+    \midrule
+    \rowcolor{rowhl} Our study & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -46,7 +48,12 @@ fine-tuning helps only on some tasks. Other early studies cover annotation tasks
 confidence-based escalation of LLM judges
 \citep{jevjudge2026}. An audit of 28 early TDM papers finds no independent accuracy advantage of the typed readout over
 comparable label-probability readouts, and lists calibration under deployment shift and the attribution of gains as
-open problems \citep{tang2026audit}. All of these studies evaluate at the class distribution of the test set. Our
+open problems \citep{tang2026audit}. Complementary to these evaluations, \citet{li2026jeva} take an architectural
+view: their decision-native model encodes the request and each option separately, which makes typed decisions
+null-aware, invariant to the order of the options, scalable to large candidate sets and reusable across requests. We
+evaluate existing TDMs instead, and control option order by fixing and counterbalancing it
+(\hyperref[sec:protocol]{Section~\ref*{sec:protocol}}). All of these studies evaluate at the class distribution of the
+test set. Our
 study varies the class distribution in a controlled way, and pairs each open TDM with its base model under the same
 prompt, readout and precision, on five datasets; for Nimble-9B, which differs from its base only by an adapter, this
 isolates the effect of decision training.
@@ -75,5 +82,12 @@ ask how both change when the class frequencies move.
 \paragraph{Zero-shot models versus trained classifiers.}
 With enough labelled data, fine-tuned encoders tend to outperform in-context or zero-shot use of larger language models
 on text classification \citep{edwards2024language,bucher2024finetuned}. Fine-tuning on few examples is, however, unstable \citep{mosbach2021stability,zhang2021revisiting}, which our
-training protocol takes into account. We compare against classifiers trained on the full training sets, the setting in
-which a trained classifier is strongest.
+training protocol takes into account. \citet{lescao2021howmany} measure the value of a prompt in labelled examples by
+comparing learning curves over several runs; we use the same idea to ask how many labels a trained model needs to
+overtake a TDM. Results from few-shot model selection are optimistic when a large labelled development set is used
+\citep{perez2021true}, which applies to our small budgets as well. For intent detection, work on CLINC150 and HWU64
+reports accuracy at 5 to 30 examples per intent \citep{casanueva2020efficient,zhang2021fewshot}; we translate our budgets
+into examples per class for comparison. Parameter-efficient fine-tuning with low-rank adapters, also on quantised
+models, makes task-specific tuning of the same open backbones cheap \citep{hu2022lora,dettmers2023qlora}; we use it to
+compare task fine-tuning with vendor decision training under an identical readout. Our curves end with classifiers
+trained on the full training sets, the setting in which a trained classifier is strongest.

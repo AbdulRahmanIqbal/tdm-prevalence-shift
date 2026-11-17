@@ -26,7 +26,11 @@ class RunSummary:
 class RunPredictions:
     def __init__(self, model: DecisionModel, examples: ProcessedReader, candidates: CandidateReader,
                  labels: LabelRepository, store: PredictionStore,
-                 progress: Callable[[int, int], None] | None = None, workers: int = 1) -> None:
+                 progress: Callable[[int, int], None] | None = None, workers: int = 1,
+                 only_listed: bool = False) -> None:
+        # only_listed (revision protocol v1.3, router candidates): score only the examples that have a row in the
+        # candidate file. Off by default: then every example of the split must have a candidate set (KeyError).
+        self._only_listed = only_listed
         self._model = model
         self._examples = examples
         self._candidates = candidates
@@ -39,7 +43,7 @@ class RunPredictions:
         labels = self._labels.load(dataset)
         examples = {e.id: e for e in self._examples.read_split(dataset, split)}
         candidates = self._candidates.read_split(dataset, split)
-        ids = list(examples)
+        ids = [eid for eid in examples if eid in candidates] if self._only_listed else list(examples)
         if limit is not None:
             ids = seeded_subset(ids, limit, subset_seed)
 

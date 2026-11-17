@@ -45,12 +45,28 @@ def _build_parser() -> argparse.ArgumentParser:
     pred.add_argument("--models-config", type=Path, default=Path("configs/models.yaml"))
     pred.add_argument("--device", default="cpu", help="cpu or cuda (local models only)")
     pred.add_argument("--dataset", required=True)
-    pred.add_argument("--split", default="test", choices=["train", "dev", "test"])
+    pred.add_argument("--split", default="test", choices=["train", "dev", "test", "contentfree"],
+                      help="contentfree = G4 content-free probes (needs --processed-dir and --candidates-dir "
+                           "data/contentfree/...)")
     pred.add_argument("--limit", type=int, default=None, help="Seeded subset size (omit for the full split)")
     pred.add_argument("--subset-seed", type=int, default=20261006)
     pred.add_argument("--run-id", default=None, help="Default: dev_<UTC timestamp> (dev runs are never paper results)")
     pred.add_argument("--results-dir", type=Path, default=Path("results"))
     pred.add_argument("--workers", type=int, default=1, help="Parallel requests (API models; spec: 3 for Jev)")
+    pred.add_argument("--candidates-dir", type=Path, default=None,
+                      help="Revision protocol v1.3 (G3): read candidate sets from this folder (e.g. "
+                           "data/candidates_router) and score only the examples listed there; default = frozen "
+                           "data/candidates, every example")
+    pred.add_argument("--processed-dir", type=Path, default=None,
+                      help="Revision protocol v1.3 (G4): read examples from this folder (e.g. "
+                           "data/contentfree/processed); default = frozen data/processed")
+    pred.add_argument("--prompt-config", type=Path, default=None,
+                      help="Revision protocol v1.3 (G5): configs/experiments/prompt_sensitivity.yaml")
+    pred.add_argument("--prompt-variant", default=None,
+                      help="G5: a variant of --prompt-config (local models; predictions under '<model>+<variant>')")
+    pred.add_argument("--bf16-offload-gib", type=float, default=None,
+                      help="Revision protocol v1.3 (G6): load the model unquantized in bf16 with CPU offload, keeping "
+                           "this many GiB of weights on the GPU (predictions under '<model>+bf16')")
     pred.add_argument("--repeat-check", action="store_true",
                       help="Spec 12 determinism check: score --limit seeded examples twice, compare exactly "
                            "(writes determinism/<model>_<dataset>_<split>.json, no predictions)")
@@ -61,9 +77,9 @@ def _build_parser() -> argparse.ArgumentParser:
     lr = sub.add_parser("train", help="Train tfidf-lr or deberta-v3-large on a label budget; predicts dev/test")
     lr.add_argument("--model", required=True, choices=["tfidf-lr", "deberta-v3-large"])
     lr.add_argument("--device", default="cpu")
-    lr.add_argument("--dev-smoke", action="store_true", help="Tiny DeBERTa settings for laptop checks (never paper)")
+    lr.add_argument("--dev-smoke", action="store_true", help="Tiny DeBERTa settings for code checks on a small GPU (never paper)")
     lr.add_argument("--smoke-base-model", action="store_true",
-                    help="With --dev-smoke: use deberta-v3-base so training fits a 6 GB laptop GPU (code check only)")
+                    help="With --dev-smoke: use deberta-v3-base so training fits a small GPU (code check only)")
     lr.add_argument("--dataset", action="append", required=True)
     lr.add_argument("--budget", action="append", default=None, help="int or 'full' (repeatable; default full)")
     lr.add_argument("--seed", action="append", type=int, default=None,
@@ -74,6 +90,52 @@ def _build_parser() -> argparse.ArgumentParser:
                     help="DeBERTa LR grid, repeatable; default = frozen grid {1e-5, 2e-5} (spec 10.3 v1.1)")
     lr.add_argument("--run-id", required=True)
     lr.add_argument("--results-dir", type=Path, default=Path("results"))
+    lr.add_argument("--realistic-config", type=Path, default=None,
+                    help="Revision protocol v1.3 (e.g. configs/experiments/realistic_budget.yaml): selection inside the "
+                         "budget, realistic step rule and early stopping; default = frozen Exp 3 protocol")
+    lr.add_argument("--save-full-probs", action="store_true",
+                    help="Revision protocol v1.3: also write test probabilities over all classes (full_probs/)")
+
+    ql = sub.add_parser("train-qlora", help="Exp 4 (b): QLoRA task fine-tune of Qwen3.5-4B on a label budget; "
+                                           "predicts dev/test with the candidate-letter readout (spec 10.3, v1.2)")
+    ql.add_argument("--dataset", action="append", required=True)
+    ql.add_argument("--budget", action="append", type=int, default=None,
+                    help="repeatable; default = budgets of configs/experiments/qlora.yaml")
+    ql.add_argument("--seed", action="append", type=int, default=None,
+                    help="repeatable; default = seeds of configs/experiments/qlora.yaml. Run all seeds of a "
+                         "(dataset, budget) in ONE call: the reserve-seed pool is shared per (dataset, budget)")
+    ql.add_argument("--device", default="cuda")
+    ql.add_argument("--qlora-config", type=Path, default=Path("configs/experiments/qlora.yaml"))
+    ql.add_argument("--models-config", type=Path, default=Path("configs/models.yaml"))
+    ql.add_argument("--dev-smoke", action="store_true",
+                    help="Code check only (never paper): few steps, 4-bit prediction base, run id must start with dev_")
+    ql.add_argument("--skip-test", action="store_true", help="Pilot / dev checks: fit + dev only, never predict test")
+    ql.add_argument("--eval-every", type=int, default=None,
+                    help="Pilot only (run id dev_*): override the dev evaluation spacing in optimizer steps")
+    ql.add_argument("--dev-limit", type=int, default=None,
+                    help="Pilot only (run id dev_*): evaluate on a seeded subset of this many dev examples")
+    ql.add_argument("--dev-force-restart", action="store_true",
+                    help="Pilot only (run id dev_*): count every first attempt as failed, to exercise the restart path")
+    ql.add_argument("--run-id", required=True)
+    ql.add_argument("--results-dir", type=Path, default=Path("results"))
+
+    bc = sub.add_parser("budget-curve", help="Exp 3 / Exp 4: paired difference of a trained system at each label "
+                                            "budget against a reference system on the test set (spec 10.3, 10.4)")
+    bc.add_argument("--dataset", required=True)
+    bc.add_argument("--system", required=True, help="prediction-folder prefix, e.g. deberta-v3-large, qwen3.5-4b-qlora")
+    bc.add_argument("--system-run", action="append", required=True, help="run id(s) holding the system's predictions")
+    bc.add_argument("--ref", required=True, help="reference model, e.g. jev, qwen3.5-4b, tev1-4b")
+    bc.add_argument("--ref-run", required=True)
+    bc.add_argument("--metric", action="append", choices=["macro_f1", "ece"], default=None)
+    bc.add_argument("--b", type=int, default=10_000)
+    bc.add_argument("--expect-budget", action="append", required=True,
+                    help="every budget the curve must have (int or 'full'), repeatable; anything else is an error")
+    bc.add_argument("--expect-seeds", type=int, required=True,
+                    help="number of training seeds (the first N of configs/seeds.yaml) every budget must have")
+    bc.add_argument("--expect-full-seeds", type=int, default=None,
+                    help="seeds at 'full' if different (e.g. 1 for TF-IDF); default = --expect-seeds")
+    bc.add_argument("--out-run", required=True)
+    bc.add_argument("--results-dir", type=Path, default=Path("results"))
 
     pa = sub.add_parser("primary-pa", help="PA1-PA3 (spec 11.1) for one dataset: model vs baseline, nested bootstrap")
     pa.add_argument("--dataset", required=True)
@@ -144,6 +206,14 @@ def _build_parser() -> argparse.ArgumentParser:
     e2.add_argument("--eps", type=float, default=None, help="Log floor sensitivity (default 1e-6, spec 10.2)")
     e2.add_argument("--pseudo-split", action="store_true", help="Dev check on the DEV split only (two halves)")
 
+    rc = sub.add_parser("router-candidates", help="Revision protocol v1.3 (G3): candidate sets of a learned intent-group "
+                                                  "router for the misrouted test examples (CLINC150, HWU64)")
+    rc.add_argument("--dataset", action="append", default=None, help="default: clinc150 and hwu64")
+    rc.add_argument("--out", type=Path, default=Path("data/candidates_router"))
+    cf = sub.add_parser("contentfree-probes", help="Revision protocol v1.3 (G4): content-free probe files "
+                                                   "(Zhao et al. 2021) for content-free calibration")
+    cf.add_argument("--dataset", action="append", default=None, help="default: all five datasets")
+    cf.add_argument("--out", type=Path, default=Path("data/contentfree"))
     cands = sub.add_parser("candidates", help="Build frozen candidate files in data/candidates/ (spec sec 6)")
     cands.add_argument("--dataset", action="append", help="Only this dataset id (repeatable)")
     cands.add_argument("--candidates-config", type=Path, default=Path("configs/candidates.yaml"))
@@ -255,10 +325,20 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "predict":
+        import hashlib
         from datetime import datetime, timezone
 
         from s1bench.application.run_predictions import RunPredictions
         from s1bench.infrastructure.secrets import load_env
+
+        if (args.split == "contentfree") != (args.processed_dir is not None) or (
+                args.split == "contentfree" and args.candidates_dir is None):
+            print("--split contentfree goes with --processed-dir data/contentfree/processed and --candidates-dir "
+                  "data/contentfree/candidates (and only then)")
+            return 2
+        if args.model == "jev" and (args.prompt_config is not None or args.prompt_variant is not None):
+            print("--prompt-config/--prompt-variant are for local models only")
+            return 2
         from s1bench.infrastructure.storage.results_store import (
             JsonlCandidateReader,
             JsonlPredictionStore,
@@ -285,12 +365,30 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"Unknown model {args.model!r}. Known: jev, {', '.join(mcfg['models'])}")
                 return 2
             m = mcfg["models"][args.model]
+            name, fmt, fmt_name = args.model, mcfg["prompt_formats"][m["prompt_format"]], m["prompt_format"]
+            if (args.prompt_config is None) != (args.prompt_variant is None):
+                print("--prompt-config and --prompt-variant go together")
+                return 2
+            if args.prompt_config is not None:
+                pcfg = yaml.safe_load(args.prompt_config.read_text(encoding="utf-8"))
+                if args.prompt_variant not in pcfg["variants"]:
+                    print(f"Unknown variant {args.prompt_variant!r}. Known: {', '.join(pcfg['variants'])}")
+                    return 2
+                var = pcfg["variants"][args.prompt_variant]
+                name, fmt_name = f"{args.model}+{args.prompt_variant}", var["format"]
+                fmt = {"system": var["system"], "expected_prefix": var["expected_prefix"]}
+            if args.bf16_offload_gib is not None:
+                if m.get("dtype", "bfloat16") != "bfloat16":
+                    print("--bf16-offload-gib needs a bfloat16 model")
+                    return 2
+                name = f"{name}+bf16"
             model = HfLetterScoringModel(
-                name=args.model, repo=m["repo"], revision=m["revision"],
-                prompt_format=mcfg["prompt_formats"][m["prompt_format"]], format_name=m["prompt_format"],
+                name=name, repo=m["repo"], revision=m["revision"],
+                prompt_format=fmt, format_name=fmt_name,
                 dtype=m.get("dtype", "bfloat16"), device=args.device,
                 adapter_repo=m.get("adapter_repo"), adapter_revision=m.get("adapter_revision"),
-                quantization=m.get("quantization"),
+                quantization=None if args.bf16_offload_gib is not None else m.get("quantization"),
+                offload_gpu_gib=args.bf16_offload_gib,
             )
 
         run_id = args.run_id or "dev_" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -333,12 +431,13 @@ def main(argv: list[str] | None = None) -> int:
         store = JsonlPredictionStore(run_dir, hasher)
         use_case = RunPredictions(
             model=model,
-            examples=JsonlProcessedReader(args.data_dir / "processed"),
-            candidates=JsonlCandidateReader(args.data_dir / "candidates"),
+            examples=JsonlProcessedReader(args.processed_dir or args.data_dir / "processed"),
+            candidates=JsonlCandidateReader(args.candidates_dir or args.data_dir / "candidates"),
             labels=YamlLabelRepository(args.data_dir / "labels"),
             store=store,
             progress=lambda i, n: print(f"  {i}/{n}", end=chr(13), flush=True),
             workers=args.workers,
+            only_listed=args.candidates_dir is not None,
         )
         started = UtcClock().now_iso()
         summary = use_case.execute(args.dataset, args.split, args.limit, args.subset_seed)
@@ -346,9 +445,17 @@ def main(argv: list[str] | None = None) -> int:
             "run_id": run_id, "started_at": started, "finished_at": UtcClock().now_iso(),
             "model": model.describe(), "dataset": args.dataset, "split": args.split,
             "limit": args.limit, "subset_seed": args.subset_seed, "workers": args.workers,
+            **({"processed_dir": args.processed_dir.as_posix(),
+                "processed_file_sha256": hashlib.sha256((args.processed_dir / args.dataset / f"{args.split}.jsonl")
+                                                        .read_bytes()).hexdigest()}
+               if args.processed_dir is not None else {}),
+            **({"candidates_dir": args.candidates_dir.as_posix(),
+                "candidates_file_sha256": hashlib.sha256((args.candidates_dir / args.dataset / f"{args.split}.jsonl")
+                                                         .read_bytes()).hexdigest()}
+               if args.candidates_dir is not None else {}),
             "model_versions_seen": summary.model_versions,
             "config_snapshot": config_snapshot(Path("."), hasher),
-        }), name=f"{args.model}/{args.dataset}_{args.split}")
+        }), name=f"{model.name}/{args.dataset}_{args.split}")
         acc = f"{summary.accuracy_ok:.3f}" if summary.accuracy_ok is not None else "n/a"
         lat = f"{summary.mean_latency_ms:.0f} ms" if summary.mean_latency_ms is not None else "n/a"
         print(f"{summary.model} {summary.dataset}/{summary.split}: n={summary.n} ok={summary.n_ok} "
@@ -375,6 +482,9 @@ def main(argv: list[str] | None = None) -> int:
         seeds_cfg = yaml.safe_load(Path("configs/seeds.yaml").read_text(encoding="utf-8"))
         run_dir = args.results_dir / args.run_id
         store = JsonlPredictionStore(run_dir, hasher)
+        rcfg = (yaml.safe_load(args.realistic_config.read_text(encoding="utf-8"))
+                if args.realistic_config is not None else None)
+        rkw = {"max_steps": rcfg["max_steps"], "patience": rcfg["patience"]} if rcfg else {}
         if args.model == "tfidf-lr":
             factory, grid, describe = (lambda c, seed: TfidfLogReg(c, seed)), list(TfidfLogReg.C_GRID), TfidfLogReg.describe()
         else:
@@ -384,7 +494,7 @@ def main(argv: list[str] | None = None) -> int:
                     print("--smoke-base-model is only allowed with --dev-smoke")
                     return 2
                 smoke.update(repo="microsoft/deberta-v3-base", revision="8ccc9b6f36199bec6961081d44eb72fb3f7353f3")
-            factory = lambda lr_, seed: DebertaClassifier(seed, lr=lr_, device=args.device, **smoke)  # noqa: E731
+            factory = lambda lr_, seed: DebertaClassifier(seed, lr=lr_, device=args.device, **smoke, **rkw)  # noqa: E731
             if args.dev_smoke and not args.run_id.startswith("dev_"):
                 print("--dev-smoke runs must use a run id starting with dev_ (never paper results)")
                 return 2
@@ -393,13 +503,20 @@ def main(argv: list[str] | None = None) -> int:
                 return 2
             grid = args.lr or [1e-5, 2e-5]   # spec 10.3 v1.1: frozen LR grid
             describe = {"name": "deberta-v3-large", "lr_grid": grid, "dev_smoke": args.dev_smoke,
-                        "hparams": DebertaClassifier(0, lr=grid[0], device=args.device, **smoke).hparams()}
+                        "hparams": DebertaClassifier(0, lr=grid[0], device=args.device, **smoke, **rkw).hparams()}
+        if rcfg:
+            import hashlib
+
+            describe = {**describe, "realistic_config": rcfg, "realistic_config_path": args.realistic_config.as_posix(),
+                        "realistic_config_sha256": hashlib.sha256(
+                            args.realistic_config.read_bytes().replace(b"\r\n", b"\n")).hexdigest()}
         use_case = TrainAndPredict(
             factory=factory, c_grid=grid,
             examples=JsonlProcessedReader(args.data_dir / "processed"),
             candidates=JsonlCandidateReader(args.data_dir / "candidates"),
             labels=YamlLabelRepository(args.data_dir / "labels"), store=store,
             reserve_seeds=seeds_cfg["training"]["reserve_seeds"],
+            dev_share=rcfg["dev_share"] if rcfg else None, save_full_probs=args.save_full_probs,
         )
         budgets = [None if b == "full" else int(b) for b in (args.budget or ["full"])]
         seeds = args.seed or [seeds_cfg["training"]["seeds"][0]]
@@ -425,6 +542,193 @@ def main(argv: list[str] | None = None) -> int:
             "run_id": args.run_id, "model": describe, "datasets": args.dataset, "budgets": args.budget or ["full"],
             "seeds": seeds, "config_snapshot": config_snapshot(Path("."), hasher),
         }), name=f"{args.model}/train_{'_'.join(args.dataset)}_{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')}")
+        return 0
+
+    if args.command == "train-qlora":
+        import hashlib
+        import json
+        from datetime import datetime, timezone
+
+        import yaml
+
+        from s1bench.application.train_letter_model import TrainLetterModel, restarts_used
+        from s1bench.domain.predictions import seeded_subset
+        from s1bench.infrastructure.models.qlora_letter import QloraLetterClassifier
+        from s1bench.infrastructure.storage.results_store import (
+            JsonlCandidateReader,
+            JsonlPredictionStore,
+            capture_environment,
+            config_snapshot,
+        )
+
+        pilot = (args.dev_smoke or args.eval_every is not None or args.dev_limit is not None
+                 or args.dev_force_restart)
+        if pilot and not args.run_id.startswith("dev_"):
+            print("--dev-smoke, --eval-every, --dev-limit and --dev-force-restart are pilot options: the run id must "
+                  "start with dev_")
+            return 2
+        if pilot and not args.skip_test:
+            print("pilot options need --skip-test (pilots never touch the test split)")
+            return 2
+        if not args.device.startswith("cuda"):
+            print("train-qlora needs --device cuda (4-bit quantization)")
+            return 2
+        qcfg = yaml.safe_load(args.qlora_config.read_text(encoding="utf-8"))
+        mcfg = yaml.safe_load(args.models_config.read_text(encoding="utf-8"))
+        seeds_cfg = yaml.safe_load(Path("configs/seeds.yaml").read_text(encoding="utf-8"))
+        base_key = qcfg["base_model"]
+        m = mcfg["models"][base_key]
+        prompt_format = mcfg["prompt_formats"][m["prompt_format"]]
+        smoke = dict(min_steps=4, eval_every=2, epochs_small=1, epochs_large=1) if args.dev_smoke else {}
+        if args.eval_every is not None:
+            smoke["eval_every"] = args.eval_every
+        if args.dev_smoke:
+            qcfg = {**qcfg, "predict_base": "4bit"}
+        run_dir = args.results_dir / args.run_id
+        store = JsonlPredictionStore(run_dir, hasher)
+        model_name = f"{base_key}-qlora"
+        budgets = args.budget or qcfg["budgets"]
+        seeds = args.seed or qcfg["seeds"]
+        summary_path = run_dir / "train_summary.json"
+        old = json.loads(summary_path.read_text(encoding="utf-8")) if summary_path.exists() else []
+        # Before any training: a (model, dataset) that is already done is never retrained or overwritten; adapters
+        # left by a call that crashed before its summary was written are moved aside (kept, not reused).
+        done = {(str(s.get("model")), str(s.get("dataset"))) for s in old}
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        refuse, stale = [], []
+        for dataset in args.dataset:
+            for budget in budgets:
+                for seed in seeds:
+                    name = f"{model_name}@b{budget}s{seed}"
+                    files = [run_dir / "predictions" / name / f"{dataset}_{split}.jsonl" for split in ("dev", "test")]
+                    if (name, dataset) in done or any(f.exists() for f in files):
+                        refuse.append(f"{dataset} {name}")
+                    stale += sorted((run_dir / "adapters" / dataset).glob(f"{name}__seed*"))
+        if refuse:
+            print("already in " + str(summary_path) + " or has predictions (drop these seeds or use a new run id):"
+                  + NL + NL.join("  " + r for r in refuse))
+            return 2
+        for path in stale:
+            target = run_dir / "adapters_crashed" / stamp / path.parent.name / path.name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            path.rename(target)
+            print(f"moved adapter of an unfinished earlier call to {target}")
+        sha = lambda path: hashlib.sha256(Path(path).read_bytes()).hexdigest()  # noqa: E731
+        store.write_environment(capture_environment({    # at the start, so a call that crashes still has its record
+            "run_id": args.run_id, "model": {"name": model_name, "base": base_key, "qlora_config": qcfg},
+            "datasets": args.dataset, "budgets": budgets, "seeds": seeds, "pilot": pilot,
+            "pilot_options": {"dev_smoke": args.dev_smoke, "eval_every": args.eval_every, "dev_limit": args.dev_limit,
+                              "dev_force_restart": args.dev_force_restart},
+            "qlora_config_sha256": sha(args.qlora_config),
+            "code:src/s1bench/application/train_letter_model.py": sha("src/s1bench/application/train_letter_model.py"),
+            "code:src/s1bench/infrastructure/models/qlora_letter.py": sha("src/s1bench/infrastructure/models/qlora_letter.py"),
+            "config_snapshot": config_snapshot(Path("."), hasher),
+        }), name=f"{model_name}/train_{'_'.join(args.dataset)}_{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')}")
+
+        class _DevLimited(JsonlProcessedReader):
+            def read_split(self, dataset, split):
+                rows = super().read_split(dataset, split)
+                if split != "dev" or args.dev_limit is None:
+                    return rows
+                keep = set(seeded_subset([e.id for e in rows], min(args.dev_limit, len(rows)),
+                                         seeds_cfg["data"]["subset_seed"]))
+                return [e for e in rows if e.id in keep]
+
+        use_case = TrainLetterModel(
+            factory=lambda s, n: QloraLetterClassifier(s, n, m, prompt_format, qcfg, device=args.device,
+                                                       smoke=smoke or None, adapter_root=run_dir / "adapters"),
+            examples=_DevLimited(args.data_dir / "processed"),
+            candidates=JsonlCandidateReader(args.data_dir / "candidates"),
+            labels=YamlLabelRepository(args.data_dir / "labels"), store=store,
+            reserve_seeds=seeds_cfg["training"]["reserve_seeds"], reserve_used=restarts_used(old, model_name),
+            force_fail_first=args.dev_force_restart, dev_share=qcfg.get("dev_share"))
+        summaries = []
+        for dataset in args.dataset:
+            for budget in budgets:
+                for seed in seeds:
+                    name = f"{model_name}@b{budget}s{seed}"
+                    r = use_case.execute(name, dataset, budget, seed, predict_test=not args.skip_test)
+                    summaries.append(r)
+                    store.write_json("train_summary.json", old + summaries)   # after every seed
+                    log = r["train_log"]
+                    print(f"{dataset:11s} {name:28s} n_train={r['n_train']:5d} steps={log.get('total_steps')} "
+                          f"best_step={log.get('best_step')} dev F1 4-bit={log.get('best_dev_macro_f1_4bit')} "
+                          f"deployed={log.get('dev_macro_f1_deployed')} restarts={len(r['restarts'])} "
+                          f"(test score only in train_summary.json)")
+        return 0
+
+    if args.command == "budget-curve":
+        import json
+
+        import yaml
+
+        from s1bench.application.budget_curves import align, crossover, curve_difference, parse_model_name
+        from s1bench.infrastructure.storage.results_store import read_predictions
+
+        runs = [*args.system_run, args.ref_run, args.out_run]
+        if any(r.startswith("dev_") for r in runs):
+            print("budget-curve uses final runs only (no dev_* run ids)")
+            return 2
+        if args.out_run in (*args.system_run, args.ref_run):
+            print("--out-run must be a separate analysis run id, not one of the input runs")
+            return 2
+        out_dir = args.results_dir / args.out_run / "curves"
+        path = out_dir / f"{args.system}_vs_{args.ref}@{args.ref_run}_{args.dataset}.json"
+        if path.exists():
+            print(f"{path} already exists (never overwritten)")
+            return 2
+        seeds_cfg = yaml.safe_load(Path("configs/seeds.yaml").read_text(encoding="utf-8"))
+        first_seed = seeds_cfg["training"]["seeds"][0]
+        labels = YamlLabelRepository(args.data_dir / "labels").load(args.dataset)
+        points: dict[object, dict[int, list]] = {}
+        sources: dict[str, str] = {}
+        for run in args.system_run:
+            pred_dir = args.results_dir / run / "predictions"
+            for folder in sorted(pred_dir.iterdir()) if pred_dir.exists() else []:
+                key = parse_model_name(folder.name, args.system, first_seed)
+                if key is None or not (folder / f"{args.dataset}_test.jsonl").exists():
+                    continue
+                budget, seed = key
+                if seed in points.get(budget, {}):
+                    print(f"duplicate predictions for budget {budget} seed {seed} ({sources[f'{budget}/{seed}']}, {run})")
+                    return 2
+                points.setdefault(budget, {})[seed] = read_predictions(args.results_dir / run, folder.name,
+                                                                       args.dataset, "test")
+                sources[f"{budget}/{seed}"] = f"{run}/{folder.name}"
+        if not points:
+            print(f"no test predictions for {args.system} on {args.dataset} in {args.system_run}")
+            return 2
+        # the curve must be complete: exactly the expected budgets, each with the first N training seeds
+        want = {("full" if b == "full" else int(b)): seeds_cfg["training"]["seeds"][
+            :(args.expect_full_seeds or args.expect_seeds) if b == "full" else args.expect_seeds]
+            for b in args.expect_budget}
+        found = {p: sorted(points[p]) for p in points}
+        if found != want:
+            print(f"incomplete or unexpected curve for {args.system} on {args.dataset}:" + NL
+                  + f"  expected {want}" + NL + f"  found    {found}")
+            return 2
+        n_train = len(JsonlProcessedReader(args.data_dir / "processed").read_split(args.dataset, "train"))
+        sizes = {p: (n_train if p == "full" else int(p)) for p in points}
+        order = sorted(points, key=lambda p: sizes[p])
+        aligned = align(points, read_predictions(args.results_dir / args.ref_run, args.ref, args.dataset, "test"),
+                        labels)
+        boot_seed = seeds_cfg["analysis"]["bootstrap_seed"]
+        out = {"dataset": args.dataset, "system": args.system, "system_runs": args.system_run, "reference": args.ref,
+               "reference_run": args.ref_run, "b": args.b, "bootstrap_seed": boot_seed, "n_test": len(aligned.ids),
+               "sizes": {str(p): sizes[p] for p in order}, "sources": sources, "curves": {}}
+        for metric in args.metric or ["macro_f1", "ece"]:
+            rows = curve_difference(aligned, order, metric, b=args.b, seed=boot_seed)
+            out["curves"][metric] = {"rows": rows}
+            if metric == "macro_f1":
+                out["curves"][metric]["crossover"] = crossover(rows, sizes)
+            for r in rows:
+                print(f"{args.dataset:11s} {args.system:20s} b={str(r['budget']):>5s} seeds={r['n_seeds']} {metric:8s} "
+                      f"delta={r['estimate']:+.4f} [{r['ci_low']:+.4f}, {r['ci_high']:+.4f}]")
+        out_dir.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(out, indent=1, default=str), encoding="utf-8")
+        if "macro_f1" in out["curves"]:
+            print("crossover:", out["curves"]["macro_f1"]["crossover"])
+        print("wrote", path)
         return 0
 
     if args.command == "primary-pa":
@@ -623,6 +927,8 @@ def main(argv: list[str] | None = None) -> int:
             secret_values=secrets,
             frozen_snapshot=(json.loads(args.freeze.read_text(encoding="utf-8"))["config_snapshot"]
                              if args.freeze else None),
+            examples_from=lambda root, d, s: JsonlProcessedReader(root).read_split(d, s),
+            candidates_from=lambda root, d, s: JsonlCandidateReader(root).read_split(d, s),
         )
         reports = [use_case.execute(args.results_dir / run) for run in args.run]
         jev = check_jev_versions_across_runs(reports)
@@ -797,6 +1103,47 @@ def main(argv: list[str] | None = None) -> int:
             ex = [r["excess_risk"] for r in rs if r["excess_risk"] is not None]
             print(f"{alpha:>5}  {arm:11s}  {np.mean([r['macro_f1'] for r in rs]):.3f}   {np.mean([r['ece'] for r in rs]):.3f}"
                   f"   {np.mean(ex) if ex else float('nan'):+.3f}       {np.mean([r['unique_frac'] for r in rs]):.2f}")
+        return 0
+
+    if args.command == "router-candidates":
+        import json
+
+        import yaml
+
+        from s1bench.application.router_candidates import ROUTER_DATASETS, build_router_candidates
+
+        seed = int(yaml.safe_load(Path("configs/candidates.yaml").read_text(encoding="utf-8"))["candidate_seed"])
+        reports = []
+        for ds in args.dataset or list(ROUTER_DATASETS):
+            r = build_router_candidates(ds, args.data_dir, args.out, seed)
+            reports.append(r)
+            print(f"{ds:9s} router C={r['router']['C']} test group accuracy {r['test_group_accuracy']:.4f} "
+                  f"misrouted {r['n_misrouted']}/{r['n_test']} sha256 {r['sha256'][:12]}")
+        man = args.out / "MANIFEST.json"
+        old = json.loads(man.read_text(encoding="utf-8")) if man.exists() else {}
+        old.update({r["dataset"]: r for r in reports})
+        man.write_text(json.dumps(old, indent=1, sort_keys=True) + NL, encoding="utf-8", newline=NL)
+        return 0
+
+    if args.command == "contentfree-probes":
+        import json
+
+        import yaml
+
+        from s1bench.application.content_free_probes import build_content_free_probes
+
+        seed = int(yaml.safe_load(Path("configs/candidates.yaml").read_text(encoding="utf-8"))["candidate_seed"])
+        reports = []
+        for ds in args.dataset or ["clinc150", "hwu64", "fpb", "hatexplain", "trec6"]:
+            r = build_content_free_probes(ds, args.data_dir, args.out, seed)
+            reports.append(r)
+            print(f"{ds:10s} orders {r['n_orders']} (rotation {r['n_rotation_orders']}, matched "
+                  f"{r['n_matched_orders']} of {r['n_distinct_test_orders']} distinct test orders) "
+                  f"probes {r['n_probes']}")
+        man = args.out / "MANIFEST.json"
+        old = json.loads(man.read_text(encoding="utf-8")) if man.exists() else {}
+        old.update({r["dataset"]: r for r in reports})
+        man.write_text(json.dumps(old, indent=1, sort_keys=True) + NL, encoding="utf-8", newline=NL)
         return 0
 
     if args.command == "candidates":

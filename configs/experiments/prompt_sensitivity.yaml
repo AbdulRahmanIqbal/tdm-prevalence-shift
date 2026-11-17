@@ -1,0 +1,16 @@
+# Revision protocol v1.3 (G5; exploratory, added after the results): prompt sensitivity of the paired comparison.
+# The four local models are scored on FPB test in two generic formats that belong to neither TDM. Same weights,
+# revisions and precision as configs/models.yaml (8-bit for the 9B pair). The frozen formats are not changed.
+# CLI: predict --model <id> --prompt-config configs/experiments/prompt_sensitivity.yaml --prompt-variant <name>
+# Predictions are written under the model name "<id>+<variant>".
+datasets: [fpb]
+models: [qwen3.5-4b, tev1-4b, qwen3.5-9b, nimble-9b]
+variants:
+  plain:            # plain-text multiple choice, lettered options with descriptions; letter readout
+    format: plain
+    system: ""
+    expected_prefix: "<|im_start|>assistant\n<think>\n\n</think>\n\n"
+  plain_names:      # plain-text question with option names; option-likelihood readout (summed name log-probs)
+    format: plain_names
+    system: ""
+    expected_prefix: "<|im_start|>assistant\n<think>\n\n</think>\n\n"
