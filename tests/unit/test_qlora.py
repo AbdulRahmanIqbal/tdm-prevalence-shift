@@ -7,7 +7,7 @@ from __future__ import annotations
 import re
 
 import pytest
-import torch
+torch = pytest.importorskip("torch")  # model-mechanics tests; skipped without requirements-run.txt
 import yaml
 
 from s1bench.application.train_letter_model import TrainLetterModel, majority_predictions, restarts_used

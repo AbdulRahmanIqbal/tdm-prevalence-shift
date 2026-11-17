@@ -21,6 +21,7 @@ def test_prompt_variant_guards(argv):
 
 
 def test_offload_rejects_quantization_and_cpu():
+    pytest.importorskip("torch")
     from s1bench.infrastructure.models.hf_letter_scorer import HfLetterScoringModel
 
     for kw in ({"quantization": "8bit", "device": "cuda"}, {"device": "cpu"}):
