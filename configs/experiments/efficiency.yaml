@@ -1,0 +1,4 @@
+# Efficiency table (spec sec 9). Latency comes from the 12 GB run machine only (laptop never reported).
+warmup_rows: 10            # first rows per file (file order) excluded from p50/p95
+api_cost_per_1000:         # USD per 1,000 examples; fill from the pilot's actual Cloudflare billing (spec 17 #3)
+  jev: null

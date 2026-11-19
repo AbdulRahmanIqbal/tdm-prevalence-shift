@@ -1,0 +1,80 @@
+# Raw dataset sources. Every source is pinned (HF commit or Git commit / fixed URL)
+# so that `s1bench download` is reproducible. Files land in data/raw/<id>/ unchanged.
+
+datasets:
+  - id: clinc150
+    kind: hf_snapshot
+    repo_id: clinc/clinc_oos
+    revision: 155b9c710419136e17307b80d0a13e68cd46b4ec
+    allow_patterns: ["README.md", "plus/*"]
+    license: CC-BY-3.0
+    homepage: https://github.com/clinc/oos-eval
+    notes: >-
+      "plus" config = full in-scope split (100/20/30 per intent) + larger OOS train set.
+      We use in-scope examples only (OOS dropped during processing).
+
+  - id: hwu64
+    kind: hf_snapshot
+    repo_id: DeepPavlov/hwu64
+    revision: 0dd289ccdeb185ec065d1ebcf5de1c443cd1620f
+    allow_patterns: ["README.md", "data/*", "intents/*"]
+    license: CC-BY-SA-3.0
+    homepage: https://github.com/xliuhw/NLU-Evaluation-Data
+    notes: >-
+      PolyAI/DialoGLUE train/test of the Liu et al. (2019) data (train 8,954 / test 1,076).
+      No validation split here; DialoGLUE carves val from train (seeded). The Qwen-generated
+      intent descriptions (intentsqwen3-32b) are deliberately NOT downloaded.
+
+  - id: financial_phrasebank
+    kind: hf_snapshot
+    repo_id: takala/financial_phrasebank
+    revision: 8d3fe0c36d5feec6b3cc5e455b0fcb4820fb9964
+    allow_patterns: ["README.md", "financial_phrasebank.py", "data/*"]
+    license: CC-BY-NC-SA-3.0
+    homepage: https://www.researchgate.net/publication/251231364_FinancialPhraseBank-v10
+    notes: Original v1.0 zip (all agreement subsets). No official split.
+
+  - id: financial_phrasebank_split
+    kind: hf_snapshot
+    repo_id: atrost/financial_phrasebank
+    revision: fc7fb491db5069dc7494bc0a8c937b3661b8fdce
+    allow_patterns: ["README.md", "data/*"]
+    license: CC-BY-NC-SA-3.0 (underlying FPB; HF card lists none)
+    homepage: https://huggingface.co/datasets/atrost/financial_phrasebank
+    notes: >-
+      64/16/20 split (3,100 / 776 / 970) of sentences_50agree following FinBERT (Araci 2019).
+      Same test set as Deusser et al. (2026), which allows a direct Jev sanity check (acc 0.730).
+
+  - id: hatexplain
+    kind: url
+    license: CC-BY-4.0
+    homepage: https://github.com/hate-alert/HateXplain
+    files:
+      - url: https://raw.githubusercontent.com/hate-alert/HateXplain/01d742279dac941981f53806154481c0e15ee686/Data/dataset.json
+        target: dataset.json
+      - url: https://raw.githubusercontent.com/hate-alert/HateXplain/01d742279dac941981f53806154481c0e15ee686/Data/post_id_divisions.json
+        target: post_id_divisions.json
+      - url: https://raw.githubusercontent.com/hate-alert/HateXplain/01d742279dac941981f53806154481c0e15ee686/Data/README.md
+        target: DATA_README.md
+      - url: https://raw.githubusercontent.com/hate-alert/HateXplain/01d742279dac941981f53806154481c0e15ee686/LICENSE
+        target: LICENSE
+    notes: >-
+      Original files (per-annotator labels) at commit 01d74227. License per HF card: CC-BY-4.0;
+      repo LICENSE file also downloaded.
+
+  - id: trec
+    kind: url
+    license: unknown (see docs; not redistributed)
+    homepage: https://cogcomp.seas.upenn.edu/Data/QA/QC/
+    files:
+      - url: https://cogcomp.seas.upenn.edu/Data/QA/QC/train_5500.label
+        target: train_5500.label
+      - url: https://cogcomp.seas.upenn.edu/Data/QA/QC/TREC_10.label
+        target: TREC_10.label
+      - url: https://cogcomp.seas.upenn.edu/Data/QA/QC/definition.html
+        target: definition.html
+      - url: https://cogcomp.seas.upenn.edu/Data/QA/QC/
+        target: index.html
+    notes: >-
+      Original Li & Roth (2002) files. definition.html = official class taxonomy (used for
+      label descriptions). URLs are not versioned; integrity is tracked by sha256 in MANIFEST.json.

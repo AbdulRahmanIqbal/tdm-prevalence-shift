@@ -1,0 +1,135 @@
+\section{Experimental protocol}
+\label{sec:protocol}
+
+\paragraph{Datasets.}
+We use five public, human-labelled English datasets that represent common decision tasks
+(\hyperref[tab:datasets]{Table~\ref*{tab:datasets}}): intent classification for assistants, CLINC150 in-scope \citep{larson2019evaluation} and
+HWU64 \citep{liu2019benchmarking}; financial sentiment, FPB \citep{malo2014good}; hate and offensive speech,
+HateXplain \citep{mathew2021hatexplain}; and question type, TREC-6 \citep{li2002learning}. CLINC150, HateXplain and
+TREC-6 use their official splits. FPB has no official split; we use a public 64/16/20 split of the 50\%-agreement subset,
+following \citet{araci2019finbert}, whose 970-example test set is the one used by \citet{deusser2026jev}. For HWU64 and TREC-6, which have no official development
+split, the development set is a stratified sample of the training set that follows the training class distribution.
+Train and development texts that duplicate a test text after normalisation (lower-casing and removing punctuation),
+and texts that occur with conflicting labels, are removed; the test sets are never changed. All raw files and processed
+splits are pinned by SHA-256 hashes.
+
+\begin{table}[t]
+  \centering
+  \caption{\textbf{The five datasets span intent, sentiment, moderation and question-type decisions with 3 to 150
+  classes.} CLINC150 and HWU64 use fixed label groups as candidate sets ($K$ = 18--22 options); the other three use all
+  labels. Train/dev/test sizes after cleaning.}
+  \label{tab:datasets}
+  \scriptsize
+  \input{tables/tab_datasets}
+\end{table}
+
+\paragraph{Label texts and candidate sets.}
+Every label has a short name and a one-sentence description, written once for all systems and frozen before any model
+was run. For datasets with at most 20 labels, the candidate set contains all labels. For CLINC150 and HWU64 we
+partition the labels once into fixed groups (8 groups of 18--19 and 3 groups of 21--22) by balanced $k$-means on
+embeddings of the label texts, and the candidate set of an example is the group of its gold label. We chose fixed groups
+because a leakage audit showed that candidate sets built around the gold label (the gold label plus its nearest
+neighbours) reveal the gold label from the option list alone: a classifier that never sees the text identifies it for
+97.6\% of CLINC150 and 90.2\% of HWU64 examples, against 5\% chance. With fixed groups, every member of a group receives
+the same set of options. The order of the options is shuffled per example with a fixed seed, with the gold position
+counterbalanced across examples, and all systems read the same candidate file.
+
+\paragraph{Systems and inputs.}
+\hyperref[tab:systems]{Table~\ref*{tab:systems}} lists the systems. Jev is queried through its hosted API, with the label names as option keys
+and the label descriptions as criteria; the response's version field was \texttt{jev-1.13.0} for every call (16{,}234 in the full run and 7{,}500 in
+three repeats); 465 of the 16{,}234 full-run calls (464 rate-limit responses and one timeout) succeeded after one
+retry, and no call failed. Jev's API returns its probabilities rounded to two decimals; we use them as returned and renormalise over the candidates. Each open TDM and its base model receive \emph{token-identical} prompts
+in the TDM's own training format: the Tev1 format for Tev1-4B and Qwen3.5-4B, and the Nimble format for Nimble-9B and
+Qwen3.5-9B (checked on all 16{,}234 development and test prompts). Thinking mode is disabled. The probability vector is
+the softmax ($T=1$) of the candidate letters' logits at the first answer position, computed in fp32 from the final
+hidden state. The two 9B models run in 8-bit precision so that they fit on a 12\,GB GPU, and the Nimble adapter is
+checked to be fully loaded before every run; the two 4B models run in bf16. Local scoring was deterministic in our check:
+scoring 50 CLINC150 development examples twice gave identical probabilities for all four local models. Tev1 was trained mostly on decisions with at most
+eight options, so the 18--22 options of CLINC150 and HWU64 lie outside its training distribution, and the licence of its
+weights was still being finalised at the time of writing. Nimble-9B is the \texttt{original-2676} release, trained on
+2{,}676 synthetic examples; we do not use the later release whose training data include public TREC questions
+(\hyperref[app:runs]{Appendix~\ref*{app:runs}}).
+
+\begin{table}[t]
+  \centering
+  \caption{\textbf{Each open TDM is paired with its own backbone under identical prompts, readout and precision.}
+  Tev1-4B with Qwen3.5-4B (Tev1 prompt format) and Nimble-9B with Qwen3.5-9B (Nimble prompt format, identical 8-bit base
+  weights). Revisions are Hugging Face commit hashes. Readout: ``letters'' is the softmax ($T=1$) over the logits of the
+  candidate letters at the first answer position; the trained classifiers use a softmax over each example's candidates;
+  Jev returns probabilities directly.}
+  \label{tab:systems}
+  \scriptsize
+  \setlength{\tabcolsep}{4pt}
+  \input{tables/tab_systems}
+\end{table}
+
+\paragraph{Trained classifiers.}
+DeBERTa-v3-large \citep{he2023debertav3} is fine-tuned on the full training set with AdamW, a learning rate selected
+from $\{10^{-5}, 2\cdot10^{-5}\}$ on the development set, 10\% linear warm-up, weight decay 0.01, batch size 16, mixed
+precision, maximum length 128 and 5 epochs. The best checkpoint is selected by development Macro-F1 within the candidate
+sets, evaluated every 100 steps. We train five seeds; a run would count as failed if its development accuracy did not
+exceed that of a majority-class predictor \citep{dodge2020finetuning,mosbach2021stability}, which did not happen. All analyses use the first
+seed; the other seeds are reported in \hyperref[tab:seeds]{Table~\ref*{tab:seeds}}. The TF-IDF baseline is a logistic regression on word
+uni- and bigrams with sublinear term frequency; $C$ is selected on the development set from
+$\{0.1, 1, 10, 10^2, 10^3, 10^4\}$, and FPB and TREC-6 select the largest value; extending the grid to $10^5$ and
+$10^6$ changes their development Macro-F1 by at most 0.2~points and their test Macro-F1 by at most 0.7~points
+(exploratory check). Both classifiers' probabilities are
+renormalised over each example's candidate set. Note an asymmetry: the trained classifiers use the development set both
+for model selection and for recalibration, whereas the zero-shot systems use it only for recalibration and the implicit
+prior.
+
+\paragraph{Label budgets.}
+For RQ4, both classifiers are also trained on stratified subsets of 100, 250, 500, 1{,}000 and 2{,}500 training
+examples, and of 5{,}000 where the training set is larger (HateXplain, HWU64, CLINC150), with five subset seeds per
+budget; the full training set is the last point of each curve, with all five DeBERTa-v3-large seeds. Class quotas are
+proportional to the training frequencies, with at least one example per class where the budget allows it; at 100
+labels, CLINC150 has examples for only 100 of its 150 classes (\hyperref[tab:shots]{Table~\ref*{tab:shots}}).
+DeBERTa-v3-large uses the settings above with a fixed schedule: 20 epochs up to 500 labels and 5 epochs above, with at
+least 500 optimizer steps, following the advice for few-sample fine-tuning
+\citep{mosbach2021stability,zhang2021revisiting}. The learning rate, $C$ and the checkpoint are selected on the full
+development set at every budget. A failed run would be restarted with one of three reserve seeds per dataset and
+budget; none failed.
+
+\paragraph{Task fine-tuning of the base model.}
+Condition (b) of the decision-training comparison fine-tunes Qwen3.5-4B on the target task with QLoRA
+\citep{hu2022lora,dettmers2023qlora} at 100, 500 and 2{,}500 labels, using the same subsets as above and three seeds. The
+adapter has rank 16, $\alpha=32$ and dropout 0.05 on the same projection matrices as the Nimble-9B adapter; it is trained
+on a 4-bit NF4 copy of the base with learning rate $10^{-4}$, effective batch size 16, the DeBERTa schedule and a
+cross-entropy loss over the candidate letters at the answer position. Checkpoints are selected by development Macro-F1
+every 100 steps. Every reported prediction comes from the kept adapter on the bf16 base, with the same prompt, assistant
+prefix and letter readout as Qwen3.5-4B and Tev1-4B, so the three 4B conditions (a) frozen base, (b) task QLoRA and (c)
+Tev1-4B differ only in their weights.
+
+\paragraph{Statistical tests.}
+The 35 confirmatory tests are P1 and P2 (Macro-F1 and ECE on five datasets each; 20 tests) and PA1--PA3 (five datasets
+each; 15 tests). P1 and P2 use a paired bootstrap over test examples with $B=10{,}000$ replicates; both systems and both
+metrics use the same resampled indices. For PA1--PA3 (\hyperref[eq:pa1]{Eqs.~\ref*{eq:pa1}}--\nobreak\ref{eq:pa3}), the estimand is the mean over a fixed set of 50 target priors
+drawn once at $\alpha=1$ (centred on the training prior); it is therefore conditional on this set of priors, and the
+intervals reflect only the finiteness of the test set. Each of $B=10{,}000$ replicates draws a class-stratified bootstrap
+sample of the test set and builds all 50 shifted samples from it by resampling with replacement, so that Jev and
+DeBERTa-v3-large are evaluated on identical samples. PA1 compares each shifted ECE with a no-shift control drawn by the
+same resampler at the base sample's own class prior, because top-label ECE is biased upward on resampled data. PA2
+compares risks, which are nearly unbiased under resampling, with the base sample itself. The point estimates of P1 and P2 are the differences on the full test set, those of
+PA1--PA3 the means of the bootstrap replicates. We report percentile 95\% intervals,
+which are not adjusted for multiplicity, and two-sided $p=\min\{1,\,2\min\{\Pr(\Delta\le0),\Pr(\Delta\ge0)\}\}$, adjusted with the
+Holm procedure \citep{holm1979simple} over all 35 tests (also for PA3, whose hypothesis is directional). With
+$B=10{,}000$, a raw $p$ of zero is reported as $p<0.0002$ $(=2/B)$, and its Holm-adjusted value as $p<0.007$
+$(=35\cdot2/B)$. Quantities fitted on the development set (thresholds, implicit priors, temperatures) are held fixed
+within the bootstrap, so the intervals do not include development-set uncertainty. The descriptive prevalence-shift
+experiment uses 200 Dirichlet draws per $\alpha$ for all systems and all five arms, with and without replacement.
+
+\paragraph{Protocol and runs.}
+Hypotheses, tests, the comparison family, all configurations and the code were fixed and recorded as SHA-256 hashes
+before the final runs, and every final run was verified against these hashes. One amendment followed three
+code audits; it changed the analysis, the DeBERTa failed-run rule and the Jev error handling, but not the code used by
+the local language models. It was made after the first local test predictions had been produced, but before the
+DeBERTa and Jev runs and before any of the 35 tests or any shift analysis was computed on the final runs
+(\hyperref[app:deviations]{Appendix~\ref*{app:deviations}}). Before the freeze, some pipeline checks were run on test
+splits, mainly FPB's, including early versions of PA1--PA3 and of the shift experiment on FPB;
+\hyperref[app:deviations]{Appendix~\ref*{app:deviations}} discloses them.
+The local models and both trained classifiers were run on one NVIDIA RTX 4070 Ti (12\,GB); Jev, a hosted model, was
+queried through its API for the main runs in about two hours, inside the protocol's 72-hour window (\hyperref[app:runs]{Appendix~\ref*{app:runs}}).
+The label-budget study was specified with the rest of the protocol; its QLoRA settings, trainer and curve analysis were
+fixed and hashed in a second freeze before any of its final test predictions, after a development-only pilot that left every
+setting unchanged (\hyperref[app:deviations]{Appendix~\ref*{app:deviations}}). It reuses the Jev and zero-shot
+predictions of the main study.

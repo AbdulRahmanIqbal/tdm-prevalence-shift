@@ -1,0 +1,18 @@
+\begin{tabular}{lllll}
+\toprule
+System & Source & Revision & Precision & Readout \\
+\midrule
+\textsc{Typed decision models} & & & & \\
+Jev & Cloudflare API (\texttt{typesafe/jev}) & \texttt{jev-1.13.0} & API & API probabilities \\
+Tev1-4B & \texttt{togethercomputer/Tev1-4B-experimental} & \texttt{0b7becf0} & bf16 & letters, Tev1 format \\
+Nimble-9B & \makecell[l]{Qwen3.5-9B + LoRA \\ \texttt{bespokelabs/Bespoke-Nimble-9B}} & \makecell[l]{\texttt{fe33f82b} \\ (\texttt{original-2676})} & 8-bit & letters, Nimble format \\
+\midrule
+\textsc{Base LLMs} & & & & \\
+Qwen3.5-4B & \texttt{Qwen/Qwen3.5-4B} & \texttt{851bf6e8} & bf16 & as Tev1-4B \\
+Qwen3.5-9B & \texttt{Qwen/Qwen3.5-9B} & \texttt{c2022362} & 8-bit & as Nimble-9B \\
+\midrule
+\textsc{Trained classifiers} & & & & \\
+DeBERTa-v3-large & fine-tuned on the full training set, 5 seeds & \texttt{64a8c8ea} & fp16 & softmax \\
+TF-IDF + LR & word 1--2 grams, $C$ selected on dev & scikit-learn 1.9.1 & CPU & softmax \\
+\bottomrule
+\end{tabular}

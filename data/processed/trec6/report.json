@@ -1,0 +1,60 @@
+{
+  "dataset": "trec6",
+  "prepared_at": "2026-10-07T06:36:29+00:00",
+  "split_seed": 20261006,
+  "dev_carved_from_train": true,
+  "counts": {
+    "train": 4869,
+    "dev": 498,
+    "test": 500
+  },
+  "label_counts": {
+    "train": {
+      "ABBR": 76,
+      "DESC": 1040,
+      "ENTY": 1130,
+      "HUM": 1102,
+      "LOC": 747,
+      "NUM": 774
+    },
+    "dev": {
+      "ABBR": 8,
+      "DESC": 105,
+      "ENTY": 115,
+      "HUM": 112,
+      "LOC": 77,
+      "NUM": 81
+    },
+    "test": {
+      "ABBR": 9,
+      "DESC": 138,
+      "ENTY": 94,
+      "HUM": 65,
+      "LOC": 81,
+      "NUM": 113
+    }
+  },
+  "cleaning": {
+    "before": {
+      "train": 4952,
+      "dev": 500,
+      "test": 500
+    },
+    "after": {
+      "train": 4869,
+      "dev": 498,
+      "test": 500
+    },
+    "removed_overlap_with_test": {
+      "train": 9,
+      "dev": 2
+    },
+    "removed_train_overlap_with_dev": 8,
+    "removed_conflicting": {
+      "train": 0,
+      "dev": 0
+    },
+    "conflicting_in_test": 0,
+    "removed_same_label_duplicates_train": 66
+  }
+}

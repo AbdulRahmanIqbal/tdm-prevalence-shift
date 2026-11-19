@@ -1,0 +1,411 @@
+\section{Results}
+\label{sec:results}
+
+\paragraph{Validity checks.}
+All 16{,}234 Jev calls and all local predictions returned a valid probability vector: no request failed after retries
+and no input was refused, including on HateXplain. On the 970-example FPB test set that \citet{deusser2026jev} also use,
+Jev's accuracy is 0.744, consistent with the 0.730 they report. Full-data DeBERTa-v3-large reaches 0.976 accuracy on
+TREC-6, close to the 0.974 reported for fully fine-tuned RoBERTa-large \citep{gao2021making}, and 0.703 Macro-F1 on
+HateXplain, slightly above the best value we found reported for that test split, 0.699 \citep{kim2022why}. The four local
+models gave identical probabilities when 50 CLINC150 development examples were scored twice. Jev is not: in four runs over the same 500 test examples per dataset, it returned the same
+prediction for 96.4--99.8\% of examples but the same probability vector for only 19.4--87.4\% of them, with differences of
+up to 0.29 between runs; its ECE on these subsets varied by at most 0.012 between runs (\hyperref[app:results]{Appendix~\ref*{app:results}}). All
+analyses use a single full run of each system.
+
+\paragraph{Overview.}
+\hyperref[tab:exp1]{Table~\ref*{tab:exp1}} gives the test-set results without shift. Full-data DeBERTa-v3-large has the highest Macro-F1 point
+estimate on all five datasets, although Jev is within 0.3~points on CLINC150. Among the zero-shot systems in
+\hyperref[tab:exp1]{Table~\ref*{tab:exp1}}, Jev has the highest Macro-F1 point estimate on every dataset (by 0.3~points over Qwen3.5-9B on
+FPB). No zero-shot system is reliable on HateXplain (Macro-F1 at most 0.514), where even TF-IDF reaches 0.645.
+Calibration varies more by task than by system class: ECE is at most 0.020 for all zero-shot systems on CLINC150, but
+between 0.214 and 0.340 on HateXplain. The reliability diagrams in \hyperref[fig:reliability]{Figure~\ref*{fig:reliability}}
+show the pattern behind these numbers. On HateXplain, Jev gives a confidence of at least 0.9 to 45.5\% of the test
+examples, of which 67.4\% are correct (DeBERTa-v3-large: 54.1\% and 84.2\%). On FPB, 71.2\% of the examples to which
+Nimble-9B gives at least 0.9 are correct, against 83.8\% for Qwen3.5-9B; on HWU64 the order is reversed (96.0\% against
+93.9\%). These comparisons are descriptive; the tested comparisons follow.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_reliability.pdf}
+  \caption{\textbf{On FPB and HateXplain every system shown is overconfident at high confidence, and decision training
+  moves Nimble-9B away from the diagonal on FPB but towards it on HWU64.} Reliability diagrams on the test set
+  without shift: each bar is the accuracy of one of the 15 equal-width confidence bins of the ECE, and the hatched part
+  is its gap to the diagonal (perfect calibration); faint bars hold fewer than 10 examples (at most 2.7\% of a test
+  set). ECE in points, as in \hyperref[tab:exp1]{Table~\ref*{tab:exp1}}. Top row: Jev and DeBERTa-v3-large (seed 1001,
+  the model of the table and of the tests); bottom row: Nimble-9B and its base Qwen3.5-9B.}
+  \label{fig:reliability}
+\end{figure}
+
+\begin{table}[t]
+  \centering
+  \caption{\textbf{Full-data DeBERTa-v3-large has the highest Macro-F1 point estimate on every dataset, and the
+  calibration of zero-shot systems depends more on the task than on the system.} Test-set Macro-F1 and ECE (15 bins,
+  top label), candidate-restricted, no shift. These are point estimates; tested comparisons are in
+  \hyperref[fig:pairs]{Figure~\ref*{fig:pairs}} and \hyperref[tab:pa]{Table~\ref*{tab:pa}}.}
+  \label{tab:exp1}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \input{tables/tab_exp1}
+\end{table}
+
+\subsection{RQ1: What decision training changes}
+\label{sec:rq1}
+
+\paragraph{Decision training improves the 9B backbone's calibration on intent tasks and lowers its Macro-F1 on financial
+sentiment by 12~points.}
+Nimble-9B differs from Qwen3.5-9B only by a LoRA adapter: the base weights, 8-bit precision, prompts and readout are
+identical. On CLINC150 the adapter lowers ECE by 1.2~points (95\% CI $[-1.5,-0.6]$; Holm-adjusted $p<0.007$) and raises
+Macro-F1 by 0.7~points ($[0.2, 1.2]$; $p=0.029$). On HWU64 it lowers ECE by 4.2~points ($[-5.6,-2.5]$; $p<0.007$). On FPB,
+by contrast, Nimble-9B's Macro-F1 is 12.0~points below its base ($[-14.6,-9.3]$; $p<0.007$) and its ECE is 9.6~points
+higher ($[6.8, 12.1]$; $p<0.007$). On HateXplain and TREC-6 neither difference is significant after correction; the
+largest of these, $-3.1$ Macro-F1~points on TREC-6, has an interval of $[-7.0, 0.7]$ (\hyperref[fig:pairs]{Figure~\ref*{fig:pairs}}).
+
+\paragraph{In its own format, Tev1-4B is never significantly worse than its base model.}
+Tev1-4B's Macro-F1 is higher than Qwen3.5-4B's on CLINC150 ($+2.5$, $[1.9, 3.1]$; $p<0.007$), HWU64 ($+2.8$,
+$[1.1, 4.8]$; $p=0.040$) and FPB ($+10.0$, $[7.4, 12.7]$; $p<0.007$), and its ECE is lower on FPB ($-13.2$,
+$[-15.7,-10.4]$; $p<0.007$) and HateXplain ($-3.2$, $[-5.2,-1.4]$; $p=0.029$). None of the ten differences favours the
+base model significantly. Because Tev1 is a full fine-tune whose exact base revision and recipe are not published, and
+because the 18--22 options of the intent datasets lie outside its training distribution, this pair is the closest
+available comparison rather than a controlled one. On HWU64, 614 of the 1{,}076 test texts also occur in MASSIVE
+\citep{fitzgerald2023massive}; on the 462 remaining examples every system, including the trained classifiers, loses 2.2
+to 5.9 Macro-F1~points, the P2 calibration result holds ($-4.3$ ECE points, $[-5.8,-1.1]$), and the P1 Macro-F1
+difference keeps its sign but is no longer resolved ($+3.0$, $[-0.03, 8.3]$; exploratory, \hyperref[tab:hwu64]{Table~\ref*{tab:hwu64}}).
+
+The two pairs thus point in opposite directions on FPB: Tev1-4B scores 10.0 Macro-F1~points above its base, and
+Nimble-9B 12.0~points below its own. Nimble-9B's loss is concentrated on the neutral class: it labels 285 of the 565
+neutral test sentences as positive, against 159 for Qwen3.5-9B, so that its recall on neutral sentences falls from 0.64
+to 0.36 while its recall on positive and negative sentences rises (0.88 to 0.96 and 0.89 to 0.95; descriptive,
+\hyperref[tab:fpbconf]{Table~\ref*{tab:fpbconf}}). A later Nimble release, whose training data include public TREC questions, scores
+0.963 Macro-F1 on TREC-6 against 0.872 for the release we test (exploratory; \hyperref[app:results]{Appendix~\ref*{app:results}}), which
+suggests that the training data, not only decision training, affect the result.
+
+\paragraph{The Tev1-4B gain on FPB is a prompt-format effect; the Nimble-9B loss is not (exploratory).}
+P1 and P2 score each base model in its TDM's training format. Re-scored in two generic formats that belong to neither
+TDM (plain multiple choice with a letter readout, and option likelihood over the label names;
+\hyperref[app:prompts]{Appendix~\ref*{app:prompts}}), Qwen3.5-4B reaches 73.1 and 72.2 Macro-F1 on FPB against 63.5 in
+the Tev1 format, and the P1 difference becomes $-1.7$ ($[-3.7, 0.3]$) and $-1.6$ ($[-3.4, 0.3]$); Tev1-4B in its own
+format is 0.4~points above Qwen3.5-4B in its best format, which was chosen on the test set and so favours the base.
+Tev1-4B's ECE stays lower ($-5.4$ and $-2.4$~points). P2 keeps its sign in every format ($-6.3$, $[-8.3,-4.3]$;
+$-8.2$, $[-10.8,-5.6]$) and in bf16 ($-11.7$, $[-14.3,-9.1]$), so the Nimble result is not an artefact of the format
+or of 8-bit precision (\hyperref[fig:promptprec]{Figure~\ref*{fig:promptprec}}).
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_prompt_precision.pdf}
+  \caption{\textbf{Outside the Tev1 format the Tev1-4B Macro-F1 gain on FPB disappears; the Nimble-9B loss remains in
+  every format and in bf16 (exploratory).} Paired differences (TDM $-$ base) on the FPB test set in percentage points
+  with 95\% paired bootstrap intervals ($B=10{,}000$, unadjusted). First row: the frozen P1 and P2 in each TDM's
+  format; plain formats in \hyperref[app:prompts]{Appendix~\ref*{app:prompts}}; last row: Nimble-9B and Qwen3.5-9B in
+  bf16 instead of 8-bit. Values in \hyperref[tab:promptprec]{Table~\ref*{tab:promptprec}}.}
+  \label{fig:promptprec}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig2_pairs.pdf}
+  \caption{\textbf{In their TDM's own format, Tev1-4B is never significantly worse than its base model, whereas
+  Nimble-9B is better calibrated on intent tasks and 12 Macro-F1~points worse on FPB.} Paired differences (TDM $-$ base) in percentage points with 95\%
+  paired bootstrap intervals ($B=10{,}000$, unadjusted). Filled markers: significant after Holm correction over all 35
+  primary tests.}
+  \label{fig:pairs}
+\end{figure}
+
+\subsection{RQ2: Prevalence shift}
+\label{sec:rq2}
+
+\paragraph{At moderate shift, Jev and DeBERTa-v3-large are distinguishable after correction only on FPB, and the size
+of that difference depends on the shift scenarios.}
+On the fixed set of 50 target priors, the shift-induced change in ECE at $\alpha=1$ is 1.7~points larger for Jev than for
+DeBERTa-v3-large on FPB (PA1; $[1.0, 2.5]$; $p<0.007$), and the excess risk of the 80\%-coverage threshold is 2.5~points
+larger ($[1.8, 3.2]$; $p<0.007$; PA2). On the other four datasets neither difference is significant after correction
+(\hyperref[tab:pa]{Table~\ref*{tab:pa}}); on CLINC150 and HWU64 the intervals lie within $\pm0.5$ points.
+
+\paragraph{The threshold moves little under moderate shift compared with the gap between the systems (descriptive).}
+\hyperref[fig:riskcov]{Figure~\ref*{fig:riskcov}} shows the full risk--coverage curves without shift and where the
+threshold chosen on the development set for 80\% coverage lands. Averaged over the 200 shifted test sets of the descriptive shift experiment at
+$\alpha=1$, Jev's selective risk at this threshold changes from 20.5\% to 20.9\% on FPB and from 3.1\% to 3.9\% on
+TREC-6, DeBERTa-v3-large's by at most 0.3~points on any dataset, and the coverage of either system by at most 1.9~points.
+The difference between the systems is larger: at the same threshold, DeBERTa-v3-large's selective risk is 7.9\% on FPB
+and 22.4\% on HateXplain, against 20.5\% and 42.4\% for Jev.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_riskcoverage.pdf}
+  \caption{\textbf{Under moderate shift, the development-set threshold lands close to where it does without shift,
+  whereas the risk gap between Jev and DeBERTa-v3-large at that threshold is large (descriptive).} Lines: selective risk
+  (error rate among the accepted examples) against coverage on the original test set, examples ordered by decreasing
+  confidence and ties averaged; the mean of each curve is the AURC. Open markers: the threshold fixed on the development
+  set for 80\% coverage (dotted line), applied to the original test set; filled markers: the same threshold, mean
+  coverage and risk over the 200 shifted test sets at $\alpha=1$. The y-axis scale differs between panels.}
+  \label{fig:riskcov}
+\end{figure}
+
+Because these confirmatory estimates are conditional on one set of target priors, we repeated PA1--PA3 with five other
+prior sets (exploratory, added after the results were known; \hyperref[tab:pasens]{Table~\ref*{tab:pasens}}). On FPB, Jev's ECE change exceeds
+DeBERTa-v3-large's for every prior set, but by 0.3 to 1.7~points (the frozen set is among the largest), and its excess
+risk by 0.6 to 2.5~points (frozen set 2.5). On TREC-6, Jev's ECE change is larger by 0.8 to 1.2~points for every set. On HateXplain the
+direction depends on the prior set: the frozen set favours Jev ($-0.8$), the five others favour DeBERTa-v3-large ($+0.2$
+to $+0.8$). Averaged over 2{,}000 target priors drawn at $\alpha=1$ (exploratory; \hyperref[tab:papop]{Table~\ref*{tab:papop}}), the PA1
+difference is $+0.4$ points on FPB (Monte Carlo standard error over priors 0.12; it does not include test-set
+uncertainty), $0.0$ on HateXplain and $+1.0$ on TREC-6, and at most $0.1$ on the intent datasets;
+on FPB and HateXplain the difference varies widely between single priors (standard deviation 5.4 and 7.4~points), so a
+set of 50 priors is not enough to pin down its mean. PA3, in contrast, keeps its sign and remains clearly negative:
+$-1.7$ points on FPB (frozen set $-2.7$) and $-2.0$ on HateXplain (frozen set $-1.8$). We therefore read RQ2 as follows: under moderate shift, Jev's calibration error grows by at most 1.7~points more than that of a fine-tuned classifier on any prior set, and by at most one point on average over shifts;
+the direction is consistent on FPB and TREC-6, and the size of such differences depends on which shifts are considered. Two facts call for caution about the significant FPB results (PA1 and PA2). FPB is the
+dataset whose test split was used in pipeline checks before the protocol was frozen (\hyperref[app:deviations]{Appendix~\ref*{app:deviations}}),
+and the size of the estimate is not stable across prior sets (0.3 to 1.7~points). Jev's own run-to-run variation in ECE
+on FPB, measured on repeated calls over 500 test examples, is at most 0.6~points (\hyperref[tab:jevrepeat]{Table~\ref*{tab:jevrepeat}}), well below
+the frozen estimate, so the non-determinism of the API is unlikely to explain the FPB result, whereas its size depends
+strongly on the prior set. We therefore do not treat RQ2 as evidence that Jev is more fragile under shift than a trained classifier; the
+robust conclusion is that the difference is small.
+
+\begin{table}[t]
+  \centering
+  \caption{\textbf{The EM correction effect (PA3) is stable across shift scenarios, whereas the Jev--DeBERTa difference
+  (PA1, PA2) varies in size, and on HateXplain in sign.} Frozen: the confirmatory estimate on the pre-specified set of 50
+  target priors ($B=10{,}000$; $\dagger$: Holm-adjusted $p<0.05$). Exploratory: range of the estimates over five other sets
+  of 50 priors ($B=1{,}000$ each) and the number of sets whose unadjusted 95\% interval excludes zero. Points.}
+  \label{tab:pasens}
+  \scriptsize
+  \input{tables/tab_pa_sensitivity}
+\end{table}
+
+\paragraph{Stronger shift widens the gap (descriptive).}
+Measured against a resampled no-shift control, the mean change in ECE at $\alpha=1$ is small for every system (mostly
+below 1.5~points). At $\alpha=0.1$ it grows, and on all five datasets Jev's ECE increases more than DeBERTa-v3-large's,
+for example 2.5 versus 0.7~points on HateXplain and 2.4 versus 0.4~points on TREC-6 (\hyperref[fig:shift]{Figure~\ref*{fig:shift}}). This is not
+a contrast between zero-shot and trained systems: the TF-IDF classifier's ECE increases more than Jev's on CLINC150 and
+HateXplain, DeBERTa-v3-large is the most stable system on only three of the five datasets, and among the zero-shot
+systems Tev1-4B (FPB $+4.8$, TREC-6 $+4.4$ points) and Qwen3.5-4B (FPB $+3.9$) degrade more than Jev
+(\hyperref[tab:exp2delta]{Table~\ref*{tab:exp2delta}}). Jev is therefore not uniquely fragile. Without the resampled control, part of these changes would be resampling bias:
+with no shift at all, resampling raises ECE by 0.05 to 1.4~points relative to the original test set.
+
+\begin{table}[t]
+  \centering
+  \caption{\textbf{At moderate shift ($\alpha=1$), Jev and DeBERTa-v3-large are distinguishable only on FPB, and EM with
+  Jev's implicit prior lowers its shifted ECE on FPB and HateXplain.} Estimates in percentage points with 95\% bootstrap
+  intervals (unadjusted; class-stratified test bootstrap, $B=10{,}000$, conditional on 50 fixed target priors, common
+  random numbers). $\dagger$ and bold: Holm-adjusted $p<0.05$ over the 35-test family; an unadjusted interval that excludes
+  zero is not by itself significant.}
+  \label{tab:pa}
+  \scriptsize
+  \input{tables/tab_pa}
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig3_shift.pdf}
+  \caption{\textbf{Under stronger shift, Jev's calibration error grows more than DeBERTa-v3-large's on all five
+  datasets, but this is not a zero-shot versus trained contrast: the TF-IDF classifier degrades more than Jev on two of
+  them, and Tev1-4B more than Jev on FPB and TREC-6 (descriptive).}
+  Change in ECE relative to a resampled no-shift control, mean over 200 Dirichlet draws per $\alpha$, raw probabilities.
+  Only $\alpha=1$ is tested (\hyperref[tab:pa]{Table~\ref*{tab:pa}}); all systems in \hyperref[tab:exp2delta]{Table~\ref*{tab:exp2delta}}.}
+  \label{fig:shift}
+\end{figure}
+
+\subsection{RQ3: Implicit-prior correction}
+\label{sec:rq3}
+
+\paragraph{EM with Jev's implicit prior lowers its calibration error under shift on the two datasets where that error is
+highest.}
+EM prior correction with Jev's implicit prior lowers Jev's ECE under shift on FPB by 2.7~points ($[-3.7,-1.6]$;
+$p<0.007$; PA3) and on HateXplain by 1.8~points ($[-2.7,-0.8]$; $p<0.007$), the two datasets where Jev's unshifted ECE is
+highest (0.095 and 0.279). On CLINC150 and HWU64, where its ECE is at most 0.036, the intervals lie between $-0.33$ and
+$+0.54$ points; on TREC-6 the estimate is $-1.1$ points ($[-2.0,-0.3]$) but not significant after correction ($p=0.136$). Unlike PA1
+and PA2, these effects keep their sign across shift scenarios: across the five other prior sets, the reduction is 1.7 to 2.5~points on FPB, 1.8 to 2.5 on HateXplain and 0.9 to 1.1 on TREC-6, with every unadjusted interval excluding zero
+(\hyperref[tab:pasens]{Table~\ref*{tab:pasens}}). The FPB and HateXplain effects also exceed Jev's run-to-run variation in ECE (at most 0.6 and
+1.1~points on these two datasets; \hyperref[tab:jevrepeat]{Table~\ref*{tab:jevrepeat}}). Descriptively, they appear to correct the shift rather
+than Jev's label bias: on the resampled no-shift control, EM changes Jev's ECE by only $+0.1$ points on FPB and $+0.4$ on
+HateXplain (descriptive; \hyperref[tab:emnoshift]{Table~\ref*{tab:emnoshift}}). The
+correction is modest relative to the error it addresses: on HateXplain, Jev's mean ECE under shift falls from 0.271 to
+0.254, whereas bias-corrected temperature scaling followed by EM, which needs development labels, reaches 0.071.
+Descriptively, the same label-free correction lowers the shifted ECE of every zero-shot system on FPB and HateXplain, by
+0.9 to 4.6~points (\hyperref[tab:exp2arms]{Table~\ref*{tab:exp2arms}}). Started from the true class prior
+instead, EM raises the shifted ECE of every zero-shot system on FPB and HateXplain above the uncorrected value
+(exploratory; \hyperref[tab:emtrueprior]{Table~\ref*{tab:emtrueprior}} and \hyperref[sec:discussion]{Section~\ref*{sec:discussion}}).
+
+\paragraph{Content-free calibration is not a substitute for prior correction (exploratory).}
+Content-free calibration \citep{zhao2021calibrate} divides each probability by the model's output on content-free
+inputs (``N/A'', the empty string, ``[MASK]'') under the same candidate orders, and also needs no labels. On FPB and
+HateXplain the label-level correction lowers the Macro-F1 of every zero-shot system, by 7.6 to 27.0~points, and raises
+its ECE under shift (Jev on FPB: 0.107 to 0.472). On the other three datasets it changes Macro-F1 by at most
+2.7~points, except for Nimble-9B on TREC-6 ($-9.8$). For Jev, which returns exact zeros, the correction is ill-posed:
+its content-free weights differ by up to six orders of magnitude. Applied before EM, it does not recover the loss. EM with the implicit prior gives the
+lowest or near-lowest ECE under shift on FPB, HateXplain and CLINC150, while on HWU64 and TREC-6 content-free correction
+is slightly lower for some systems (\hyperref[tab:contentfree]{Table~\ref*{tab:contentfree}} in
+\hyperref[app:revision]{Appendix~\ref*{app:revision}}).
+
+\paragraph{The implicit priors carry the label bias of the TDMs (descriptive).}
+\hyperref[fig:implicitprior]{Figure~\ref*{fig:implicitprior}} compares the implicit priors of the three TDMs with the
+class distribution of the development set on the three datasets with few classes. On FPB, Jev's implicit prior puts
+41.0\% on the neutral class, which makes up 59.5\% of the examples, and Nimble-9B's only 22.7\%; on HateXplain, all three
+put 44 to 58\% on hate speech, which makes up 30.9\%. On TREC-6, Jev's implicit prior is within 5.2~points of the class
+share for every class. EM helps most on the two datasets where this bias is largest;
+\hyperref[sec:discussion]{Section~\ref*{sec:discussion}} explains why the bias does not prevent the correction.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_implicit_prior.pdf}
+  \caption{\textbf{The TDMs' implicit priors are far from the class distribution on FPB and HateXplain and close to it
+  on TREC-6.} Implicit prior (mean predicted distribution on the development set, smoothed as in the descriptive shift experiment) of each TDM, and
+  the class distribution of the development set (grey), in percent. Total-variation distances for all zero-shot systems
+  and datasets in \hyperref[tab:implicitprior]{Table~\ref*{tab:implicitprior}}.}
+  \label{fig:implicitprior}
+\end{figure}
+
+\paragraph{Most of the calibration gain under shift comes from calibrating on the development set (descriptive).}
+The arms fall into two categories that should not be compared as alternatives: EM with the implicit prior is
+\emph{label-free} and is the only option when no labelled data are available, whereas temperature scaling and BCTS+EM
+are \emph{labelled} recalibration fitted on the labelled development set (the oracle uses the true target prior and is
+only a reference). \hyperref[fig:arms]{Figure~\ref*{fig:arms}} and \hyperref[tab:exp2arms]{Table~\ref*{tab:exp2arms}} compare all five arms. On FPB and HateXplain, where most systems are
+miscalibrated, bias-corrected temperature scaling followed by EM gives the lowest ECE under shift for 13 of the 14
+system--dataset pairs, for example 0.035 for Nimble-9B on FPB against 0.271 without recalibration; the exception is
+DeBERTa-v3-large on FPB, where temperature scaling alone is 0.2~points lower. Its gain is mostly the correction of
+miscalibration that exists without shift: relative to its own no-shift control, the ECE of BCTS+EM still rises under shift,
+by 1.5 to 3.1~points for the zero-shot systems on HateXplain, more than the raw probabilities do there, but it stays far
+below the unrecalibrated level. Temperature scaling alone transfers less well: its ECE increases under shift more than
+that of the raw probabilities for 31 of the 35 system--dataset pairs.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig4_arms.pdf}
+  \caption{\textbf{Most of the calibration gain under shift comes from calibrating on the development set, not from
+  correcting the prior (descriptive).} ECE under shift ($\alpha=1$, mean over 200 draws) for each recalibration arm.
+  Label-free: EM, prior correction with the source prior (implicit for Jev, training prior for DeBERTa-v3-large).
+  Labelled (fitted on the labelled development set): temp., temperature scaling; BCTS+EM, bias-corrected temperature
+  scaling, then EM. Reference: oracle, true target prior (not deployable). Jev's temperature-scaled arm depends on the
+  probability floor needed for its exact zeros (up to 3.1~points; \hyperref[app:results]{Appendix~\ref*{app:results}}). All systems in \hyperref[tab:exp2arms]{Table~\ref*{tab:exp2arms}}.}
+  \label{fig:arms}
+\end{figure}
+
+\subsection{RQ4: Label budgets}
+\label{sec:rq4}
+
+All 280 budget trainings of DeBERTa-v3-large and TF-IDF + LR and all 45 QLoRA trainings completed without a failed run,
+so no reserve seed was used. At full data the curves reproduce \hyperref[tab:exp1]{Table~\ref*{tab:exp1}}: averaged over
+its five seeds, DeBERTa-v3-large is 0.4 (CLINC150) to 18.9 (HateXplain) Macro-F1~points above Jev. Every interval in this
+section resamples both the training seeds and the test examples ($B=10{,}000$); the label-budget study estimates curves and tests no
+hypothesis, so none of these results enters the Holm family.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig5_budget.pdf}
+  \caption{\textbf{The number of labels a trained model needs to overtake Jev ranges from at most 100 to more than the
+  full training set, and rises with the number of classes in our five datasets.} Paired Macro-F1 difference (system $-$ Jev, percentage
+  points) on the test set against the number of training labels (log scale; number of classes in brackets). Bands: 95\%
+  bootstrap intervals over seeds and test examples (5 seeds; 3 for QLoRA; 1 for TF-IDF at full data). Rings: crossover
+  budget, the smallest budget whose interval lies above zero (\hyperref[tab:crossover]{Table~\ref*{tab:crossover}}).
+  The rightmost DeBERTa-v3-large and TF-IDF points are the full training set. All values in
+  \hyperref[tab:budgetf1]{Table~\ref*{tab:budgetf1}}.}
+  \label{fig:budget}
+\end{figure}
+
+\paragraph{How many labels a fine-tuned DeBERTa-v3-large needs to overtake Jev depends on the task.}
+The crossover budget, the smallest budget whose interval lies above zero, is between 100 and 250 labels on HateXplain,
+between 250 and 500 on FPB, between 1{,}000 and 2{,}500 on TREC-6 and between 2{,}500 and 5{,}000 on HWU64
+(\hyperref[tab:crossover]{Table~\ref*{tab:crossover}}). On CLINC150 it is not reached: with the full 14{,}939 training
+examples, about 100 per class, DeBERTa-v3-large is $+0.4$~points above Jev ($[-0.07, 0.8]$). In the per-class terms of
+the few-shot intent literature, the HWU64 crossover lies between 9--44 and 18--89 examples per class, and on CLINC150
+even about 100 examples per class are not enough, whereas the QLoRA model overtakes Jev there with at most 14--17
+(\hyperref[tab:shots]{Table~\ref*{tab:shots}}). The crossover rises with
+the number of classes, but the five datasets also differ in domain and text length, so this order is descriptive. Small
+budgets are costly on the intent tasks: at 100 labels, which leave 50 of the 150 CLINC150 classes without a training
+example (\hyperref[tab:shots]{Table~\ref*{tab:shots}}), DeBERTa-v3-large is 76.3~points below Jev on CLINC150 and
+62.0 below it on HWU64.
+
+\begin{table}[t]
+  \centering
+  \caption{\textbf{Of the three trained systems, a task QLoRA on Qwen3.5-4B overtakes Jev with the fewest labels;
+  DeBERTa-v3-large does not clearly overtake it on CLINC150.} Crossover budget vs Jev (Macro-F1): the interval between the largest budget whose 95\% interval includes or
+  lies below zero and the smallest budget whose interval lies above zero. The interpolation uses the point estimate and
+  can therefore fall below the interval, e.g.\ for QLoRA on TREC-6, where the estimate at 500 labels is positive but its
+  interval still includes zero. Interp.: budget at which the linearly
+  interpolated point estimate first crosses zero (rough guide; \citealt{lescao2021howmany}). Budgets: 100, 250, 500,
+  1{,}000, 2{,}500, 5{,}000 (HateXplain, HWU64, CLINC150 only) and full data; QLoRA: 100, 500, 2{,}500.}
+  \label{tab:crossover}
+  \scriptsize
+  \setlength{\tabcolsep}{4pt}
+  \input{tables/tab_crossover}
+\end{table}
+
+\paragraph{Of the trained systems, a task-specific QLoRA on the 4B base overtakes Jev with the fewest labels.}
+Qwen3.5-4B fine-tuned with QLoRA on 100 labels is above Jev on FPB ($+8.5$, $[5.2, 11.9]$) and HateXplain ($+7.0$,
+$[4.4, 9.5]$). On TREC-6, HWU64 and CLINC150 the crossover lies between 500 and 2{,}500 labels; at 2{,}500 labels the
+interval lies above zero on all five datasets, on CLINC150 only just ($+0.4$, $[0.03, 0.8]$) and not under in-budget
+selection (see below). At the same budget the
+QLoRA model is far ahead of DeBERTa-v3-large on the intent tasks: at 2{,}500 labels, $+0.4$ against $-17.2$ points on
+CLINC150 and $+3.6$ against $-5.6$ on HWU64. At 100 labels it is 2.6 and 2.9~points below Jev on these two datasets,
+against 76.3 and 62.0 for DeBERTa-v3-large.
+
+\paragraph{Task fine-tuning raises the 4B model more than vendor decision training (descriptive).}
+Part of the gain over the frozen base on FPB reflects the Tev1 format rather than the task: frozen Qwen3.5-4B scores
+9.6~points higher in generic formats (RQ1). The comparison with Tev1-4B, which uses the same format, is not affected.
+\hyperref[fig:qlorabase]{Figure~\ref*{fig:qlorabase}} compares the three 4B conditions (frozen base, task QLoRA, Tev1-4B) with the same prompt and
+readout (values in \hyperref[tab:qlorabase]{Table~\ref*{tab:qlorabase}}). With 500 labels, the QLoRA model is above frozen Qwen3.5-4B (by 3.1 to 21.9~points) and above Tev1-4B (by 0.7
+to 18.0~points) on all five datasets, with every interval above zero. Under in-budget selection (see above) the
+difference to Tev1-4B at 500 labels on CLINC150 is $+0.3$ ($[-0.1, 0.8]$) and no longer resolved; the other nine
+intervals stay above zero. With 100 labels its point estimate is above
+frozen Qwen3.5-4B on all five datasets, with the interval above zero on three (FPB, HateXplain, CLINC150); it is above
+Tev1-4B on FPB and HateXplain, below it on CLINC150 ($-1.2$, $[-1.8,-0.6]$), and indistinguishable on TREC-6 and HWU64.
+The two conditions answer different questions: the QLoRA model is trained on the target task, whereas Tev1's decision
+training is generic, and its recipe is not published. The comparison shows how much a few hundred task labels add, not
+why Tev1 gains what it does.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_qlora_base.pdf}
+  \caption{\textbf{With 500 task labels, a QLoRA adapter lifts Qwen3.5-4B above both its frozen version and Tev1-4B on
+  every dataset (descriptive; on CLINC150 not resolved against Tev1-4B under in-budget selection).} Macro-F1 difference
+  of Qwen3.5-4B + QLoRA to frozen Qwen3.5-4B and to Tev1-4B
+  (percentage points) against the number of training labels (log scale), with 95\% bootstrap intervals over seeds (3)
+  and test examples. Same prompt, assistant prefix and readout for all three (the Tev1 format); on FPB, part of the
+  gain over the frozen base reflects that format, in which frozen Qwen3.5-4B scores 9.6~points below its generic-format
+  level. Values in \hyperref[tab:qlorabase]{Table~\ref*{tab:qlorabase}}.}
+  \label{fig:qlorabase}
+\end{figure}
+
+\paragraph{TF-IDF + LR reaches Jev only on hate speech.}
+TF-IDF + LR overtakes Jev on HateXplain between 500 and 1{,}000 labels, where every zero-shot system is weak
+(\hyperref[tab:exp1]{Table~\ref*{tab:exp1}}). On the other four datasets its interval never lies above zero, even with
+the full training set, where its point estimate is 0.8 (HWU64) to 5.9 (FPB) points below Jev's.
+
+\paragraph{With model selection inside the budget, the crossover intervals are unchanged for DeBERTa-v3-large and
+TF-IDF + LR (exploratory).}
+The budget curves above select hyperparameters and checkpoints on the full development set, with a fixed schedule. In
+a rerun under a realistic protocol, 20\% of each budget is held out for selection, early stopping and the failed-run
+rule, and the model trains on the other 80\% (\hyperref[app:budgets]{Appendix~\ref*{app:budgets}}). All ten crossover
+intervals of DeBERTa-v3-large and TF-IDF + LR are the same as in \hyperref[tab:crossover]{Table~\ref*{tab:crossover}}
+(\hyperref[fig:budgetreal]{Figure~\ref*{fig:budgetreal}}). The realistic models are weaker at the smallest budgets,
+where they train on fewer labels (DeBERTa-v3-large on FPB at 100 labels: 51.0 against 64.3 Macro-F1; on CLINC150 every
+seed at 100 labels fails and is scored as the majority class). On the intent datasets they are much stronger at
+intermediate budgets (CLINC150 at 1{,}000 labels: 77.4 against 51.5; HWU64: 87.3 against 66.8), so the dips of the
+fixed schedule do not recur. The rerun changes the selection and the schedule (step range and early stopping)
+together, so it does not tell which of the two removes them. For QLoRA the crossover is unchanged on FPB, HateXplain
+and HWU64. It comes earlier on TREC-6, but only marginally: between 100 and 500 labels ($+3.1$, $[0.006, 6.7]$ at
+500). It is no longer reached on
+CLINC150, where the model draws level with Jev at 2{,}500 labels ($-0.2$, $[-0.7, 0.3]$).
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_budget_realistic.pdf}
+  \caption{\textbf{With selection inside the budget, DeBERTa-v3-large and TF-IDF + LR overtake Jev at the same budgets
+  as with the fixed schedule (exploratory).} Paired Macro-F1 difference (system $-$ Jev, percentage points) under the
+  realistic protocol (20\% of each budget for selection and early stopping), with 95\% bootstrap intervals over seeds
+  (5; 3 for QLoRA) and test examples; rings: crossover budget. Thin dashed lines: the fixed-schedule curves of
+  \hyperref[fig:budget]{Figure~\ref*{fig:budget}} at the same budgets. The realistic protocol has no full-data
+  budget.}
+  \label{fig:budgetreal}
+\end{figure}
+
+\paragraph{Calibration does not improve steadily with labels on the intent tasks (descriptive).}
+On FPB the ECE difference to Jev falls from $+16.7$~points at 100 labels to $+2.2$ at full data, and on TREC-6 and
+HateXplain DeBERTa-v3-large is better calibrated than Jev from 2{,}500 labels on
+(\hyperref[fig:budgetece]{Figure~\ref*{fig:budgetece}} and \hyperref[tab:budgetece]{Table~\ref*{tab:budgetece}} in
+\hyperref[app:budgets]{Appendix~\ref*{app:budgets}}). On CLINC150 and HWU64, by contrast, its ECE is highest at
+intermediate budgets: on CLINC150 it is 49.6~points above Jev's at 2{,}500 labels and 0.6 at full data. These models are
+underconfident: at 2{,}500 labels on CLINC150, their mean top-label probability is 0.317 at an accuracy of 0.820
+(\hyperref[tab:debconf]{Table~\ref*{tab:debconf}}). A likely cause is the fixed schedule (20 epochs up to 500 labels, five above, at least 500
+steps), which may stop too early for 64 or 150 classes; we return to this in
+\hyperref[sec:limitations]{Section~\ref*{sec:limitations}}. The QLoRA model's ECE is within 1~point of Jev's at
+2{,}500 labels on FPB, HWU64 and CLINC150, and its point estimate is lower on TREC-6 ($-1.7$) and HateXplain ($-11.4$,
+interval $[-20.4, 0.3]$).

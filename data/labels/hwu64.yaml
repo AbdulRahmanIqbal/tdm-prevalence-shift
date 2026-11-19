@@ -1,0 +1,76 @@
+# Label texts for HWU64 (Liu et al. 2019; 64 intents named scenario_intent).
+# STATUS: APPROVED v1.0 (2026-10-06, user approved) — FROZEN; changes only via docs/deviations.md (spec sec 5).
+dataset: hwu64
+task_question: "Which intent does the user's request to a home assistant express?"
+source_notes: >-
+  Names are the raw scenario_intent names made readable. Descriptions were written by the authors
+  from the name and a few TRAINING utterances per intent (never test data); no benchmark model was
+  used, and the Qwen-generated descriptions shipped with DeepPavlov/hwu64 were deliberately not used.
+  Liu et al. (2019) give no official intent definitions. Known noisy/broad classes: general_quirky,
+  qa_factoid (dataset_review.md). ids are the raw intent names; processing maps them to the integer
+  labels of DeepPavlov/hwu64.
+labels:
+  - {id: "alarm_query", name: "alarm query", description: "Ask which alarms are set."}
+  - {id: "alarm_remove", name: "alarm remove", description: "Delete or turn off an alarm."}
+  - {id: "alarm_set", name: "alarm set", description: "Set a new alarm."}
+  - {id: "audio_volume_down", name: "audio volume down", description: "Lower the volume."}
+  - {id: "audio_volume_mute", name: "audio volume mute", description: "Mute the assistant or make it stay silent for a while."}
+  - {id: "audio_volume_up", name: "audio volume up", description: "Raise the volume or ask the assistant to speak louder."}
+  - {id: "calendar_query", name: "calendar query", description: "Ask what events or appointments are on the calendar."}
+  - {id: "calendar_remove", name: "calendar remove", description: "Remove an event from the calendar."}
+  - {id: "calendar_set", name: "calendar set", description: "Add an event or reminder to the calendar."}
+  - {id: "cooking_recipe", name: "cooking recipe", description: "Ask for a recipe or how to cook something."}
+  - {id: "datetime_convert", name: "datetime convert", description: "Convert a time between time zones."}
+  - {id: "datetime_query", name: "datetime query", description: "Ask the current time or date, here or elsewhere."}
+  - {id: "email_addcontact", name: "email add contact", description: "Add an email address to the contacts."}
+  - {id: "email_query", name: "email query", description: "Check the inbox or ask about received emails."}
+  - {id: "email_querycontact", name: "email query contact", description: "Ask for a contact's details, such as their email address."}
+  - {id: "email_sendemail", name: "email send email", description: "Write, send or reply to an email."}
+  - {id: "general_affirm", name: "general affirm", description: "Confirm that the assistant's response was correct."}
+  - {id: "general_commandstop", name: "general command stop", description: "Tell the assistant to stop, shut up or shut down."}
+  - {id: "general_confirm", name: "general confirm", description: "Ask the assistant to check or confirm what was just said."}
+  - {id: "general_dontcare", name: "general dont care", description: "Say the user does not care or anything is fine."}
+  - {id: "general_explain", name: "general explain", description: "Ask the assistant to explain or clarify its answer."}
+  - {id: "general_joke", name: "general joke", description: "Ask for a joke."}
+  - {id: "general_negate", name: "general negate", description: "Say the assistant's response was wrong or not what was wanted."}
+  - {id: "general_praise", name: "general praise", description: "Praise or thank the assistant."}
+  - {id: "general_quirky", name: "general quirky", description: "Chit-chat or an unusual remark that is not a specific command."}
+  - {id: "general_repeat", name: "general repeat", description: "Ask the assistant to repeat what it said or start over."}
+  - {id: "iot_cleaning", name: "iot cleaning", description: "Start a robot vacuum or cleaning device."}
+  - {id: "iot_coffee", name: "iot coffee", description: "Make coffee with the coffee machine."}
+  - {id: "iot_hue_lightchange", name: "iot hue light change", description: "Change the color of the lights."}
+  - {id: "iot_hue_lightdim", name: "iot hue light dim", description: "Dim the lights."}
+  - {id: "iot_hue_lightoff", name: "iot hue light off", description: "Turn the lights off."}
+  - {id: "iot_hue_lighton", name: "iot hue light on", description: "Turn the lights on."}
+  - {id: "iot_hue_lightup", name: "iot hue light up", description: "Make the lights brighter."}
+  - {id: "iot_wemo_off", name: "iot wemo off", description: "Turn off a smart plug socket."}
+  - {id: "iot_wemo_on", name: "iot wemo on", description: "Turn on a smart plug socket or the device connected to it."}
+  - {id: "lists_createoradd", name: "lists create or add", description: "Create a list or add an item to a list."}
+  - {id: "lists_query", name: "lists query", description: "Ask what lists exist or what is on a list."}
+  - {id: "lists_remove", name: "lists remove", description: "Delete a list or remove an item from it."}
+  - {id: "music_likeness", name: "music likeness", description: "Say the user likes a song or artist, or save it."}
+  - {id: "music_query", name: "music query", description: "Ask about music, such as which song is playing or who sings it."}
+  - {id: "music_settings", name: "music settings", description: "Change music playback settings such as shuffle or repeat."}
+  - {id: "news_query", name: "news query", description: "Ask for news."}
+  - {id: "play_audiobook", name: "play audiobook", description: "Play or resume an audiobook."}
+  - {id: "play_game", name: "play game", description: "Start or play a game."}
+  - {id: "play_music", name: "play music", description: "Play music."}
+  - {id: "play_podcasts", name: "play podcasts", description: "Play a podcast or podcast episode."}
+  - {id: "play_radio", name: "play radio", description: "Play a radio station or show."}
+  - {id: "qa_currency", name: "qa currency", description: "Ask about a currency exchange rate."}
+  - {id: "qa_definition", name: "qa definition", description: "Ask for the definition or description of a word or thing."}
+  - {id: "qa_factoid", name: "qa factoid", description: "Ask a general factual question."}
+  - {id: "qa_maths", name: "qa maths", description: "Ask a math question or calculation."}
+  - {id: "qa_stock", name: "qa stock", description: "Ask about stock prices or the stock market."}
+  - {id: "recommendation_events", name: "recommendation events", description: "Ask for events or things to do."}
+  - {id: "recommendation_locations", name: "recommendation locations", description: "Ask for recommended places nearby, such as restaurants or shops."}
+  - {id: "recommendation_movies", name: "recommendation movies", description: "Ask for movie recommendations or what is playing."}
+  - {id: "social_post", name: "social post", description: "Post or tweet something on social media."}
+  - {id: "social_query", name: "social query", description: "Ask about social media posts, feeds or trends."}
+  - {id: "takeaway_order", name: "takeaway order", description: "Order takeaway food."}
+  - {id: "takeaway_query", name: "takeaway query", description: "Ask about takeaway options or the status of a food order."}
+  - {id: "transport_query", name: "transport query", description: "Ask about transport times or schedules, such as trains."}
+  - {id: "transport_taxi", name: "transport taxi", description: "Book or call a taxi."}
+  - {id: "transport_ticket", name: "transport ticket", description: "Book a train or travel ticket."}
+  - {id: "transport_traffic", name: "transport traffic", description: "Ask about traffic conditions."}
+  - {id: "weather_query", name: "weather query", description: "Ask about the weather or what to wear for it."}

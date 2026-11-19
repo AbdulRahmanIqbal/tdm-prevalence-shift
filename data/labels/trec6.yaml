@@ -1,0 +1,33 @@
+# Label texts for TREC-6 (coarse question classes, Li & Roth 2002).
+# STATUS: APPROVED v1.0 (2026-10-06, user approved) — FROZEN; changes only via docs/deviations.md (spec sec 5).
+dataset: trec6
+task_question: "What type of answer does this question ask for?"
+source_notes: >-
+  Names and descriptions are built from the official class taxonomy (data/raw/trec/definition.html,
+  Li & Roth 2002): each coarse class's definition plus its fine sub-classes. Raw codes
+  (ABBR, ENTY, ...) are not used as names because zero-shot models cannot interpret them.
+labels:
+  - id: ABBR
+    raw_name: ABBR
+    name: abbreviation
+    description: "The question asks for an abbreviation, or for the expression that an abbreviation stands for."
+  - id: DESC
+    raw_name: DESC
+    name: description
+    description: "The question asks for a description or abstract concept: a definition, a description of something, the manner of an action, or a reason."
+  - id: ENTY
+    raw_name: ENTY
+    name: entity
+    description: "The question asks for an entity such as an animal, body organ, color, creative work, currency, disease or medicine, event, food, musical instrument, language, letter, plant, product, religion, sport, substance, symbol, technique, term, vehicle, or word."
+  - id: HUM
+    raw_name: HUM
+    name: human
+    description: "The question asks about a human being: an individual, a group or organization of persons, a person's title, or a description of a person."
+  - id: LOC
+    raw_name: LOC
+    name: location
+    description: "The question asks for a location such as a city, country, mountain, state, or other place."
+  - id: NUM
+    raw_name: NUM
+    name: numeric value
+    description: "The question asks for a numeric value such as a code, count, date, distance, price, rank, period of time, percentage, speed, temperature, size, weight, or other number."

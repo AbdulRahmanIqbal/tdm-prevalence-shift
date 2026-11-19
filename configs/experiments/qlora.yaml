@@ -1,0 +1,43 @@
+# Exp 4 condition (b): task fine-tune of Qwen3.5-4B with QLoRA on label budgets (spec sec 10.3, 10.4; protocol v1.2).
+# Read out exactly like the zero-shot local models: softmax (T = 1) over the candidate letters' logits at the first
+# answer position, same prompt format and assistant prefix as Tev1-4B (prompt_format tev1 in configs/models.yaml).
+
+base_model: qwen3.5-4b            # key in configs/models.yaml (repo, revision, prompt format)
+
+budgets: [100, 500, 2500]
+seeds: [1001, 1002, 1003]         # first three training seeds of configs/seeds.yaml; reserve seeds as for DeBERTa
+
+quantization:                     # QLoRA (Dettmers et al. 2023)
+  load_in_4bit: true
+  quant_type: nf4
+  double_quant: true
+  compute_dtype: bfloat16
+
+lora:                             # r, alpha from the spec; dropout and target modules as in the Nimble adapter
+  r: 16                           # (bespokelabs/Bespoke-Nimble-9B, original-2676) on the same model family
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj, in_proj_qkv, in_proj_z, in_proj_a, in_proj_b, out_proj,
+                   gate_proj, up_proj, down_proj]   # language model only (the vision encoder is removed)
+
+optimizer:
+  lr: 1.0e-4
+  weight_decay: 0.01
+  warmup_ratio: 0.1               # linear warmup, then linear decay to 0
+  grad_clip: 1.0
+  micro_batch: 4
+  grad_accumulation: 4            # effective batch 16, as DeBERTa
+
+schedule:                         # same rule as DeBERTa (spec 10.3)
+  epochs_small: 20                # budget <= small_budget
+  epochs_large: 5
+  small_budget: 500
+  min_steps: 500                  # optimizer steps
+  eval_every: 100                 # optimizer steps; candidate-restricted dev macro-F1; best checkpoint kept
+  eval_micro_batch: 8
+
+loss: cross-entropy over the candidate letters' logits at the answer position
+
+# Training runs on the 4-bit base; every reported prediction uses the trained adapter on the base model in the
+# precision of the zero-shot runs (bf16, as Qwen3.5-4B and Tev1-4B), with the unbatched readout of those runs.
+predict_base: bfloat16

@@ -1,0 +1,23 @@
+# Pinned run environment (tested on the dev laptop, 2026-10-07; every run records the installed versions in
+# environment/<model>/<dataset>_<split>.json). torch is installed separately from the CUDA index:
+#   pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cu130
+# then:
+#   pip install -r requirements-run.txt
+#   pip install -e . --no-deps
+transformers==5.18.0
+tokenizers==0.23.2
+sentencepiece==0.2.2      # DeBERTa-v3 tokenizer (spm.model); missing in the first run-machine setup
+protobuf==7.36.2
+safetensors==0.8.0
+huggingface_hub==1.33.0
+accelerate==1.15.0
+peft==0.21.2
+bitsandbytes==0.50.2
+sentence-transformers==6.1.0
+scikit-learn==1.9.1
+scipy==1.17.1
+numpy==2.4.6
+pandas==3.0.6
+pyarrow==25.0.1
+PyYAML==6.0.3
+pytest==9.1.1

@@ -1,0 +1,107 @@
+{
+ "clinc150": {
+  "content_free_texts": [
+   "N/A",
+   "",
+   "[MASK]"
+  ],
+  "dataset": "clinc150",
+  "files": {
+   "candidates/clinc150/contentfree.jsonl": "ee067ea75456bc5c918cf120b13be1f4ae53d16f8100117f8d82c74fe4874f21",
+   "processed/clinc150/contentfree.jsonl": "eabeb5fc94126fea09085df6272351d7b0425a9376666ce4c831c4fe477724d3"
+  },
+  "matched_design": false,
+  "max_matched_orderings": 400,
+  "n_distinct_test_orders": 4500,
+  "n_groups": 8,
+  "n_matched_orders": 0,
+  "n_orders": 150,
+  "n_probes": 450,
+  "n_rotation_orders": 150,
+  "seed": 20261006
+ },
+ "fpb": {
+  "content_free_texts": [
+   "N/A",
+   "",
+   "[MASK]"
+  ],
+  "dataset": "fpb",
+  "files": {
+   "candidates/fpb/contentfree.jsonl": "8a1161e00eeddacc689d7bb83de6a1d35b61c91e6c2c82ffd1ec2a6a8a378e41",
+   "processed/fpb/contentfree.jsonl": "557706a2bd3751fc26156b9f01de7fb6ef2fb7b1110ce28f49c15ad0d36fa46c"
+  },
+  "matched_design": true,
+  "max_matched_orderings": 400,
+  "n_distinct_test_orders": 6,
+  "n_groups": 1,
+  "n_matched_orders": 6,
+  "n_orders": 6,
+  "n_probes": 18,
+  "n_rotation_orders": 3,
+  "seed": 20261006
+ },
+ "hatexplain": {
+  "content_free_texts": [
+   "N/A",
+   "",
+   "[MASK]"
+  ],
+  "dataset": "hatexplain",
+  "files": {
+   "candidates/hatexplain/contentfree.jsonl": "fc8b47877b44653de3397ca4f4684b70e1f90848734ce0905ce495172c8b3635",
+   "processed/hatexplain/contentfree.jsonl": "b46cd92aa55b59331942ff8b2f041fef38303493f402bf085d79c1f275ae0bde"
+  },
+  "matched_design": true,
+  "max_matched_orderings": 400,
+  "n_distinct_test_orders": 6,
+  "n_groups": 1,
+  "n_matched_orders": 6,
+  "n_orders": 6,
+  "n_probes": 18,
+  "n_rotation_orders": 3,
+  "seed": 20261006
+ },
+ "hwu64": {
+  "content_free_texts": [
+   "N/A",
+   "",
+   "[MASK]"
+  ],
+  "dataset": "hwu64",
+  "files": {
+   "candidates/hwu64/contentfree.jsonl": "fd1e2d838e6aa4c3b1acfa73aafca92eaf598caa0c6ced6837d4ea522a172ffa",
+   "processed/hwu64/contentfree.jsonl": "f2dbab459d506a7d531715df531ed2c5f99d34b065d595bcd3d3786bce5c6bc4"
+  },
+  "matched_design": false,
+  "max_matched_orderings": 400,
+  "n_distinct_test_orders": 1076,
+  "n_groups": 3,
+  "n_matched_orders": 0,
+  "n_orders": 64,
+  "n_probes": 192,
+  "n_rotation_orders": 64,
+  "seed": 20261006
+ },
+ "trec6": {
+  "content_free_texts": [
+   "N/A",
+   "",
+   "[MASK]"
+  ],
+  "dataset": "trec6",
+  "files": {
+   "candidates/trec6/contentfree.jsonl": "520e017a5f3b2ed4b956dc641bc48f612518d8e3b389c89f6d5f2840edec4b52",
+   "processed/trec6/contentfree.jsonl": "082e7f194e24d745fdd88b2e153c346e64261edab7a37045171dd21000b694c5"
+  },
+  "matched_design": true,
+  "max_matched_orderings": 400,
+  "n_distinct_test_orders": 355,
+  "n_groups": 1,
+  "n_matched_orders": 355,
+  "n_orders": 358,
+  "n_probes": 1074,
+  "n_rotation_orders": 6,
+  "seed": 20261006
+ }
+}

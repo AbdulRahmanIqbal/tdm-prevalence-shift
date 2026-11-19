@@ -1,0 +1,24 @@
+# secrets
+.env
+
+# environments and caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# dataset texts (download with `s1bench download` and `s1bench prepare`)
+data/raw/
+data/processed/*/*.jsonl
+
+# unzipped outputs and new runs (the released archives are results/*.zip)
+results/*/
+
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.synctex.gz

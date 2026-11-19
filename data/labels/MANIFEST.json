@@ -1,0 +1,10 @@
+{
+  "status": "frozen v1.0 (2026-10-06)",
+  "files": {
+    "clinc150.yaml": "6aff6e243e1ca71e5b077343006e21d76170ebf20c23fae23407ed10de669e9c",
+    "fpb.yaml": "f39475ccd2eab812aa7be56f74d23fbadda4ae468b771d75072e710b2cb94a00",
+    "hatexplain.yaml": "a2c1e543b0b01667df6d275e375f84a3db7be9b0efd94325b31581c5ce1abae6",
+    "hwu64.yaml": "0c05387b63bbd90fd407e1322ea1c3eecfcf523321347f5e96d412814def59b1",
+    "trec6.yaml": "7f634bec01b43e30acd90c5c9412d6bc578183214c3ab3712b7d2f976e03b270"
+  }
+}

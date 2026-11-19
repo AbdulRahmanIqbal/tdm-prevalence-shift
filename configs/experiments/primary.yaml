@@ -1,0 +1,12 @@
+# Primary comparisons P1/P2 (spec sec 11.1, 11.2). PA1-PA3 settings live in exp2.yaml.
+# Holm family: P1 10 + P2 10 + PA1-PA3 15 = 35 tests (s1bench primary-holm).
+seed: 20261006
+bootstrap_b: 10000
+datasets: [clinc150, hwu64, fpb, hatexplain, trec6]
+pairs:
+  P1:   # closest available comparison (not causal): Tev1 full fine-tune vs Qwen3.5-4B, Tev1 prompt format
+    model: tev1-4b
+    base: qwen3.5-4b
+  P2:   # the real H-B2 test: same base weights + LoRA adapter, Nimble prompt format
+    model: nimble-9b
+    base: qwen3.5-9b

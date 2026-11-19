@@ -1,0 +1,23 @@
+\begin{tabular}{llrrrrr}
+\toprule
+Comparison & Metric & CLINC150 & HWU64 & FPB & HateXplain & TREC-6 \\
+\midrule
+Tev1-4B $-$ Qwen3.5-4B & Top-label ECE, equal width (paper) & $-$0.3 & $-$1.9 & $-$13.2 & $-$3.2 & +0.1 \\
+ & Top-label ECE, equal mass & $-$0.5 & $-$1.7 & $-$11.9 & $-$3.2 & +1.1 \\
+ & Debiased calibration error & $-$1.4 & $-$2.9 & $-$12.5 & $-$4.2 & +2.4 \\
+ & Class-wise ECE & $-$0.3 & $-$0.2 & $-$9.4 & $-$2.3 & +0.9 \\
+ & Brier score & $-$3.4 & $-$4.7 & $-$20.7 & $-$3.8 & +1.2 \\
+\midrule
+Nimble-9B $-$ Qwen3.5-9B & Top-label ECE, equal width (paper) & $-$1.2 & $-$4.2 & +9.6 & $-$0.4 & $-$1.8 \\
+ & Top-label ECE, equal mass & $-$1.2 & $-$4.6 & +9.5 & $-$0.4 & $-$1.9 \\
+ & Debiased calibration error & $-$2.9 & $-$8.9 & +12.4 & $-$0.7 & $-$6.9 \\
+ & Class-wise ECE & 0.0 & $-$0.1 & +10.8 & +0.3 & +1.0 \\
+ & Brier score & $-$0.7 & $-$3.5 & +20.9 & $-$0.2 & +3.3 \\
+\midrule
+Jev $-$ DeBERTa-v3-large & Top-label ECE, equal width (paper) & $-$0.5 & +0.6 & $-$1.6 & +13.8 & +2.1 \\
+ & Top-label ECE, equal mass & $-$0.7 & +1.1 & $-$1.2 & +14.0 & +0.9 \\
+ & Debiased calibration error & $-$2.2 & +1.0 & $-$2.8 & +14.2 & $-$1.0 \\
+ & Class-wise ECE & +0.1 & +0.3 & +4.0 & +11.8 & +1.5 \\
+ & Brier score & +0.2 & +4.4 & +13.8 & +27.1 & +7.5 \\
+\bottomrule
+\end{tabular}

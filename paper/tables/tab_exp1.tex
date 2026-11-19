@@ -1,0 +1,20 @@
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+ & \multicolumn{2}{c}{CLINC150} & \multicolumn{2}{c}{HWU64} & \multicolumn{2}{c}{FPB} & \multicolumn{2}{c}{HateXplain} & \multicolumn{2}{c}{TREC-6} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
+System & F1$\uparrow$ & ECE$\downarrow$ & F1$\uparrow$ & ECE$\downarrow$ & F1$\uparrow$ & ECE$\downarrow$ & F1$\uparrow$ & ECE$\downarrow$ & F1$\uparrow$ & ECE$\downarrow$ \\
+\midrule
+\multicolumn{11}{l}{\textsc{Typed decision models}} \\
+Jev & 0.978 & 0.007 & 0.908 & 0.036 & 0.752 & 0.095 & 0.514 & 0.279 & 0.922 & 0.042 \\
+Tev1-4B & 0.964 & 0.008 & 0.895 & 0.040 & 0.735 & 0.072 & 0.458 & 0.214 & 0.889 & 0.038 \\
+Nimble-9B & 0.962 & 0.008 & 0.896 & 0.035 & 0.629 & 0.263 & 0.470 & 0.336 & 0.872 & 0.043 \\
+\midrule
+\multicolumn{11}{l}{\textsc{Base LLMs}} \\
+Qwen3.5-4B & 0.939 & 0.011 & 0.866 & 0.058 & 0.635 & 0.204 & 0.441 & 0.247 & 0.882 & 0.037 \\
+Qwen3.5-9B & 0.955 & 0.020 & 0.884 & 0.078 & 0.749 & 0.168 & 0.487 & 0.340 & 0.903 & 0.061 \\
+\midrule
+\multicolumn{11}{l}{\textsc{Trained classifiers (full data)}} \\
+DeBERTa-v3-large & 0.980 & 0.013 & 0.939 & 0.030 & 0.870 & 0.111 & 0.703 & 0.141 & 0.971 & 0.021 \\
+TF-IDF + LR & 0.950 & 0.015 & 0.900 & 0.098 & 0.693 & 0.167 & 0.645 & 0.069 & 0.891 & 0.071 \\
+\bottomrule
+\end{tabular}

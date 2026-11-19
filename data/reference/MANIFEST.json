@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "datasets": {
+    "ag_news": {
+      "kind": "hf_snapshot",
+      "origin": "hf://datasets/fancyzhx/ag_news@eb185aade064a813bc0b7f42de02595523103ca4[data/*.parquet]",
+      "license": "unknown (academic use)",
+      "downloaded_at": "2026-10-07T05:27:32+00:00",
+      "total_bytes": 19820267,
+      "files": [
+        {
+          "path": "data/test-00000-of-00001.parquet",
+          "sha256": "71de87ec66bc5737752a2502204dfa6d7fe9856ade3ea444dc6317789a4f13fb",
+          "size_bytes": 1234829
+        },
+        {
+          "path": "data/train-00000-of-00001.parquet",
+          "sha256": "fc508d6d9868594e3da960a8cfeb63ab5a4746598b93428c224397080c1f52ee",
+          "size_bytes": 18585438
+        }
+      ]
+    },
+    "banking77": {
+      "kind": "url",
+      "origin": "https://raw.githubusercontent.com/PolyAI-LDN/task-specific-datasets/57ec275d8078af65b7731c2a98be812d844a6d6b/banking_data/train.csv->train.csv;https://raw.githubusercontent.com/PolyAI-LDN/task-specific-datasets/57ec275d8078af65b7731c2a98be812d844a6d6b/banking_data/test.csv->test.csv",
+      "license": "CC-BY-4.0",
+      "downloaded_at": "2026-10-07T05:27:27+00:00",
+      "total_bytes": 1079034,
+      "files": [
+        {
+          "path": "test.csv",
+          "sha256": "d12d6e3bc4c3103966ae786dc435913c0c563dfa328f5a3646d0e62cfeeb474d",
+          "size_bytes": 239961
+        },
+        {
+          "path": "train.csv",
+          "sha256": "b06e26ac675513959a63135f11b94ea7786ed02da65db93a5650d8838cbc664b",
+          "size_bytes": 839073
+        }
+      ]
+    },
+    "boolq": {
+      "kind": "hf_snapshot",
+      "origin": "hf://datasets/google/boolq@35b264d03638db9f4ce671b711558bf7ff0f80d5[data/*.parquet]",
+      "license": "CC-BY-SA-3.0",
+      "downloaded_at": "2026-10-07T05:27:37+00:00",
+      "total_bytes": 4942776,
+      "files": [
+        {
+          "path": "data/train-00000-of-00001.parquet",
+          "sha256": "4f028e992c0bd4df30b9f056f4946b64f5c23028034ff0ed5ea467d8538cc623",
+          "size_bytes": 3685146
+        },
+        {
+          "path": "data/validation-00000-of-00001.parquet",
+          "sha256": "52355d11524b4b874a9b9dcc278feb10f672d52c4f4eff9872e695ede59820f8",
+          "size_bytes": 1257630
+        }
+      ]
+    },
+    "dbpedia_14": {
+      "kind": "hf_snapshot",
+      "origin": "hf://datasets/fancyzhx/dbpedia_14@9abd46cf7fc8b4c64290f26993c540b92aa145ac[dbpedia_14/*.parquet]",
+      "license": "CC-BY-SA-3.0",
+      "downloaded_at": "2026-10-07T05:28:29+00:00",
+      "total_bytes": 119424374,
+      "files": [
+        {
+          "path": "dbpedia_14/test-00000-of-00001.parquet",
+          "sha256": "05fed41640e97f93ffd442757f6a84170348cf0c7500ecbda9e95ddcd928c631",
+          "size_bytes": 13272475
+        },
+        {
+          "path": "dbpedia_14/train-00000-of-00001.parquet",
+          "sha256": "0640e4664a99cc94c47db1d7b2e01c14455d5bbecb8183ad1f93bde59f3f28ee",
+          "size_bytes": 106151899
+        }
+      ]
+    },
+    "massive_en_us": {
+      "kind": "hf_snapshot",
+      "origin": "hf://datasets/AmazonScience/massive@ed58ac423a2f4121720918bf5301577edce4ffd3[en-US/*/*.parquet]",
+      "license": "CC-BY-4.0",
+      "downloaded_at": "2026-10-07T05:27:25+00:00",
+      "total_bytes": 1007435,
+      "files": [
+        {
+          "path": "en-US/test/0000.parquet",
+          "sha256": "c418da9a5f3a7425b5cf44941bcea032a31040dbda2da85e0dd9323785c7731e",
+          "size_bytes": 191261
+        },
+        {
+          "path": "en-US/train/0000.parquet",
+          "sha256": "9c8b3ce8a96ec3b0d4aee104d8778d9f6bacdbd18f2cea232f6d8333d24401b1",
+          "size_bytes": 676404
+        },
+        {
+          "path": "en-US/validation/0000.parquet",
+          "sha256": "cf22bf142963c86ee164c5bb1fe22c67c1261df5c52dfd7217ea87b977c7bb43",
+          "size_bytes": 139770
+        }
+      ]
+    },
+    "multi_nli": {
+      "kind": "hf_snapshot",
+      "origin": "hf://datasets/nyu-mll/multi_nli@da70db2af9d09693783c3320c4249840212ee221[data/*.parquet]",
+      "license": "cc-by-3.0 / cc-by-sa-3.0 / MIT / other",
+      "downloaded_at": "2026-10-07T05:28:05+00:00",
+      "total_bytes": 224005223,
+      "files": [
+        {
+          "path": "data/train-00000-of-00001.parquet",
+          "sha256": "1c1de03640b168e410aabfca19e7cc2f3dfcd7f0e126e935674e56fb102c4529",
+          "size_bytes": 213961663
+        },
+        {
+          "path": "data/validation_matched-00000-of-00001.parquet",
+          "sha256": "350c26950b55f460b50d36c76aef87d64b49c78812d7abf7bf97e5fede10f186",
+          "size_bytes": 4938568
+        },
+        {
+          "path": "data/validation_mismatched-00000-of-00001.parquet",
+          "sha256": "6b0e1231cebedd255000a7d1732af37ad0500902239db625e231ed77c0c8f2f8",
+          "size_bytes": 5104992
+        }
+      ]
+    },
+    "sst5": {
+      "kind": "hf_snapshot",
+      "origin": "hf://datasets/SetFit/sst5@e51bdcd8cd3a30da231967c1a249ba59361279a3[*.jsonl]",
+      "license": "unspecified",
+      "downloaded_at": "2026-10-07T05:27:34+00:00",
+      "total_bytes": 1837903,
+      "files": [
+        {
+          "path": "dev.jsonl",
+          "sha256": "4369df4d4229e736fa734af49b342c7d6002c4d8514d9c206a5aa26edc620b79",
+          "size_bytes": 171422
+        },
+        {
+          "path": "test.jsonl",
+          "sha256": "1384216112a34f3d70b6fa210762f3399bb080410c0456ac6e54a5cb413f04b2",
+          "size_bytes": 342783
+        },
+        {
+          "path": "train.jsonl",
+          "sha256": "46bde4fb5abc93ffbadfa9a9f67de17c08a2f535cfb5756c59188d070434f433",
+          "size_bytes": 1323698
+        }
+      ]
+    }
+  }
+}

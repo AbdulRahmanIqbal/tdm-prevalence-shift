@@ -1,0 +1,98 @@
+\documentclass[10pt]{article}
+\usepackage{tmlr}
+\raggedbottom  % tmlr.sty sets \flushbottom, which stretches the space above paragraph headings
+
+\input{math_commands.tex}
+\usepackage{hyperref}
+% Consistent spacing: table captions sit above the table, figure captions below the figure, each with a fixed gap.
+% With hyperref loaded, caption also makes links land at the top of the float (hypcap).
+\usepackage{caption}
+\usepackage{placeins}  % \FloatBarrier in the appendix
+\captionsetup[table]{position=top, skip=6pt}
+\captionsetup[figure]{position=bottom, skip=8pt}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{colortbl}       % \rowcolor: shaded rows in three tables
+\definecolor{rowhl}{HTML}{E6EEF8}
+
+\definecolor{tdmblue}{HTML}{2A78D6}
+\definecolor{shiftorange}{HTML}{EB6834}
+\definecolor{inkgray}{HTML}{4A4A4A}
+\definecolor{citeblue}{HTML}{1F5FAD}
+
+% Clickable citations, cross-references and URLs, shown as coloured text instead of boxes.
+\hypersetup{colorlinks=true, citecolor=citeblue, linkcolor=citeblue, urlcolor=citeblue}
+% Anonymous code link for review.
+\newcommand{\anonrepo}{\url{https://anonymous.4open.science/r/tdm-prevalence-shift}}
+% Clickable DOIs in the bibliography (tmlr.bst only \providecommand's \doi, so this definition wins).
+\newcommand{\doi}[1]{doi: \href{https://doi.org/#1}{\nolinkurl{#1}}}
+
+
+\title{Typed Decision Models under Prevalence Shift and Label Budgets: Decision Training, Calibration, and Implicit Priors}
+
+\author{\name Anonymous authors}
+
+\def\month{MM}
+\def\year{YYYY}
+\def\openreview{\url{https://openreview.net/forum?id=XXXX}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Typed decision models (TDMs) return probabilities over caller-defined options, and Jev's vendor describes it as
+calibrated. We ask whether vendor decision training improves a model over its backbone, whether a TDM's calibration
+and thresholds withstand prevalence (label) shift like a fine-tuned classifier's, and how many labels a trained model
+needs to overtake a TDM. We compare three TDMs (Jev, Tev1-4B, Nimble-9B), their base models and trained classifiers on
+identical candidate-set decisions from five public datasets (on intent datasets, within the gold label's intent group)
+under simulated shift, with 35 paired tests frozen before the confirmatory analysis (earlier test-data checks
+disclosed), and estimate label-budget curves. First, decision training is not always beneficial: Nimble-9B, which
+differs from Qwen3.5-9B only by a LoRA adapter, is better calibrated on intent tasks but 12 Macro-F1 points worse on
+financial sentiment, a loss that persists across prompt formats; Tev1-4B's largest gain over its backbone is a
+prompt-format effect. Second, on 50 fixed moderate shifts, Jev's top-label calibration error and threshold risk grow
+significantly more than a fine-tuned DeBERTa's only on financial sentiment, sensitive to the prior set; averaged over
+2{,}000 shifts the gap is at most one point. Third, label-free EM correction with the model's implicit prior lowers
+Jev's shifted calibration error where it is highest, but labelled recalibration lowers it far more. Fourth, DeBERTa
+needs 100--250 labels to overtake Jev on hate speech and does not clearly overtake it on CLINC150 at any budget; a
+QLoRA adapter on Qwen3.5-4B overtakes Jev with at most 2{,}500 labels on every dataset, on CLINC150 only marginally
+and not under in-budget selection. The TDMs tested are neither uniformly better than their backbones nor uniquely
+fragile under shift; their lead over trained models depends on the task.
+\end{abstract}
+
+\input{sections/1_introduction}
+\input{sections/2_related}
+\input{sections/3_setting}
+\input{sections/4_protocol}
+\input{sections/5_results}
+\input{sections/6_discussion}
+\input{sections/7_limitations}
+\input{sections/8_conclusion}
+\input{sections/9_statements}
+
+\bibliography{refs}
+\bibliographystyle{tmlr}
+
+\appendix
+% Appendix float placement: float pages start at the top instead of being centred, and pages may hold more floats.
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{14pt plus 4pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.85}
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{8}
+\input{sections/appendix}
+
+\end{document}
